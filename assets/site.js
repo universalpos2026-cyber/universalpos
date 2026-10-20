@@ -34,11 +34,16 @@ const OTHER_PLANS = [
 // `terms` = years and percent off the annual price for that many years (owner: 2 yr 10%, 3 yr 15%, 5 yr 20%).
 const MULTI_YEAR = { show: true, terms: [[2, 10], [3, 15], [5, 20]], payUrl: "" };
 
-// Direct trial downloads. url "" = button asks for the file on WhatsApp.
+// Direct trial downloads: the signed release files in downloads/ (filled by
+// tools/release/site_downloads.sh, same version as the app). url "" = button asks for the file on WhatsApp.
+const RELEASE = "0.1.8";
+const DL = f => `downloads/${f}`;
 const DOWNLOADS = [
-  { id: "apk",   icon: "i-phone",  url: "" },
-  { id: "win",   icon: "i-laptop", url: "" },
-  { id: "linux", icon: "i-laptop", url: "" },
+  { id: "apk",   icon: "i-phone",  url: DL(`universal-pos-${RELEASE}.apk`) },
+  { id: "win",   icon: "i-laptop", url: DL(`UniversalPOS-Setup-${RELEASE}.exe`) },
+  { id: "linux", icon: "i-laptop", url: DL(`universal-pos_${RELEASE}_amd64.deb`) },
+  { id: "tar",   icon: "i-laptop", url: DL(`universal-pos-${RELEASE}-linux-x64.tar.gz`) },
+  { id: "sums",  icon: "i-shield", url: DL("SHA256SUMS") },
   { id: "web",   icon: "i-globe",  url: "" },
 ];
 
@@ -104,7 +109,9 @@ const T = {
     dl: {
       apk:   ["Android app (APK)", "Phones and tablets · free trial"],
       win:   ["Windows installer", "Windows 10 and 11 · free trial"],
-      linux: ["Linux (.deb / .tar.gz)", "Ubuntu, Debian and others · free trial"],
+      linux: ["Linux (.deb)", "Ubuntu and Debian · free trial"],
+      tar:   ["Linux (.tar.gz)", "Any other Linux, no root · free trial"],
+      sums:  ["Check the files", "Signed SHA256SUMS (guide chapter 20)"],
       web:   ["Web admin panel", "Any modern browser"],
     },
     st: {
@@ -168,7 +175,9 @@ const T = {
     dl: {
       apk:   ["Android ऐप (APK)", "फ़ोन और टैबलेट · फ्री ट्रायल"],
       win:   ["Windows इंस्टॉलर", "Windows 10 और 11 · फ्री ट्रायल"],
-      linux: ["Linux (.deb / .tar.gz)", "Ubuntu, Debian आदि · फ्री ट्रायल"],
+      linux: ["Linux (.deb)", "Ubuntu और Debian · फ्री ट्रायल"],
+      tar:   ["Linux (.tar.gz)", "कोई भी दूसरा Linux, root नहीं चाहिए · फ्री ट्रायल"],
+      sums:  ["फ़ाइलें जाँचें", "साइन किया हुआ SHA256SUMS (गाइड अध्याय 20)"],
       web:   ["वेब एडमिन पैनल", "कोई भी नया ब्राउज़र"],
     },
     st: {

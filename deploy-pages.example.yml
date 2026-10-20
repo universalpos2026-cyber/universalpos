@@ -1,5 +1,5 @@
 # Copy to .github/workflows/deploy-site.yml in the main repo to publish website_planned/ to a public
-# GitHub Pages repo on every release tag. Needs a secret SITE_DEPLOY_TOKEN: a fine-grained token with
+# GitHub Pages repo on every release tag, with that release's signed files in downloads/. Needs a secret SITE_DEPLOY_TOKEN: a fine-grained token with
 # "Contents: read and write" on the site repo only. Change external_repository to the site repo.
 name: deploy-site
 on:
@@ -13,6 +13,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+      - name: Signed release files into downloads/ (phase 12)
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          tag="${GITHUB_REF_NAME}"; case "$tag" in v*) ;; *) tag="";; esac
+          mkdir -p .claude/tmp/release
+          gh release download $tag -R "$GITHUB_REPOSITORY" -D .claude/tmp/release \
+            -p '*.apk' -p '*.exe' -p '*.deb' -p '*-linux-x64.tar.gz' -p '*.posupdate' -p 'SHA256SUMS*'
+          bash tools/release/site_downloads.sh .claude/tmp/release
       - uses: peaceiris/actions-gh-pages@84c30a85c19949d7eee79c4ff27748b70285e453 # v4.1.0
         with:
           personal_token: ${{ secrets.SITE_DEPLOY_TOKEN }}

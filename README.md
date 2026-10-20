@@ -12,6 +12,7 @@ assets/og.jpg              preview picture when the link is shared
 assets/screens/dark/       dark-theme screenshots (WebP)
 assets/screens/light/      light-theme screenshots (WebP, same names)
 assets/pdf/                shop guide PDFs (English, Hindi); no seller/vendor docs
+downloads/                 signed release files for the download buttons (not in git; see downloads/README.md)
 robots.txt, sitemap.xml    for search engines; site address https://universalpos.in/
 .nojekyll                  tells GitHub Pages to serve files as they are
 deploy-pages.example.yml   optional GitHub Action that publishes this folder on every release tag
@@ -27,7 +28,8 @@ deploy-pages.example.yml   optional GitHub Action that publishes this folder on 
 | `VOLUME` | Multi-device discount (used by the calculator) | 3+ = 10%, 5+ = 15% |
 | `OTHER_PLANS` | Free trial (₹0 for 1 month) and lifetime cards; self-host is not offered (`show: false`) | ₹0 / ₹14,999 / hidden |
 | `MULTI_YEAR` | Multi-year card priced from the annual plan: `terms` = `[years, % off]` | 2 yr 10% / 3 yr 15% / 5 yr 20% |
-| `DOWNLOADS` | Trial download links; empty `url` = ask on WhatsApp | All empty |
+| `RELEASE` | App version of the files in `downloads/`; must equal `apps/pos/pubspec.yaml` | 0.1.8 |
+| `DOWNLOADS` | Trial download buttons → `downloads/<file>` (APK, Windows, .deb, .tar.gz, SHA256SUMS); empty `url` = ask on WhatsApp | All set except web panel |
 | `STORES` | App store listings; `status: "live"` + `url` when live | All "soon" |
 | `VIDEO_ID` | YouTube id of the demo video; empty hides the section | Empty |
 | `TESTIMONIALS` | Real quotes only, with the shop's permission; empty hides the section | Empty |
