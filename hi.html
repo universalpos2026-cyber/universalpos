@@ -1,0 +1,496 @@
+<!doctype html>
+<html lang="hi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Universal POS</title>
+<meta name="description" content="भारतीय दुकानों के लिए ऑफ़लाइन चलने वाला बिलिंग और POS। GST, UPI QR, स्टॉक, ग्राहक, रिपोर्ट, क्लाउड और LAN सिंक। Android, Windows, Linux, iOS और वेब। 30 दिन फ्री ट्रायल। मासिक, तिमाही, छमाही और सालाना प्लान।">
+<meta property="og:title" content="Universal POS: बिलिंग जो इंटरनेट का इंतज़ार नहीं करती">
+<meta property="og:description" content="ऑफ़लाइन POS: GST, UPI QR, स्टॉक, ग्राहक, रिपोर्ट और सिंक। 30 दिन फ्री ट्रायल।">
+<meta property="og:image" content="assets/og.jpg">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#6d4aff">
+<link rel="canonical" href="https://universalpos.in/hi.html">
+<link rel="alternate" hreflang="en" href="https://universalpos.in/">
+<link rel="alternate" hreflang="hi" href="https://universalpos.in/hi.html">
+<meta property="og:url" content="https://universalpos.in/hi.html">
+<link rel="icon" type="image/png" href="assets/logo.png">
+<link rel="stylesheet" href="assets/site.css?v=4">
+<script>try { const t = localStorage.getItem("theme"); if (t) document.documentElement.dataset.theme = t; } catch (e) {}</script>
+</head>
+<body>
+
+<!-- Icon set -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-offline" viewBox="0 0 24 24"><path d="M2 8.8a15 15 0 0 1 4.2-2.7M10.7 5a15 15 0 0 1 11.3 3.8M5 12.6a10 10 0 0 1 5.2-2.5M16.8 11a10 10 0 0 1 2.2 1.6M8.5 16.4a5 5 0 0 1 7 0M12 20h.01M3 3l18 18"/></symbol>
+  <symbol id="i-bolt" viewBox="0 0 24 24"><path d="M13 2 4 14h7l-1 8 9-12h-7z"/></symbol>
+  <symbol id="i-devices" viewBox="0 0 24 24"><rect x="2" y="4" width="14" height="10" rx="1.5"/><path d="M6 18h6M9 14v4"/><rect x="17" y="8" width="5" height="12" rx="1.2"/></symbol>
+  <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3 4 6v6c0 5 3.5 8 8 9 4.5-1 8-4 8-9V6z"/><path d="m9 12 2 2 4-4"/></symbol>
+  <symbol id="i-cart" viewBox="0 0 24 24"><circle cx="9" cy="20" r="1.4"/><circle cx="18" cy="20" r="1.4"/><path d="M2 3h3l2.6 12.2a1.5 1.5 0 0 0 1.5 1.2h8.6a1.5 1.5 0 0 0 1.5-1.2L21 7H6"/></symbol>
+  <symbol id="i-receipt" viewBox="0 0 24 24"><path d="M5 3h14v18l-2.5-1.5L14 21l-2-1.5-2 1.5-2.5-1.5L5 21z"/><path d="M9 8h6M9 12h6M9 16h3"/></symbol>
+  <symbol id="i-qr" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><path d="M14 14h3v3h-3zM20 14v.01M14 20h.01M17 20h4v-3"/></symbol>
+  <symbol id="i-return" viewBox="0 0 24 24"><path d="M9 14 4 9l5-5"/><path d="M4 9h11a5 5 0 0 1 0 10h-3"/></symbol>
+  <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
+  <symbol id="i-tag" viewBox="0 0 24 24"><path d="M3 12V4a1 1 0 0 1 1-1h8l9 9-9 9z"/><circle cx="8" cy="8" r="1.5"/></symbol>
+  <symbol id="i-users" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.5"/><path d="M2 20c0-3.5 3-6 7-6s7 2.5 7 6"/><path d="M16 4.5a3.5 3.5 0 0 1 0 7M22 20c0-3-2-5-5-5.7"/></symbol>
+  <symbol id="i-box" viewBox="0 0 24 24"><path d="M21 8 12 3 3 8v8l9 5 9-5z"/><path d="m3 8 9 5 9-5M12 13v8"/></symbol>
+  <symbol id="i-chart" viewBox="0 0 24 24"><path d="M3 3v18h18"/><path d="M7 16v-4M12 16V8M17 16v-7"/></symbol>
+  <symbol id="i-cloud" viewBox="0 0 24 24"><path d="M7 18a5 5 0 0 1-.9-9.9A6 6 0 0 1 17.7 9 4.5 4.5 0 0 1 17.5 18z"/><path d="m9 13 3-3 3 3M12 10v7"/></symbol>
+  <symbol id="i-printer" viewBox="0 0 24 24"><path d="M6 9V3h12v6"/><rect x="3" y="9" width="18" height="8" rx="2"/><path d="M6 14h12v7H6z"/></symbol>
+  <symbol id="i-wifi" viewBox="0 0 24 24"><path d="M2 8.8a15 15 0 0 1 20 0M5 12.6a10 10 0 0 1 14 0M8.5 16.4a5 5 0 0 1 7 0M12 20h.01"/></symbol>
+  <symbol id="i-lang" viewBox="0 0 24 24"><path d="M4 5h9M8.5 3v2M6 5c0 4 3 7 6 8M11 5c0 4-3 8-7 9"/><path d="m13 21 4-10 4 10M14.5 18h5"/></symbol>
+  <symbol id="i-db" viewBox="0 0 24 24"><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v14c0 1.7 3.6 3 8 3s8-1.3 8-3V5M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3"/></symbol>
+  <symbol id="i-key" viewBox="0 0 24 24"><circle cx="7.5" cy="15.5" r="4.5"/><path d="m10.7 12.3 9.3-9.3M17 6l3 3M15 8l2 2"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12 5 5 9-10"/></symbol>
+  <symbol id="i-pdf" viewBox="0 0 24 24"><path d="M14 3H6a1 1 0 0 0-1 1v16a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V8z"/><path d="M14 3v5h5M9 13h6M9 17h4"/></symbol>
+  <symbol id="i-phone" viewBox="0 0 24 24"><rect x="6" y="2" width="12" height="20" rx="2.5"/><path d="M11 18h2"/></symbol>
+  <symbol id="i-laptop" viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="11" rx="1.5"/><path d="M2 19h20"/></symbol>
+  <symbol id="i-download" viewBox="0 0 24 24"><path d="M12 3v12M7 10l5 5 5-5M4 20h16"/></symbol>
+  <symbol id="i-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></symbol>
+  <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></symbol>
+  <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></symbol>
+  <symbol id="i-mail" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></symbol>
+  <symbol id="i-chat" viewBox="0 0 24 24"><path d="M20 11.5a8.5 8.5 0 0 1-12.6 7.4L3 20l1.2-4.2A8.5 8.5 0 1 1 20 11.5z"/></symbol>
+  <symbol id="i-store" viewBox="0 0 24 24"><path d="M3 9 4.5 4h15L21 9M3 9h18v2a3 3 0 0 1-6 0 3 3 0 0 1-6 0 3 3 0 0 1-6 0z"/><path d="M5 13v7h14v-7M10 20v-4h4v4"/></symbol>
+  <symbol id="i-pill" viewBox="0 0 24 24"><path d="M10.5 3.5a5 5 0 0 1 7 7l-7 7a5 5 0 0 1-7-7z"/><path d="m7 10 7 7"/></symbol>
+  <symbol id="i-shirt" viewBox="0 0 24 24"><path d="M8 3 3 6l2 5 3-1v11h8V10l3 1 2-5-5-3a4 4 0 0 1-8 0z"/></symbol>
+  <symbol id="i-cake" viewBox="0 0 24 24"><path d="M4 21V12h16v9M2 21h20M4 16c2 1.5 4 1.5 6 0s4-1.5 6 0 4 1.5 4 0M12 12V8M12 5a1.5 1.5 0 0 1 0-2"/></symbol>
+  <symbol id="i-cup" viewBox="0 0 24 24"><path d="M4 8h13v5a6 6 0 0 1-6 6h-1a6 6 0 0 1-6-6zM17 9h1a3 3 0 0 1 0 6h-1M7 2v3M11 2v3M15 2v3"/></symbol>
+  <symbol id="i-scissors" viewBox="0 0 24 24"><circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><path d="M8.1 8.1 20 20M8.1 15.9 20 4"/></symbol>
+  <symbol id="i-play" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m10 8 6 4-6 4z"/></symbol>
+  <symbol id="i-calendar" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></symbol>
+  <symbol id="i-gift" viewBox="0 0 24 24"><rect x="3" y="8" width="18" height="4" rx="1"/><path d="M5 12v9h14v-9M12 8v13M12 8c-2-4-6-4-6-1.5S9 8 12 8c3 0 6 .5 6-1.5S14 4 12 8"/></symbol>
+</svg>
+
+<header class="top">
+  <div class="wrap nav">
+    <a class="brand" href="#top"><img src="assets/logo.png" alt="" width="32" height="32">Universal POS</a>
+    <nav class="nav-links" id="navLinks" aria-label="हिस्से">
+      <a href="#features">फ़ीचर</a>
+      <a href="#shops">दुकानें</a>
+      <a href="#compare">तुलना</a>
+      <a href="#roadmap">आगे क्या</a>
+      <a href="#pricing">कीमत</a>
+      <a href="#download">डाउनलोड</a>
+      <a href="#faq">सवाल</a>
+    </nav>
+    <a class="lang-btn" href="index.html" hreflang="en" lang="en" title="Read in English">English</a>
+    <button class="icon-btn" id="themeBtn" type="button" aria-label="लाइट या डार्क"><svg class="i"><use href="#i-sun"/></svg></button>
+    <button class="icon-btn menu-btn" id="menuBtn" type="button" aria-label="मेन्यू खोलें" aria-expanded="false" aria-controls="navLinks"><svg class="i"><use href="#i-menu"/></svg></button>
+    <a class="btn btn-primary cta-top" href="#download">फ्री ट्रायल</a>
+  </div>
+</header>
+
+<main id="top">
+
+<!-- Hero -->
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <span class="eyebrow">भारतीय दुकानों के लिए बिलिंग और POS</span>
+      <h1>2 टैप में बिल। <span>बिना इंटरनेट के भी।</span></h1>
+      <p class="lead">Universal POS आपका काउंटर, स्टॉक, ग्राहक और रिपोर्ट उसी डिवाइस पर चलाता है जो आपके पास पहले से है।
+        GST और UPI QR अंदर ही हैं। हर बिक्री पहले डिवाइस पर सेव होती है, इसलिए इंटरनेट या सर्वर बंद होने पर भी
+        बिलिंग चलती रहती है।</p>
+      <p class="trial"><svg class="i"><use href="#i-gift"/></svg><span data-trial-days>30</span> दिन फ्री · कार्ड की ज़रूरत नहीं · सभी फ़ीचर शामिल</p>
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="#download"><svg class="i"><use href="#i-download"/></svg>फ्री ट्रायल डाउनलोड करें</a>
+        <a class="btn btn-ghost" data-wa="demo" href="#contact"><svg class="i"><use href="#i-calendar"/></svg>डेमो बुक करें</a>
+        <a class="btn btn-ghost" href="#pricing">प्लान देखें</a>
+      </div>
+      <div class="chips" aria-label="प्लेटफ़ॉर्म">
+        <span class="chip">Android</span><span class="chip">Windows</span><span class="chip">Linux</span>
+        <span class="chip">iOS</span><span class="chip">वेब एडमिन पैनल</span><span class="chip">English · हिन्दी</span>
+      </div>
+    </div>
+    <div class="shots">
+      <img class="desk" src="assets/screens/dark/11-cart.webp" width="1440" height="900" alt="डेस्कटॉप पर बिक्री स्क्रीन: प्रोडक्ट, तीन चीज़ों वाली कार्ट, नंबर पैड और GST कुल">
+      <img class="phone" src="assets/screens/dark/phone-10-sell.webp" width="780" height="1688" alt="Android फ़ोन पर बिक्री स्क्रीन">
+    </div>
+  </div>
+  <div class="wrap">
+    <div class="stats" style="margin-top:40px">
+      <div class="stat"><b>&lt; 50 ms</b><span>स्कैन से कार्ट तक</span></div>
+      <div class="stat"><b>2 टैप</b><span>आख़िरी स्कैन के बाद नकद बिक्री</span></div>
+      <div class="stat"><b>&lt; 150 ms</b><span>बिक्री पूरी, कैश ड्रॉअर खुला</span></div>
+      <div class="stat"><b>लाखों</b><span>प्रोडक्ट, ग्राहक और ऑर्डर</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- Why -->
+<section class="alt" id="why">
+  <div class="wrap">
+    <div class="center">
+      <span class="eyebrow">Universal POS क्यों</span>
+      <h2>उन काउंटरों के लिए जो रुक नहीं सकते</h2>
+      <p class="lead">न ज़बरदस्ती लॉगिन, न एक्टिवेशन सर्वर। ऐप Google सेवाओं या Firebase पर निर्भर नहीं है।
+        नेटवर्क जैसा भी हो, आपकी दुकान में बिलिंग चलती रहती है।</p>
+    </div>
+    <div class="grid four" style="margin-top:32px">
+      <div class="card"><div class="ic"><svg class="i"><use href="#i-offline"/></svg></div><h3>पहले ऑफ़लाइन</h3><p>बिक्री, वापसी और शिफ़्ट पहले डिवाइस पर सेव होते हैं। सिंक बाद में अपने आप होता है।</p></div>
+      <div class="card"><div class="ic"><svg class="i"><use href="#i-bolt"/></svg></div><h3>तेज़ रफ़्तार</h3><p>हर रिलीज़ में रफ़्तार की जाँच होती है। सस्ते फ़ोन पर भी 20 लाख प्रोडक्ट में खोज 100 ms से कम में।</p></div>
+      <div class="card"><div class="ic"><svg class="i"><use href="#i-devices"/></svg></div><h3>एक ऐप, हर डिवाइस</h3><p>फ़ोन, टैबलेट, Windows या Linux PC, iPad और ब्राउज़र। वही स्क्रीन, वही डेटा।</p></div>
+      <div class="card"><div class="ic"><svg class="i"><use href="#i-shield"/></svg></div><h3>डेटा आपका ही रहता है</h3><p>प्लान ख़त्म होने पर 30 दिन की मोहलत, फिर सिर्फ़ देखने का मोड। डेटा कभी बंद या डिलीट नहीं होता।</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- Shop types -->
+<section id="shops">
+  <div class="wrap">
+    <div class="center">
+      <span class="eyebrow">आपकी दुकान के लिए</span>
+      <h2>एक ऐप, कई तरह की दुकानें</h2>
+      <p class="lead">जो हिस्से आपकी दुकान को चाहिए, वही चालू करें। बाक़ी बीच में नहीं आते।</p>
+    </div>
+    <div class="grid three" style="margin-top:32px">
+      <div class="card shop"><div class="ic"><svg class="i"><use href="#i-store"/></svg></div><div><h3>किराना और सुपरमार्केट</h3><p>बारकोड और खुला सामान तौल से, तराज़ू लेबल, तेज़ नकद और UPI, नियमित ग्राहकों का उधार, कम स्टॉक की सूचना।</p></div></div>
+      <div class="card shop"><div class="ic"><svg class="i"><use href="#i-pill"/></svg></div><div><h3>मेडिकल और फ़ार्मेसी</h3><p>बड़ी सूची में तेज़ खोज, हर आइटम का GST रेट, सप्लायर परचेज़ ऑर्डर, फ़ोन नंबर से ग्राहक इतिहास।</p></div></div>
+      <div class="card shop"><div class="ic"><svg class="i"><use href="#i-shirt"/></svg></div><div><h3>कपड़े और जूते</h3><p>साइज़ और रंग के वेरिएंट, आइटम और बिल पर छूट, असली बिल से जुड़ी अदला-बदली और वापसी, लॉयल्टी पॉइंट।</p></div></div>
+      <div class="card shop"><div class="ic"><svg class="i"><use href="#i-devices"/></svg></div><div><h3>इलेक्ट्रॉनिक्स और मोबाइल</h3><p>SKU और बारकोड, कार्ड मशीन, बँटा हुआ भुगतान, स्टाफ़ रोल ताकि बड़ी छूट सिर्फ़ मैनेजर दे सके।</p></div></div>
+      <div class="card shop"><div class="ic"><svg class="i"><use href="#i-cake"/></svg></div><div><h3>बेकरी और मिठाई</h3><p>तौल से बिकने वाले आइटम, ज़्यादा बिकने वाली चीज़ों के लिए क्विक की, भीड़ में फ़ोन बने दूसरा काउंटर।</p></div></div>
+      <div class="card shop"><div class="ic"><svg class="i"><use href="#i-cup"/></svg></div><div><h3>रेस्टोरेंट और कैफ़े</h3><p>टेबल मैप, मॉडिफ़ायर, वेटर ऐप, QR ऑर्डर, किचन स्क्रीन और बँटे हुए बिल।</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- Video -->
+<section class="alt" id="video" hidden>
+  <div class="wrap">
+    <div class="center"><span class="eyebrow">डेमो</span><h2>60 सेकंड में एक बिक्री देखें</h2></div>
+    <div class="video" id="videoBox"></div>
+  </div>
+</section>
+
+<!-- Features available now -->
+<section id="features">
+  <div class="wrap">
+    <div class="center">
+      <span class="eyebrow">अभी उपलब्ध · वर्ज़न 0.1.8</span>
+      <h2>रिटेल काउंटर की हर ज़रूरत</h2>
+      <p class="lead">हर प्लान में ये सभी फ़ीचर हैं। अलग से कुछ ख़रीदना नहीं पड़ता।</p>
+    </div>
+    <div class="grid three" style="margin-top:32px">
+      <div class="card"><div class="card-head"><div class="ic"><svg class="i"><use href="#i-cart"/></svg></div><span class="badge ok">उपलब्ध</span></div>
+        <h3>तेज़ बिक्री</h3>
+        <ul><li>बारकोड स्कैन, खोज या क्विक-की ग्रिड</li><li>मात्रा, कीमत और छूट % के लिए नंबर पैड</li><li>कार्ट होल्ड करें और बाद में खोलें</li><li>खुला सामान तौल से, तराज़ू बारकोड के साथ</li><li>प्रोडक्ट वेरिएंट (साइज़, रंग, पैक)</li></ul></div>
+      <div class="card"><div class="card-head"><div class="ic"><svg class="i"><use href="#i-qr"/></svg></div><span class="badge ok">उपलब्ध</span></div>
+        <h3>GST और भुगतान</h3>
+        <ul><li>बिल पर CGST/SGST अलग-अलग के साथ GST इंजन</li><li>नकद, UPI QR, कार्ड और बँटा हुआ भुगतान</li><li>आइटम और बिल पर छूट</li><li>हर डिवाइस की अलग बिल सीरीज़ (जैसे A1-000123)</li></ul></div>
+      <div class="card"><div class="card-head"><div class="ic"><svg class="i"><use href="#i-receipt"/></svg></div><span class="badge ok">उपलब्ध</span></div>
+        <h3>रसीद</h3>
+        <ul><li>थर्मल प्रिंटिंग पीछे-पीछे चलती है</li><li>हर बिल पर दुकान का नाम, GSTIN और टैक्स सारांश</li><li>कोई भी पुराना बिल दोबारा प्रिंट करें</li></ul></div>
+      <div class="card"><div class="card-head"><div class="ic"><svg class="i"><use href="#i-return"/></svg></div><span class="badge ok">उपलब्ध</span></div>
+        <h3>ऑर्डर, वापसी और रद्द</h3>
+        <ul><li>कोई भी बिल तुरंत ढूँढें</li><li>पूरी या आंशिक वापसी और रद्द, असली बिल से जुड़े हुए</li><li>कुछ भी मिटता नहीं; पूरा रिकॉर्ड</li></ul></div>
+      <div class="card"><div class="card-head"><div class="ic"><svg class="i"><use href="#i-clock"/></svg></div><span class="badge ok">उपलब्ध</span></div>
+        <h3>शिफ़्ट और नकद</h3>
+        <ul><li>नकद गिनती के साथ शिफ़्ट खोलें और बंद करें</li><li>बीच में X रिपोर्ट, बंद होने पर Z रिपोर्ट</li><li>बिक्री पर कैश ड्रॉअर खुलता है</li></ul></div>
+      <div class="card"><div class="card-head"><div class="ic"><svg class="i"><use href="#i-tag"/></svg></div><span class="badge ok">उपलब्ध</span></div>
+        <h3>प्रोडक्ट और सूची</h3>
+        <ul><li>श्रेणी, टैक्स रेट, बारकोड, SKU और फ़ोटो</li><li>प्रोडक्ट (1,00,000+ लाइनें), श्रेणी और स्टॉक का CSV इम्पोर्ट</li><li>आर्काइव करें और वापस लाएँ, या हमेशा के लिए हटाएँ (एडमिन)</li><li>लाखों आइटम संभालता है</li></ul></div>
+      <div class="card"><div class="card-head"><div class="ic"><svg class="i"><use href="#i-key"/></svg></div><span class="badge ok">उपलब्ध</span></div>
+        <h3>स्टाफ़ और पहुँच</h3>
+        <ul><li>तेज़ PIN लॉगिन</li><li>एडमिन, मैनेजर और कैशियर रोल</li><li>खाली रहने पर अपने आप लॉक</li><li>हर बिल पर बनाने वाले का नाम</li></ul></div>
+      <div class="card"><div class="card-head"><div class="ic"><svg class="i"><use href="#i-users"/></svg></div><span class="badge ok">उपलब्ध</span></div>
+        <h3>ग्राहक और उधार</h3>
+        <ul><li>फ़ोन नंबर से ग्राहक खोजें</li><li>लॉयल्टी पॉइंट</li><li>उधार खाता और मिला भुगतान</li><li>ख़रीद का इतिहास</li></ul></div>
+      <div class="card"><div class="card-head"><div class="ic"><svg class="i"><use href="#i-box"/></svg></div><span class="badge ok">उपलब्ध</span></div>
+        <h3>स्टॉक और ख़रीद</h3>
+        <ul><li>स्टॉक आने-जाने के हिसाब से (आया, बिका, ठीक किया)</li><li>कम और ख़त्म स्टॉक की सूचना</li><li>सप्लायर और परचेज़ ऑर्डर</li><li>PO के सामने माल प्राप्त करें</li></ul></div>
+      <div class="card"><div class="card-head"><div class="ic"><svg class="i"><use href="#i-chart"/></svg></div><span class="badge ok">उपलब्ध</span></div>
+        <h3>रिपोर्ट</h3>
+        <ul><li>रोज़ की बिक्री, टैक्स और भुगतान तरीक़े के कुल</li><li>सालों के डेटा के साथ भी रिपोर्ट तुरंत खुलती है</li></ul></div>
+      <div class="card"><div class="card-head"><div class="ic"><svg class="i"><use href="#i-cloud"/></svg></div><span class="badge ok">उपलब्ध</span></div>
+        <h3>क्लाउड सिंक और वेब पैनल</h3>
+        <ul><li>सभी काउंटर और दुकानें हमारे क्लाउड सर्वर से सिंक</li><li>ब्राउज़र में एडमिन वेब पैनल</li><li>अलग-अलग काउंटरों के बदलाव हर फ़ील्ड पर मिलाए जाते हैं, कोई बदलाव खोता नहीं</li></ul></div>
+      <div class="card"><div class="card-head"><div class="ic"><svg class="i"><use href="#i-wifi"/></svg></div><span class="badge ok">उपलब्ध</span></div>
+        <h3>शॉप हब (LAN और USB)</h3>
+        <ul><li>एक PC या फ़ोन दुकान के Wi-Fi पर सभी काउंटर जोड़ता है</li><li>काउंटर हब को अपने आप ढूँढते हैं</li><li>बिल्कुल बिना इंटरनेट के चलता है</li><li>इंटरनेट आने पर हब क्लाउड तक भेजता है</li></ul></div>
+      <div class="card"><div class="card-head"><div class="ic"><svg class="i"><use href="#i-printer"/></svg></div><span class="badge ok">उपलब्ध</span></div>
+        <h3>हार्डवेयर</h3>
+        <ul><li>ESC/POS थर्मल प्रिंटर और कैश ड्रॉअर</li><li>USB, Bluetooth, सीरियल और कैमरा बारकोड स्कैनर</li><li>तौल मशीन</li><li>कार्ड मशीन (सेमी-इंटीग्रेटेड; POS कार्ड डेटा कभी नहीं देखता)</li></ul></div>
+      <div class="card"><div class="card-head"><div class="ic"><svg class="i"><use href="#i-key"/></svg></div><span class="badge ok">उपलब्ध</span></div>
+        <h3>ऑफ़लाइन लाइसेंस</h3>
+        <ul><li>साइन की हुई लाइसेंस फ़ाइल, कोई एक्टिवेशन सर्वर नहीं</li><li>पूरी तरह ऑफ़लाइन दुकानों में भी चलता है</li><li>हर प्लान में डिवाइस सीमा: टिल, वेटर फ़ोन, किचन स्क्रीन और सेल्फ़-चेकआउट</li><li>एक टैप में नवीनीकरण: ऐप से लाइसेंस अनुरोध WhatsApp पर भेजें</li></ul></div>
+      <div class="card"><div class="card-head"><div class="ic"><svg class="i"><use href="#i-lang"/></svg></div><span class="badge ok">उपलब्ध</span></div>
+        <h3>आपकी भाषा</h3>
+        <ul><li>English और हिन्दी, कभी भी बदलें</li><li>रुपये का फ़ॉर्मैट और भारतीय टैक्स प्रीसेट अंदर ही</li><li>लाइट और डार्क थीम</li></ul></div>
+      <div class="card"><div class="card-head"><div class="ic"><svg class="i"><use href="#i-cup"/></svg></div><span class="badge ok">उपलब्ध · 0.1.3</span></div>
+        <h3>टेबल और ऑर्डर</h3>
+        <ul><li>फ़्लोर के हिसाब से टेबल मैप, लाइव स्थिति</li><li>मॉडिफ़ायर, सीट और कोर्स (रोकें और भेजें)</li><li>फ़ोन पर वेटर ऐप, टेबल बदलें और मिलाएँ</li><li>सीट, आइटम या बराबर बिल बाँटें; सर्विस चार्ज</li></ul></div>
+      <div class="card"><div class="card-head"><div class="ic"><svg class="i"><use href="#i-printer"/></svg></div><span class="badge ok">उपलब्ध · 0.1.3</span></div>
+        <h3>किचन</h3>
+        <ul><li>हर स्टेशन पर छपे किचन टिकट (KOT)</li><li>किचन स्क्रीन: बन रहा है, तैयार, पूरा, वापस दिखाएँ</li><li>दुकान के Wi-Fi पर ऑर्डर लगभग एक सेकंड में किचन</li></ul></div>
+      <div class="card"><div class="card-head"><div class="ic"><svg class="i"><use href="#i-qr"/></svg></div><span class="badge ok">उपलब्ध · 0.1.3</span></div>
+        <h3>मेहमानों के लिए QR ऑर्डर</h3>
+        <ul><li>मेहमान टेबल कार्ड स्कैन करके फ़ोन से ऑर्डर करें</li><li>सीधे भेजें या वेटर पुष्टि करे</li><li>दुकान Wi-Fi पर बिना इंटरनेट, या क्लाउड से मोबाइल डेटा पर</li><li>छापने लायक QR टेबल कार्ड</li></ul></div>
+      <div class="card"><div class="card-head"><div class="ic"><svg class="i"><use href="#i-devices"/></svg></div><span class="badge ok">उपलब्ध · 0.1.3</span></div>
+        <h3>ग्राहक डिस्प्ले</h3>
+        <ul><li>ग्राहक की ओर कार्ट और कुल रक़म</li><li>भुगतान के समय UPI QR</li><li>कोई भी दूसरा मॉनिटर, टैबलेट या फ़ोन (ब्राउज़र)</li></ul></div>
+      <div class="card"><div class="card-head"><div class="ic"><svg class="i"><use href="#i-chat"/></svg></div><span class="badge ok">उपलब्ध · 0.1.4</span></div>
+        <h3>ग्राहक लिंक</h3>
+        <ul><li>WhatsApp, SMS या QR से बिल भेजें</li><li>रसीद और ग्राहक डिस्प्ले पर बिल का QR</li><li>निजी लॉयल्टी पेज: पॉइंट, उधार और बिल</li><li>फ़ोटो वाला QR मेन्यू; वेटर बुलाएँ, बिल माँगें, UPI से भुगतान</li></ul></div>
+      <div class="card"><div class="card-head"><div class="ic"><svg class="i"><use href="#i-devices"/></svg></div><span class="badge ok">उपलब्ध · 0.1.5</span></div>
+        <h3>सेल्फ़-चेकआउट कियोस्क</h3>
+        <ul><li>ग्राहक ख़ुद स्कैन, तौल और कार्ड या UPI से भुगतान करें</li><li>सभी कियोस्क के लिए एक अटेंडेंट स्क्रीन</li><li>उम्र जाँच, सामान हटाने और UPI भुगतान पर स्टाफ़ की मंज़ूरी</li><li>Android, Windows, Linux और iPad पर ऐप में लॉक</li></ul></div>
+      <div class="card"><div class="card-head"><div class="ic"><svg class="i"><use href="#i-chat"/></svg></div><span class="badge ok">उपलब्ध · 0.1.5</span></div>
+        <h3>आपकी दुकान का रूप</h3>
+        <ul><li>छह रंग सेट या अपने रंग</li><li>स्क्रीन, रसीद और बिल लिंक पर आपका लोगो</li><li>हमेशा के लिए हटाएँ (एडमिन), बैकअप के साथ दुकान रीसेट</li><li>उत्पाद, श्रेणी और स्टॉक का CSV इम्पोर्ट</li></ul></div>
+    </div>
+  </div>
+</section>
+
+<!-- Comparison -->
+<section class="alt" id="compare">
+  <div class="wrap">
+    <div class="center">
+      <span class="eyebrow">तुलना</span>
+      <h2>दूसरों से तुलना</h2>
+      <p class="lead">आज ज़्यादातर दुकानें जिन दो तरह के बिलिंग सॉफ़्टवेयर इस्तेमाल करती हैं, उनसे तुलना।</p>
+    </div>
+    <div class="table-wrap">
+      <table class="compare">
+        <thead><tr><th scope="col"></th><th scope="col" class="us">Universal POS</th><th scope="col">आम क्लाउड-ओनली POS</th><th scope="col">आम डेस्कटॉप बिलिंग सॉफ़्टवेयर</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">बिना इंटरनेट बिलिंग</th><td class="us"><span class="yes">✓</span> हमेशा</td><td><span class="no">✗</span> अक्सर रुक जाता है या सीमित</td><td><span class="yes">✓</span></td></tr>
+          <tr><th scope="row">फ़ोन, टैबलेट, PC और ब्राउज़र</th><td class="us"><span class="yes">✓</span> सब पर एक ऐप</td><td><span class="yes">✓</span> अक्सर टैबलेट या ब्राउज़र</td><td><span class="no">✗</span> अक्सर सिर्फ़ PC</td></tr>
+          <tr><th scope="row">बिना इंटरनेट कई काउंटर</th><td class="us"><span class="yes">✓</span> Wi-Fi या USB पर शॉप हब</td><td><span class="no">✗</span> क्लाउड ज़रूरी</td><td>कभी-कभी, लोकल नेटवर्क पर</td></tr>
+          <tr><th scope="row">क्लाउड सिंक और वेब एडमिन</th><td class="us"><span class="yes">✓</span> शामिल</td><td><span class="yes">✓</span></td><td><span class="no">✗</span> अक्सर अलग से या नहीं</td></tr>
+          <tr><th scope="row">प्लान ख़त्म होने के बाद</th><td class="us"><span class="yes">✓</span> देखने का मोड, डेटा सुरक्षित</td><td><span class="no">✗</span> अक्सर पहुँच बंद</td><td><span class="yes">✓</span> डेटा PC पर</td></tr>
+          <tr><th scope="row">कीमत</th><td class="us">प्रति डिवाइस, मासिक से सालाना या लाइफ़टाइम</td><td>अक्सर प्रति आउटलेट या यूज़र, मासिक</td><td>एक बार, फिर सालाना मेंटेनेंस फ़ीस</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note center">ये कॉलम हर तरह के आम प्रोडक्ट के बारे में हैं। जिस प्रोडक्ट को आप देख रहे हैं, उसकी जानकारी ख़ुद जाँच लें।</p>
+  </div>
+</section>
+
+<!-- Roadmap -->
+<section id="roadmap">
+  <div class="wrap">
+    <div class="center">
+      <span class="eyebrow">जल्द आ रहा है</span>
+      <h2>आगे क्या आ रहा है</h2>
+      <p class="lead">नए फ़ीचर हर चालू प्लान पर फ्री अपडेट में आते हैं। रेस्टोरेंट और कियोस्क फ़ीचर हर दुकान के लिए अलग से चालू किए जाते हैं।</p>
+    </div>
+    <ol class="timeline">
+      <li class="done"><span class="dot"><svg class="i"><use href="#i-check"/></svg></span>
+        <div class="card"><div class="card-head"><h3>रिटेल, स्टॉक, क्लाउड, हार्डवेयर, शॉप हब</h3><span class="badge ok">उपलब्ध · 0.1.2</span></div>
+          <ul><li>ऑफ़लाइन बिक्री, GST, UPI, रसीद, शिफ़्ट</li><li>स्टॉक, ग्राहक, लॉयल्टी, उधार</li><li>क्लाउड सिंक और एडमिन वेब पैनल</li><li>प्रिंटर, स्कैनर, तराज़ू, ड्रॉअर, कार्ड मशीन</li><li>LAN और USB शॉप हब</li></ul></div></li>
+      <li class="done"><span class="dot"><svg class="i"><use href="#i-check"/></svg></span>
+        <div class="card"><div class="card-head"><h3>रेस्टोरेंट और टेबल ऑर्डर</h3><span class="badge ok">उपलब्ध · 0.1.3</span></div>
+          <ul><li>लाइव स्टेटस वाला टेबल मैप</li><li>आइटम मॉडिफ़ायर (एक्स्ट्रा चीज़, कम चीनी)</li><li>फ़ोन पर वेटर ऐप</li><li>मेहमानों के लिए QR टेबल ऑर्डर</li><li>किचन स्क्रीन और KOT प्रिंट</li><li>ग्राहक के सामने डिस्प्ले</li><li>आइटम या रक़म से बिल बाँटें</li></ul></div></li>
+      <li class="done"><span class="dot"><svg class="i"><use href="#i-check"/></svg></span>
+        <div class="card"><div class="card-head"><h3>ग्राहक वेब</h3><span class="badge ok">उपलब्ध · 0.1.4</span></div>
+          <ul><li>ब्राउज़र में QR मेन्यू</li><li>बिल लिंक से भेजें (WhatsApp, SMS)</li><li>ग्राहक लॉयल्टी पेज</li></ul></div></li>
+      <li class="done"><span class="dot"><svg class="i"><use href="#i-check"/></svg></span>
+        <div class="card"><div class="card-head"><h3>सेल्फ़-चेकआउट कियोस्क</h3><span class="badge ok">उपलब्ध · 0.1.5</span></div>
+          <ul><li>हर OS पर कियोस्क लॉक</li><li>ग्राहक ख़ुद स्कैन करके भुगतान करे</li><li>अटेंडेंट स्क्रीन</li><li>उम्र जाँच और बदलाव के लिए स्टाफ़ मंज़ूरी</li></ul></div></li>
+      <li class="done"><span class="dot"><svg class="i"><use href="#i-check"/></svg></span>
+        <div class="card"><div class="card-head"><h3>आसान लाइसेंस</h3><span class="badge ok">उपलब्ध · 0.1.6</span></div>
+          <ul><li>ऐप से एक टैप में WhatsApp पर लाइसेंस अनुरोध भेजें</li><li>हर प्लान में डिवाइस स्लॉट: टिल, वेटर फ़ोन, किचन स्क्रीन, सेल्फ़-चेकआउट</li><li>नवीनीकरण सिंक होने वाले टिल पर अपने आप पहुँचता है</li><li>प्लान सीमा की साफ़ याद दिलाहट, कुछ भी रोका या मिटाया नहीं जाता</li></ul></div></li>
+      <li class="done"><span class="dot"><svg class="i"><use href="#i-check"/></svg></span>
+        <div class="card"><div class="card-head"><h3>बिना इंटरनेट इंस्टॉल, अपडेट और बैकअप</h3><span class="badge ok">उपलब्ध · 0.1.8</span></div>
+          <ul><li>साइन किया हुआ Android ऐप और जाँची हुई डाउनलोड फ़ाइलें</li><li>पेन ड्राइव से अपडेट, इंटरनेट की ज़रूरत नहीं</li><li>एक टैप में एन्क्रिप्टेड बैकअप, नए डिवाइस पर वापस लाएँ</li><li>QR कोड से लाइसेंस</li></ul></div></li>
+    </ol>
+  </div>
+</section>
+
+<!-- Screens -->
+<section class="alt" id="screens">
+  <div class="wrap">
+    <div class="center">
+      <span class="eyebrow">स्क्रीनशॉट</span>
+      <h2>चलते हुए देखें</h2>
+      <p class="lead">एक नमूना किराना दुकान के साथ ऐप की असली स्क्रीनें।</p>
+      <div class="tabs" role="tablist" aria-label="डिवाइस">
+        <button type="button" role="tab" aria-selected="true" aria-controls="galDesk" id="tabDesk">डेस्कटॉप</button>
+        <button type="button" role="tab" aria-selected="false" aria-controls="galPhone" id="tabPhone">फ़ोन</button>
+      </div>
+    </div>
+    <div class="gallery" id="galDesk" role="tabpanel" aria-labelledby="tabDesk">
+      <figure><img loading="lazy" src="assets/screens/dark/11-cart.webp" width="1440" height="900" alt="कार्ट के साथ बिक्री स्क्रीन"><figcaption>बिक्री स्क्रीन और कार्ट</figcaption></figure>
+      <figure><img loading="lazy" src="assets/screens/dark/15-checkout.webp" width="1440" height="900" alt="चेकआउट"><figcaption>चेकआउट: नकद, UPI, कार्ड</figcaption></figure>
+      <figure><img loading="lazy" src="assets/screens/dark/16-checkout-split.webp" width="1440" height="900" alt="बँटा हुआ भुगतान"><figcaption>बँटा हुआ भुगतान</figcaption></figure>
+      <figure><img loading="lazy" src="assets/screens/dark/17-receipt.webp" width="1440" height="900" alt="रसीद"><figcaption>GST रसीद</figcaption></figure>
+      <figure><img loading="lazy" src="assets/screens/dark/30-products.webp" width="1440" height="900" alt="प्रोडक्ट सूची"><figcaption>प्रोडक्ट</figcaption></figure>
+      <figure><img loading="lazy" src="assets/screens/dark/44-stock.webp" width="1440" height="900" alt="स्टॉक"><figcaption>स्टॉक</figcaption></figure>
+      <figure><img loading="lazy" src="assets/screens/dark/40-customers.webp" width="1440" height="900" alt="ग्राहक"><figcaption>ग्राहक और उधार</figcaption></figure>
+      <figure><img loading="lazy" src="assets/screens/dark/24-shift.webp" width="1440" height="900" alt="शिफ़्ट"><figcaption>शिफ़्ट और नकद</figcaption></figure>
+      <figure><img loading="lazy" src="assets/screens/dark/50-reports.webp" width="1440" height="900" alt="रिपोर्ट"><figcaption>रिपोर्ट</figcaption></figure>
+      <figure><img loading="lazy" src="assets/screens/dark/65-settings-printer.webp" width="1440" height="900" alt="प्रिंटर सेटिंग"><figcaption>प्रिंटर सेटअप</figcaption></figure>
+      <figure><img loading="lazy" src="assets/screens/dark/80-tables.webp" width="1440" height="900" alt="टेबल मैप"><figcaption>टेबल मैप</figcaption></figure>
+      <figure><img loading="lazy" src="assets/screens/dark/81-order.webp" width="1440" height="900" alt="टेबल ऑर्डर"><figcaption>सीट और कोर्स वाला टेबल ऑर्डर</figcaption></figure>
+      <figure><img loading="lazy" src="assets/screens/dark/83-kitchen.webp" width="1440" height="900" alt="किचन स्क्रीन"><figcaption>किचन स्क्रीन</figcaption></figure>
+      <figure><img loading="lazy" src="assets/screens/dark/82-pay-split.webp" width="1440" height="900" alt="बिल बाँटें"><figcaption>बिल बाँटें</figcaption></figure>
+    </div>
+    <div class="gallery phones" id="galPhone" role="tabpanel" aria-labelledby="tabPhone" hidden>
+      <figure><img loading="lazy" src="assets/screens/dark/phone-10-sell.webp" width="780" height="1688" alt="फ़ोन पर बिक्री स्क्रीन"><figcaption>बिक्री</figcaption></figure>
+      <figure><img loading="lazy" src="assets/screens/dark/phone-15-checkout.webp" width="780" height="1688" alt="फ़ोन पर चेकआउट"><figcaption>चेकआउट</figcaption></figure>
+      <figure><img loading="lazy" src="assets/screens/dark/phone-17-receipt.webp" width="780" height="1688" alt="फ़ोन पर रसीद"><figcaption>रसीद</figcaption></figure>
+      <figure><img loading="lazy" src="assets/screens/dark/phone-80-tables.webp" width="780" height="1688" alt="फ़ोन पर टेबल मैप"><figcaption>वेटर: टेबल</figcaption></figure>
+      <figure><img loading="lazy" src="assets/screens/dark/phone-81-order.webp" width="780" height="1688" alt="फ़ोन पर ऑर्डर"><figcaption>वेटर: ऑर्डर</figcaption></figure>
+    </div>
+  </div>
+  <dialog class="lightbox" id="lightbox" aria-label="स्क्रीनशॉट">
+    <form method="dialog"><button style="all:unset;display:block;cursor:zoom-out" aria-label="बंद करें"><img id="lbImg" src="data:," alt=""></button></form>
+    <p id="lbCap"></p>
+  </dialog>
+</section>
+
+<!-- Testimonials -->
+<section id="stories" hidden>
+  <div class="wrap">
+    <div class="center"><span class="eyebrow">इस्तेमाल करने वाली दुकानें</span><h2>दुकानदार क्या कहते हैं</h2></div>
+    <div class="grid three" id="quotes" style="margin-top:32px"></div>
+  </div>
+</section>
+
+<!-- Pricing -->
+<section id="pricing">
+  <div class="wrap">
+    <div class="center">
+      <span class="eyebrow">कीमत</span>
+      <h2>आसान प्लान। सभी फ़ीचर शामिल।</h2>
+      <p class="lead"><span data-trial-days>30</span> दिन के फ्री ट्रायल से शुरू करें। फिर हर डिवाइस (काउंटर, फ़ोन या PC) के हिसाब से भुगतान करें: मासिक, तिमाही, छमाही या सालाना। प्लान जितना लंबा, बचत उतनी ज़्यादा।</p>
+    </div>
+    <div class="price-grid" id="plans"></div>
+    <p class="note center" id="priceNote"></p>
+
+    <h3 class="sub">एक से ज़्यादा काउंटर? और बचाएँ।</h3>
+    <div class="card calc">
+      <div>
+        <div class="row">
+          <div><label for="calcPlan">प्लान</label><select id="calcPlan"></select></div>
+          <div><label for="calcN">डिवाइस (काउंटर, फ़ोन, PC)</label><input id="calcN" type="number" min="1" max="999" value="3" inputmode="numeric"></div>
+        </div>
+        <div class="volume" id="volume"></div>
+      </div>
+      <div id="calcOut" aria-live="polite"></div>
+    </div>
+
+    <h3 class="sub">ख़रीदने के और तरीक़े</h3>
+    <div class="other-grid" id="otherPlans"></div>
+  </div>
+</section>
+
+<!-- Download -->
+<section class="alt" id="download">
+  <div class="wrap">
+    <div class="center">
+      <span class="eyebrow">ऐप पाएँ</span>
+      <h2>फ्री ट्रायल डाउनलोड करें</h2>
+      <p class="lead">इंस्टॉल करें, अपने प्रोडक्ट जोड़ें और बिलिंग शुरू करें। ट्रायल में <span data-trial-days>30</span> दिन तक सभी फ़ीचर हैं। उसके बाद प्लान चुनें, <b>सेटिंग्स → लाइसेंस</b> से लाइसेंस अनुरोध भेजें, और हम आपकी लाइसेंस फ़ाइल भेज देंगे।</p>
+    </div>
+    <div class="store-grid" id="downloads"></div>
+    <h3 class="sub">ऐप स्टोर</h3>
+    <div class="store-grid" id="stores"></div>
+    <p class="note center">स्टोर के नाम उनके मालिकों के ट्रेडमार्क हैं। "जल्द आ रहा है" वाली लिस्टिंग अभी लाइव नहीं हैं।</p>
+  </div>
+</section>
+
+<!-- Guide -->
+<section id="guide">
+  <div class="wrap">
+    <div class="center">
+      <span class="eyebrow">गाइड</span>
+      <h2>पूरी दुकान गाइड पढ़ें</h2>
+      <p class="lead">गाइड में ऐप इंस्टॉल करने से लेकर और काउंटर जोड़ने तक, हर स्क्रीन और सेटिंग तस्वीरों के साथ है। हिन्दी और English दोनों में।</p>
+    </div>
+    <div class="grid two" style="margin-top:32px;max-width:860px;margin-left:auto;margin-right:auto">
+      <div class="card dl"><div class="ic"><svg class="i"><use href="#i-pdf"/></svg></div><div><h3>दुकान गाइड (हिन्दी)</h3><small>PDF · वर्ज़न 0.1.8 · 7 MB</small></div>
+        <a class="btn btn-primary" href="assets/pdf/universal-pos-guide-0.1.8-hi.pdf" target="_blank" rel="noopener">PDF खोलें</a></div>
+      <div class="card dl"><div class="ic"><svg class="i"><use href="#i-pdf"/></svg></div><div><h3 lang="en">Shop guide (English)</h3><small>PDF · version 0.1.8 · 7 MB</small></div>
+        <a class="btn btn-primary" href="assets/pdf/universal-pos-guide-0.1.8-en.pdf" target="_blank" rel="noopener" lang="en">Open PDF</a></div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="alt" id="faq">
+  <div class="wrap">
+    <div class="center"><span class="eyebrow">सवाल-जवाब</span><h2>दुकानदार अक्सर पूछते हैं</h2></div>
+    <div class="faq">
+      <details><summary>क्या फ्री ट्रायल है?</summary><p>हाँ। ऐप डाउनलोड करें और 30 दिन तक सभी फ़ीचर फ्री में इस्तेमाल करें, बिना कार्ड और बिना साइन-अप। जब तैयार हों, प्लान चुनें; आपके प्रोडक्ट और बिल वैसे ही रहते हैं।</p></details>
+      <details><summary>क्या बिलिंग के लिए इंटरनेट चाहिए?</summary><p>नहीं। हर बिक्री पहले डिवाइस पर सेव होती है। इंटरनेट सिर्फ़ क्लाउड सिंक के लिए है, जो इंटरनेट लौटने पर अपने आप पूरा हो जाता है। बैकअप और अपडेट पेन ड्राइव से होते हैं।</p></details>
+      <details><summary>फ़ोन या PC ख़राब हो जाए तो?</summary><p><b>Settings → बैकअप</b> से पेन ड्राइव में बैकअप लें (PC हर दिन अपने-आप ले सकता है)। नए डिवाइस पर <b>बैकअप से वापस लाएँ</b> चुनें, फ़ाइल और दुकान का लाइसेंस दें: प्रोडक्ट, ग्राहक, बिल और स्टाफ़ वापस आ जाते हैं। फ़ाइल एन्क्रिप्टेड है और सिर्फ़ आपके लाइसेंस से खुलती है।</p></details>
+      <details><summary>प्लान ख़त्म होने पर क्या होता है?</summary><p>30 दिन की मोहलत मिलती है और ऊपर याद दिलाने वाली पट्टी दिखती है। उसके बाद ऐप सिर्फ़ देखने के मोड में चला जाता है: हर बिल, रिपोर्ट और ग्राहक दिखते रहते हैं, लेकिन रिन्यू करने तक नई बिक्री नहीं होती। डेटा कभी बंद या डिलीट नहीं होता।</p></details>
+      <details><summary>कीमत कैसे गिनी जाती है?</summary><p>हर उस डिवाइस के हिसाब से जो बिक्री करता है या दुकान संभालता है: फ़ोन, टैबलेट या PC। दो काउंटर यानी दो डिवाइस। 3 या ज़्यादा डिवाइस पर कई-डिवाइस छूट मिलती है।</p></details>
+      <details><summary>क्या हर महीने की जगह एक बार भुगतान कर सकते हैं?</summary><p>हाँ। लाइफ़टाइम लाइसेंस हर डिवाइस पर एक बार का भुगतान है, जिसमें 1 साल के अपडेट शामिल हैं। उसके बाद अपना वर्ज़न हमेशा चलाते रहें या अपडेट प्लान ले लें।</p></details>
+      <details><summary>क्या यह रेस्टोरेंट और कैफ़े के लिए चलता है?</summary><p>हाँ। रेस्टोरेंट फ़ीचर चालू करें: टेबल मैप, मॉडिफ़ायर, फ़ोन पर वेटर ऐप, किचन टिकट और किचन स्क्रीन, मेहमानों के लिए QR ऑर्डर, बिल बाँटना और ग्राहक डिस्प्ले। सब शॉप हब से दुकान के Wi-Fi पर बिना इंटरनेट चलता है।</p></details>
+      <details><summary>यह किन डिवाइस पर चलता है?</summary><p>Android फ़ोन और टैबलेट, Windows और Linux PC, iPhone और iPad, और किसी भी नए ब्राउज़र में एडमिन पैनल।</p></details>
+      <details><summary>कौन से प्रिंटर, स्कैनर और तराज़ू चलते हैं?</summary><p>ESC/POS थर्मल रसीद प्रिंटर (USB, नेटवर्क, Bluetooth), प्रिंटर से जुड़ा कैश ड्रॉअर, USB/Bluetooth/सीरियल बारकोड स्कैनर और फ़ोन का कैमरा, आम तौल मशीनें और तराज़ू बारकोड। पूरा सेटअप दुकान गाइड में है।</p></details>
+      <details><summary>क्या कई काउंटर बिना इंटरनेट एक ही सूची इस्तेमाल कर सकते हैं?</summary><p>हाँ। एक PC या फ़ोन को शॉप हब बनाएँ। बाक़ी काउंटर दुकान के Wi-Fi या USB से उसे ढूँढ लेते हैं और बिना इंटरनेट के सिंक में रहते हैं।</p></details>
+      <details><summary>क्या आने वाले फ़ीचर के अलग पैसे लगेंगे?</summary><p>नहीं। रेस्टोरेंट, कियोस्क और आगे आने वाले सभी फ़ीचर चालू प्लान पर अपडेट में आते हैं।</p></details>
+      <details><summary>क्या कार्ड डेटा सुरक्षित है?</summary><p>POS कभी कार्ड नंबर नहीं पढ़ता और न सेव करता है। भुगतान कार्ड मशीन करती है और सिर्फ़ "मंज़ूर" या "नामंज़ूर" बताती है।</p></details>
+      <details><summary>क्या कीमत में GST शामिल है?</summary><p>दिखाई गई कीमतें GST से पहले की हैं। GST इनवॉइस पर जोड़ा जाता है।</p></details>
+    </div>
+  </div>
+</section>
+
+<!-- Policies -->
+<section id="policies">
+  <div class="wrap">
+    <div class="center"><span class="eyebrow">नीतियाँ</span><h2>प्राइवेसी, शर्तें और रिफ़ंड</h2></div>
+    <div class="legal">
+      <details id="privacy"><summary>प्राइवेसी नीति</summary><div class="body"><ul>
+        <li><b>दुकान का डेटा आपका ही रहता है।</b> बिक्री, प्रोडक्ट, ग्राहक और स्टॉक आपके डिवाइस पर रहते हैं। सिंक चालू करने पर वे हमारे क्लाउड सर्वर पर भी रहते हैं। हम आपका डेटा न बेचते हैं, न बाँटते हैं, न खंगालते हैं।</li>
+        <li><b>न विज्ञापन, न ट्रैकिंग।</b> ऐप में कोई एनालिटिक्स, विज्ञापन या बाहरी ट्रैकिंग SDK नहीं है, और इसे Google Play Services या Firebase की ज़रूरत नहीं। यह वेबसाइट कोई कुकी नहीं रखती; सिर्फ़ आपकी लाइट या डार्क पसंद आपके ब्राउज़र में याद रखती है।</li>
+        <li><b>अनुमतियाँ सिर्फ़ बिक्री के लिए।</b> कैमरा: बारकोड स्कैन। Bluetooth, USB और सीरियल: प्रिंटर, स्कैनर, तराज़ू और कार्ड मशीन। लोकल नेटवर्क: शॉप हब और दूसरे काउंटर ढूँढना।</li>
+        <li><b>कार्ड भुगतान।</b> ऐप कभी कार्ड नंबर नहीं पढ़ता और न सेव करता है। कार्ड मशीन सिर्फ़ मंज़ूर या नामंज़ूर बताती है।</li>
+        <li><b>ख़रीदने पर हम क्या रखते हैं।</b> इनवॉइस और लाइसेंस बनाने के लिए आपका नाम, दुकान का नाम, फ़ोन या ईमेल और GSTIN। इन्हें उतने समय रखते हैं जितना इनवॉइस के लिए क़ानूनन ज़रूरी है।</li>
+        <li><b>डेटा हटाना।</b> ऐप अनइंस्टॉल करने पर उस डिवाइस का डेटा हट जाता है। हमारे क्लाउड सर्वर का डेटा या अपनी संपर्क जानकारी हटवाने के लिए हमसे संपर्क करें।</li>
+      </ul></div></details>
+      <details id="terms"><summary>सेवा की शर्तें</summary><div class="body"><ul>
+        <li><b>लाइसेंस।</b> हर प्लान आपको Universal POS को लाइसेंस में लिखे डिवाइसों पर, भुगतान की गई अवधि तक इस्तेमाल करने का अधिकार देता है। सॉफ़्टवेयर हमारा रहता है; आप इसे दोबारा बेच, कॉपी या रिवर्स-इंजीनियर नहीं कर सकते।</li>
+        <li><b>ट्रायल।</b> फ्री ट्रायल में 30 दिन तक सभी फ़ीचर हैं। उसके बाद बिक्री जारी रखने के लिए प्लान ख़रीदें। आपका डेटा देखा जा सकता है।</li>
+        <li><b>प्लान ख़त्म होना।</b> प्लान ख़त्म होने पर ऐप 30 दिन की मोहलत देता है, फिर रिन्यू होने तक सिर्फ़ देखने के मोड में रहता है। प्लान ख़त्म होने की वजह से हम कभी डेटा डिलीट नहीं करते।</li>
+        <li><b>आपका डेटा और बैकअप।</b> डेटा आपका है। नियमित बैकअप रखें, ख़ासकर उन डिवाइस का जो सिंक नहीं होते।</li>
+        <li><b>टैक्स और इनवॉइस।</b> ऐप में डाले गए टैक्स रेट, कीमतें और GST जानकारी, और उससे बने इनवॉइस की ज़िम्मेदारी आपकी है।</li>
+        <li><b>लाइफ़टाइम लाइसेंस।</b> लाइफ़टाइम लाइसेंस में 1 साल के अपडेट शामिल हैं; बाद के वर्ज़न के लिए अपडेट प्लान चाहिए।</li>
+        <li><b>वारंटी और ज़िम्मेदारी।</b> सॉफ़्टवेयर जैसा है वैसा दिया जाता है। हमारी कुल ज़िम्मेदारी पिछले 12 महीनों में आपके दिए भुगतान तक सीमित है।</li>
+        <li><b>बदलाव।</b> हम ये शर्तें बदल सकते हैं। इस पेज का वर्ज़न लागू होता है। ये शर्तें भारतीय क़ानून के अधीन हैं। किसी अंतर की स्थिति में English वर्ज़न मान्य होगा।</li>
+      </ul></div></details>
+      <details id="refund"><summary>रिफ़ंड और रद्द करने की नीति</summary><div class="body"><ul>
+        <li><b>पहले आज़माएँ, फिर भुगतान करें।</b> 30 दिन के फ्री ट्रायल से देख लें कि ऐप आपकी दुकान के लिए सही है।</li>
+        <li><b>पहली ख़रीद पर 7 दिन में रिफ़ंड।</b> संतुष्ट न हों तो पहले भुगतान के 7 दिन के अंदर पूरा रिफ़ंड माँगें।</li>
+        <li><b>कभी भी रद्द करें।</b> प्लान आपके भुगतान के बिना रिन्यू नहीं होते। रद्द करने पर प्लान भुगतान की गई अवधि के अंत तक चलता है। पहले 7 दिन के बाद बचे महीनों का रिफ़ंड नहीं होता।</li>
+        <li><b>लाइफ़टाइम।</b> भुगतान के 7 दिन के अंदर, लाइसेंस से बिक्री शुरू होने से पहले रिफ़ंड हो सकता है।</li>
+        <li><b>रिफ़ंड कैसे मिलता है।</b> मंज़ूरी के 5 से 7 कामकाजी दिनों में, उसी भुगतान तरीक़े में। रिफ़ंड के लिए नीचे इनवॉइस नंबर के साथ संपर्क करें।</li>
+      </ul></div></details>
+      <p class="center"><small>आख़िरी बदलाव: अक्टूबर 2026</small></p>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section id="contact">
+  <div class="wrap">
+    <div class="cta-band">
+      <h2>तेज़ बिलिंग के लिए तैयार?</h2>
+      <p>फ्री ट्रायल डाउनलोड करें, या अपनी दुकान का प्रकार और काउंटरों की संख्या बताएँ, हम डेमो दिखाएँगे।</p>
+      <div class="hero-actions">
+        <a class="btn btn-ghost" href="#download"><svg class="i"><use href="#i-download"/></svg>फ्री ट्रायल</a>
+        <a class="btn btn-wa" data-wa="demo" href="#contact"><svg class="i"><use href="#i-calendar"/></svg>डेमो बुक करें</a>
+        <a class="btn btn-ghost" data-mail href="#contact"></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© <span id="year">2026</span> Universal POS</span>
+    <nav aria-label="फ़ुटर">
+      <a href="#features">फ़ीचर</a><a href="#pricing">कीमत</a><a href="#download">डाउनलोड</a><a href="#guide">गाइड</a><a href="#faq">सवाल</a><a href="#privacy">प्राइवेसी</a><a href="#terms">शर्तें</a><a href="#refund">रिफ़ंड</a><a href="index.html" hreflang="en" lang="en">English</a>
+    </nav>
+  </div>
+</footer>
+
+<script src="assets/site.js?v=4"></script>
+</body>
+</html>

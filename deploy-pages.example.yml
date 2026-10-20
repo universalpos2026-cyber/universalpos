@@ -1,0 +1,23 @@
+# Copy to .github/workflows/deploy-site.yml in the main repo to publish website_planned/ to a public
+# GitHub Pages repo on every release tag. Needs a secret SITE_DEPLOY_TOKEN: a fine-grained token with
+# "Contents: read and write" on the site repo only. Change external_repository to the site repo.
+name: deploy-site
+on:
+  push:
+    tags: ["v*"]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+      - uses: peaceiris/actions-gh-pages@84c30a85c19949d7eee79c4ff27748b70285e453 # v4.1.0
+        with:
+          personal_token: ${{ secrets.SITE_DEPLOY_TOKEN }}
+          external_repository: OWNER/universal-pos-site
+          publish_branch: main
+          publish_dir: ./website_planned
+          exclude_assets: "README.md,deploy-pages.example.yml"
+          # cname: universalpos.in   # uncomment with your custom domain
