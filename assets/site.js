@@ -34,18 +34,21 @@ const OTHER_PLANS = [
 // `terms` = years and percent off the annual price for that many years (owner: 2 yr 10%, 3 yr 15%, 5 yr 20%).
 const MULTI_YEAR = { show: true, terms: [[2, 10], [3, 15], [5, 20]], payUrl: "" };
 
-// Direct trial downloads: the signed release files in downloads/ (filled by
-// tools/release/site_downloads.sh, same version as the app). url "" = button asks for the file on WhatsApp.
+// Direct trial downloads: the signed release files in the public Google Drive folder
+// https://drive.google.com/drive/folders/1dYrT1z130PTQhZxCjpWgZplp2VIS2gf3 (same version as the app).
+// DL takes the Drive file id; after uploading a new release, replace each id. url "" = button asks for the file on WhatsApp.
 const RELEASE = "0.1.8";
-const DL = f => `downloads/${f}`;
+const DL = id => `https://drive.google.com/uc?export=download&id=${id}`;
 const DOWNLOADS = [
-  { id: "apk",   icon: "i-phone",  url: DL(`universal-pos-${RELEASE}.apk`) },
-  { id: "win",   icon: "i-laptop", url: DL(`UniversalPOS-Setup-${RELEASE}.exe`) },
-  { id: "linux", icon: "i-laptop", url: DL(`universal-pos_${RELEASE}_amd64.deb`) },
-  { id: "tar",   icon: "i-laptop", url: DL(`universal-pos-${RELEASE}-linux-x64.tar.gz`) },
-  { id: "sums",  icon: "i-shield", url: DL("SHA256SUMS") },
+  { id: "apk",   icon: "i-phone",  url: DL("1x1r4jAmYYt6bwzW773JU_GH5mLCXW1uW") }, // universal-pos-0.1.8.apk
+  { id: "win",   icon: "i-laptop", url: DL("18Q1xM0rqUOAMSiWzb2seb1zMtwD04kdG") }, // UniversalPOS-Setup-0.1.8.exe
+  { id: "linux", icon: "i-laptop", url: DL("1hfQ62K9XeBYX7K3LYihugHNbyTjwNOT-") }, // universal-pos_0.1.8_amd64.deb
+  { id: "tar",   icon: "i-laptop", url: DL("1I_Z-Jw5ZczXi3fmbNxWZ4Qn061M8bdRn") }, // universal-pos-0.1.8-linux-x64.tar.gz
+  { id: "sums",  icon: "i-shield", url: DL("1X2xwkF3ECtsNmKwCf7PI-C6ts08gk-ZG") }, // SHA256SUMS
   { id: "web",   icon: "i-globe",  url: "" },
 ];
+// Also in the folder, not shown as buttons: SHA256SUMS.sig 1hxCpN-EyX7qVqH1ocLJEA5Xo5JcqAg6A,
+// release-pubkey.pem 1pkF4JcBQA-d0zq5DmhJLJNFsT9Nx5o3p, universal-pos-update-0.1.8-b12.posupdate 19pgHTrdI2kQtnIA7BjIJCo_uEIlqiPzG.
 
 // App stores. status: "soon" or "live" (then set url).
 const STORES = [
