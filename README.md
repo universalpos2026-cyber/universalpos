@@ -13,7 +13,7 @@ assets/screens/dark/       dark-theme screenshots (WebP)
 assets/screens/light/      light-theme screenshots (WebP, same names)
 assets/pdf/                shop guide PDFs (English, Hindi); no seller/vendor docs
 downloads/                 local copy of the release files (not in git); the buttons use Google Drive, see DOWNLOADS
-robots.txt, sitemap.xml    for search engines; site address https://universalpos.in/
+robots.txt, sitemap.xml    for search engines; site address https://universalpos2026-cyber.github.io/universalpos/
 .nojekyll                  tells GitHub Pages to serve files as they are
 deploy-pages.example.yml   optional GitHub Action that publishes this folder on every release tag
 ```
@@ -76,6 +76,7 @@ The main repo is private, and Pages on a private repo needs a paid GitHub plan. 
    secret; it then publishes on every release tag.
 3. In the site repo, open Settings → Pages → *Deploy from a branch*, choose `main`, folder `/ (root)`.
 4. For a custom domain (e.g. `universalpos.in`), add it under Settings → Pages (or set `cname:` in the workflow). Then
-   replace `https://example.com/` in `robots.txt` and `sitemap.xml`.
+   replace `https://universalpos2026-cyber.github.io/universalpos/` with it in both pages' `<head>`, `robots.txt`
+   and `sitemap.xml`.
 
 All links are relative, so the site also works under `https://<user>.github.io/universal-pos-site/`.

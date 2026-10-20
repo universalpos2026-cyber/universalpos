@@ -1,5 +1,5 @@
 User-agent: *
 Allow: /
 
-# Replace with the site's real address (see README.md).
-Sitemap: https://universalpos.in/sitemap.xml
+# Site address; change it here, in sitemap.xml and in both pages' <head> if you add a custom domain (see README.md).
+Sitemap: https://universalpos2026-cyber.github.io/universalpos/sitemap.xml

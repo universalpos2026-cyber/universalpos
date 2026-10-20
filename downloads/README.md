@@ -1,13 +1,12 @@
-# Downloads (signed release files)
+# Downloads (local copy of the release files)
 
-The website's download buttons point here (`assets/site.js` → `RELEASE`, `DOWNLOADS`). The files are **not in
-git** (the APK alone is about 100 MB); fill the folder from a signed release before uploading the site:
+The website's download buttons do **not** use this folder. They link by file id to the public Google Drive folder
+https://drive.google.com/drive/folders/1dYrT1z130PTQhZxCjpWgZplp2VIS2gf3 (`DOWNLOADS` in `assets/site.js`). The files
+are **not in git** (the update file alone is about 200 MB).
 
-```sh
-bash tools/release/site_downloads.sh dist/0.1.8-b12      # a folder with the release files + SHA256SUMS(.sig)
-```
-
-It checks that the APK carries the release key and that `SHA256SUMS` is signed by the release key, then copies:
+After a new release, upload these to that Drive folder (anyone with the link can view):
 `universal-pos-<v>.apk`, `UniversalPOS-Setup-<v>.exe`, `universal-pos_<v>_amd64.deb`,
-`universal-pos-<v>-linux-x64.tar.gz`, `universal-pos-update-<v>*.posupdate`, `SHA256SUMS`, `SHA256SUMS.sig`,
-`release-pubkey.pem`. Keep `RELEASE` in `assets/site.js` equal to the app version.
+`universal-pos-<v>-linux-x64.tar.gz`, `SHA256SUMS`, `SHA256SUMS.sig`, `release-pubkey.pem`.
+Then put the new file ids in `DOWNLOADS` and keep `RELEASE` in `assets/site.js` equal to the app version.
+
+Do not upload the `.posupdate` file or this README. The update file is sent to customers directly.
