@@ -48,7 +48,7 @@ const DOWNLOADS = [
   { id: "web",   icon: "i-globe",  url: "" },
 ];
 // Also in the folder, not shown as buttons: SHA256SUMS.sig 1hxCpN-EyX7qVqH1ocLJEA5Xo5JcqAg6A,
-// release-pubkey.pem 1pkF4JcBQA-d0zq5DmhJLJNFsT9Nx5o3p, universal-pos-update-0.1.8-b12.posupdate 19pgHTrdI2kQtnIA7BjIJCo_uEIlqiPzG.
+// release-pubkey.pem 1pkF4JcBQA-d0zq5DmhJLJNFsT9Nx5o3p. The .posupdate file is not public; it is sent to customers.
 
 // App stores. status: "soon" or "live" (then set url).
 const STORES = [
