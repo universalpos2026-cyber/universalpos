@@ -1,0 +1,496 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Universal POS</title>
+<meta name="description" content="Offline-first billing and point of sale for Indian shops. GST, UPI QR, stock, customers, reports, cloud and LAN sync on Android, Windows, Linux, iOS and the web. 30-day free trial. Monthly, quarterly, half-yearly and annual plans.">
+<meta property="og:title" content="Universal POS: billing that never waits for the internet">
+<meta property="og:description" content="Offline-first POS with GST, UPI QR, stock, customers, reports and sync. 30-day free trial.">
+<meta property="og:image" content="assets/og.jpg">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#6d4aff">
+<link rel="canonical" href="https://universalpos.in/">
+<link rel="alternate" hreflang="en" href="https://universalpos.in/">
+<link rel="alternate" hreflang="hi" href="https://universalpos.in/hi.html">
+<meta property="og:url" content="https://universalpos.in/">
+<link rel="icon" type="image/png" href="assets/logo.png">
+<link rel="stylesheet" href="assets/site.css?v=4">
+<script>try { const t = localStorage.getItem("theme"); if (t) document.documentElement.dataset.theme = t; } catch (e) {}</script>
+</head>
+<body>
+
+<!-- Icon set -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-offline" viewBox="0 0 24 24"><path d="M2 8.8a15 15 0 0 1 4.2-2.7M10.7 5a15 15 0 0 1 11.3 3.8M5 12.6a10 10 0 0 1 5.2-2.5M16.8 11a10 10 0 0 1 2.2 1.6M8.5 16.4a5 5 0 0 1 7 0M12 20h.01M3 3l18 18"/></symbol>
+  <symbol id="i-bolt" viewBox="0 0 24 24"><path d="M13 2 4 14h7l-1 8 9-12h-7z"/></symbol>
+  <symbol id="i-devices" viewBox="0 0 24 24"><rect x="2" y="4" width="14" height="10" rx="1.5"/><path d="M6 18h6M9 14v4"/><rect x="17" y="8" width="5" height="12" rx="1.2"/></symbol>
+  <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3 4 6v6c0 5 3.5 8 8 9 4.5-1 8-4 8-9V6z"/><path d="m9 12 2 2 4-4"/></symbol>
+  <symbol id="i-cart" viewBox="0 0 24 24"><circle cx="9" cy="20" r="1.4"/><circle cx="18" cy="20" r="1.4"/><path d="M2 3h3l2.6 12.2a1.5 1.5 0 0 0 1.5 1.2h8.6a1.5 1.5 0 0 0 1.5-1.2L21 7H6"/></symbol>
+  <symbol id="i-receipt" viewBox="0 0 24 24"><path d="M5 3h14v18l-2.5-1.5L14 21l-2-1.5-2 1.5-2.5-1.5L5 21z"/><path d="M9 8h6M9 12h6M9 16h3"/></symbol>
+  <symbol id="i-qr" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><path d="M14 14h3v3h-3zM20 14v.01M14 20h.01M17 20h4v-3"/></symbol>
+  <symbol id="i-return" viewBox="0 0 24 24"><path d="M9 14 4 9l5-5"/><path d="M4 9h11a5 5 0 0 1 0 10h-3"/></symbol>
+  <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
+  <symbol id="i-tag" viewBox="0 0 24 24"><path d="M3 12V4a1 1 0 0 1 1-1h8l9 9-9 9z"/><circle cx="8" cy="8" r="1.5"/></symbol>
+  <symbol id="i-users" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.5"/><path d="M2 20c0-3.5 3-6 7-6s7 2.5 7 6"/><path d="M16 4.5a3.5 3.5 0 0 1 0 7M22 20c0-3-2-5-5-5.7"/></symbol>
+  <symbol id="i-box" viewBox="0 0 24 24"><path d="M21 8 12 3 3 8v8l9 5 9-5z"/><path d="m3 8 9 5 9-5M12 13v8"/></symbol>
+  <symbol id="i-chart" viewBox="0 0 24 24"><path d="M3 3v18h18"/><path d="M7 16v-4M12 16V8M17 16v-7"/></symbol>
+  <symbol id="i-cloud" viewBox="0 0 24 24"><path d="M7 18a5 5 0 0 1-.9-9.9A6 6 0 0 1 17.7 9 4.5 4.5 0 0 1 17.5 18z"/><path d="m9 13 3-3 3 3M12 10v7"/></symbol>
+  <symbol id="i-printer" viewBox="0 0 24 24"><path d="M6 9V3h12v6"/><rect x="3" y="9" width="18" height="8" rx="2"/><path d="M6 14h12v7H6z"/></symbol>
+  <symbol id="i-wifi" viewBox="0 0 24 24"><path d="M2 8.8a15 15 0 0 1 20 0M5 12.6a10 10 0 0 1 14 0M8.5 16.4a5 5 0 0 1 7 0M12 20h.01"/></symbol>
+  <symbol id="i-lang" viewBox="0 0 24 24"><path d="M4 5h9M8.5 3v2M6 5c0 4 3 7 6 8M11 5c0 4-3 8-7 9"/><path d="m13 21 4-10 4 10M14.5 18h5"/></symbol>
+  <symbol id="i-db" viewBox="0 0 24 24"><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v14c0 1.7 3.6 3 8 3s8-1.3 8-3V5M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3"/></symbol>
+  <symbol id="i-key" viewBox="0 0 24 24"><circle cx="7.5" cy="15.5" r="4.5"/><path d="m10.7 12.3 9.3-9.3M17 6l3 3M15 8l2 2"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12 5 5 9-10"/></symbol>
+  <symbol id="i-pdf" viewBox="0 0 24 24"><path d="M14 3H6a1 1 0 0 0-1 1v16a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V8z"/><path d="M14 3v5h5M9 13h6M9 17h4"/></symbol>
+  <symbol id="i-phone" viewBox="0 0 24 24"><rect x="6" y="2" width="12" height="20" rx="2.5"/><path d="M11 18h2"/></symbol>
+  <symbol id="i-laptop" viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="11" rx="1.5"/><path d="M2 19h20"/></symbol>
+  <symbol id="i-download" viewBox="0 0 24 24"><path d="M12 3v12M7 10l5 5 5-5M4 20h16"/></symbol>
+  <symbol id="i-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></symbol>
+  <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></symbol>
+  <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></symbol>
+  <symbol id="i-mail" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></symbol>
+  <symbol id="i-chat" viewBox="0 0 24 24"><path d="M20 11.5a8.5 8.5 0 0 1-12.6 7.4L3 20l1.2-4.2A8.5 8.5 0 1 1 20 11.5z"/></symbol>
+  <symbol id="i-store" viewBox="0 0 24 24"><path d="M3 9 4.5 4h15L21 9M3 9h18v2a3 3 0 0 1-6 0 3 3 0 0 1-6 0 3 3 0 0 1-6 0z"/><path d="M5 13v7h14v-7M10 20v-4h4v4"/></symbol>
+  <symbol id="i-pill" viewBox="0 0 24 24"><path d="M10.5 3.5a5 5 0 0 1 7 7l-7 7a5 5 0 0 1-7-7z"/><path d="m7 10 7 7"/></symbol>
+  <symbol id="i-shirt" viewBox="0 0 24 24"><path d="M8 3 3 6l2 5 3-1v11h8V10l3 1 2-5-5-3a4 4 0 0 1-8 0z"/></symbol>
+  <symbol id="i-cake" viewBox="0 0 24 24"><path d="M4 21V12h16v9M2 21h20M4 16c2 1.5 4 1.5 6 0s4-1.5 6 0 4 1.5 4 0M12 12V8M12 5a1.5 1.5 0 0 1 0-2"/></symbol>
+  <symbol id="i-cup" viewBox="0 0 24 24"><path d="M4 8h13v5a6 6 0 0 1-6 6h-1a6 6 0 0 1-6-6zM17 9h1a3 3 0 0 1 0 6h-1M7 2v3M11 2v3M15 2v3"/></symbol>
+  <symbol id="i-scissors" viewBox="0 0 24 24"><circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><path d="M8.1 8.1 20 20M8.1 15.9 20 4"/></symbol>
+  <symbol id="i-play" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m10 8 6 4-6 4z"/></symbol>
+  <symbol id="i-calendar" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></symbol>
+  <symbol id="i-gift" viewBox="0 0 24 24"><rect x="3" y="8" width="18" height="4" rx="1"/><path d="M5 12v9h14v-9M12 8v13M12 8c-2-4-6-4-6-1.5S9 8 12 8c3 0 6 .5 6-1.5S14 4 12 8"/></symbol>
+</svg>
+
+<header class="top">
+  <div class="wrap nav">
+    <a class="brand" href="#top"><img src="assets/logo.png" alt="" width="32" height="32">Universal POS</a>
+    <nav class="nav-links" id="navLinks" aria-label="Sections">
+      <a href="#features">Features</a>
+      <a href="#shops">Shops</a>
+      <a href="#compare">Compare</a>
+      <a href="#roadmap">Roadmap</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#download">Download</a>
+      <a href="#faq">FAQ</a>
+    </nav>
+    <a class="lang-btn" href="hi.html" hreflang="hi" lang="hi" title="हिन्दी में पढ़ें">हिन्दी</a>
+    <button class="icon-btn" id="themeBtn" type="button" aria-label="Switch light or dark"><svg class="i"><use href="#i-sun"/></svg></button>
+    <button class="icon-btn menu-btn" id="menuBtn" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="navLinks"><svg class="i"><use href="#i-menu"/></svg></button>
+    <a class="btn btn-primary cta-top" href="#download">Free trial</a>
+  </div>
+</header>
+
+<main id="top">
+
+<!-- Hero -->
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <span class="eyebrow">Billing and point of sale for Indian shops</span>
+      <h1>Bills in 2 taps. <span>Works without internet.</span></h1>
+      <p class="lead">Universal POS runs your counter, stock, customers and reports on the device you already own.
+        GST and UPI QR are built in. Every sale is saved on the device first, so the till keeps billing when the
+        internet or the server is down.</p>
+      <p class="trial"><svg class="i"><use href="#i-gift"/></svg>Try free for <span data-trial-days>30</span> days · no card needed · every feature included</p>
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="#download"><svg class="i"><use href="#i-download"/></svg>Download free trial</a>
+        <a class="btn btn-ghost" data-wa="demo" href="#contact"><svg class="i"><use href="#i-calendar"/></svg>Book a demo</a>
+        <a class="btn btn-ghost" href="#pricing">See plans</a>
+      </div>
+      <div class="chips" aria-label="Platforms">
+        <span class="chip">Android</span><span class="chip">Windows</span><span class="chip">Linux</span>
+        <span class="chip">iOS</span><span class="chip">Web admin panel</span><span class="chip">English · हिन्दी</span>
+      </div>
+    </div>
+    <div class="shots">
+      <img class="desk" src="assets/screens/dark/11-cart.webp" width="1440" height="900" alt="Sell screen on a desktop: product grid, cart with three items, number pad and GST totals">
+      <img class="phone" src="assets/screens/dark/phone-10-sell.webp" width="780" height="1688" alt="Sell screen on an Android phone">
+    </div>
+  </div>
+  <div class="wrap">
+    <div class="stats" style="margin-top:40px">
+      <div class="stat"><b>&lt; 50 ms</b><span>scan to cart</span></div>
+      <div class="stat"><b>2 taps</b><span>after the last scan for a cash sale</span></div>
+      <div class="stat"><b>&lt; 150 ms</b><span>to finish a sale and open the drawer</span></div>
+      <div class="stat"><b>Millions</b><span>of products, customers and orders</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- Why -->
+<section class="alt" id="why">
+  <div class="wrap">
+    <div class="center">
+      <span class="eyebrow">Why Universal POS</span>
+      <h2>Made for counters that can't stop</h2>
+      <p class="lead">No forced login and no activation server. The app doesn't depend on Google services or Firebase.
+        Your shop keeps billing whatever the network is doing.</p>
+    </div>
+    <div class="grid four" style="margin-top:32px">
+      <div class="card"><div class="ic"><svg class="i"><use href="#i-offline"/></svg></div><h3>Offline first</h3><p>Sales, returns and shifts are written to the device first. Sync runs later in the background.</p></div>
+      <div class="card"><div class="ic"><svg class="i"><use href="#i-bolt"/></svg></div><h3>Built for speed</h3><p>Speed targets are checked on every release, and search across 2 million products takes under 100 ms on a budget phone.</p></div>
+      <div class="card"><div class="ic"><svg class="i"><use href="#i-devices"/></svg></div><h3>One app, every device</h3><p>Phone, tablet, Windows or Linux PC, iPad and the browser. Same screens, same data.</p></div>
+      <div class="card"><div class="ic"><svg class="i"><use href="#i-shield"/></svg></div><h3>Your data stays yours</h3><p>When a plan ends you get 30 days of grace, then read-only. Your data is never locked away or deleted.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- Shop types -->
+<section id="shops">
+  <div class="wrap">
+    <div class="center">
+      <span class="eyebrow">Made for your shop</span>
+      <h2>One app, many kinds of shop</h2>
+      <p class="lead">Turn on the parts your shop needs. Everything else stays out of the way.</p>
+    </div>
+    <div class="grid three" style="margin-top:32px">
+      <div class="card shop"><div class="ic"><svg class="i"><use href="#i-store"/></svg></div><div><h3>Kirana and supermarket</h3><p>Barcode and loose items by weight, scale labels, fast cash and UPI, credit (udhaar) for regulars, low-stock alerts.</p></div></div>
+      <div class="card shop"><div class="ic"><svg class="i"><use href="#i-pill"/></svg></div><div><h3>Medical and pharmacy</h3><p>Large catalogs with fast search, GST rates per item, supplier purchase orders, customer history by phone.</p></div></div>
+      <div class="card shop"><div class="ic"><svg class="i"><use href="#i-shirt"/></svg></div><div><h3>Clothing and footwear</h3><p>Variants for size and colour, line and bill discounts, exchanges and returns linked to the original bill, loyalty points.</p></div></div>
+      <div class="card shop"><div class="ic"><svg class="i"><use href="#i-devices"/></svg></div><div><h3>Electronics and mobile</h3><p>SKUs and barcodes, card terminals, split payments, staff roles so only managers can give big discounts.</p></div></div>
+      <div class="card shop"><div class="ic"><svg class="i"><use href="#i-cake"/></svg></div><div><h3>Bakery and sweets</h3><p>Items sold by weight, quick keys for best-sellers, a phone as a second till during the rush.</p></div></div>
+      <div class="card shop"><div class="ic"><svg class="i"><use href="#i-cup"/></svg></div><div><h3>Restaurant and cafe</h3><p>Table map, modifiers, waiter app, QR ordering, kitchen screen and split bills.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- Video (shown when VIDEO_ID is set in assets/site.js) -->
+<section class="alt" id="video" hidden>
+  <div class="wrap">
+    <div class="center"><span class="eyebrow">Demo</span><h2>See a sale in 60 seconds</h2></div>
+    <div class="video" id="videoBox"></div>
+  </div>
+</section>
+
+<!-- Features available now -->
+<section id="features">
+  <div class="wrap">
+    <div class="center">
+      <span class="eyebrow">Available now · version 0.1.8</span>
+      <h2>Everything a retail counter needs</h2>
+      <p class="lead">Every plan includes all of these features. There are no add-ons to buy.</p>
+    </div>
+    <div class="grid three" style="margin-top:32px">
+      <div class="card"><div class="card-head"><div class="ic"><svg class="i"><use href="#i-cart"/></svg></div><span class="badge ok">Available</span></div>
+        <h3>Fast selling</h3>
+        <ul><li>Barcode scan, search or quick-key grid</li><li>Number pad for qty, price and discount %</li><li>Hold and resume carts</li><li>Loose items sold by weight, with scale barcodes</li><li>Product variants (size, colour, pack)</li></ul></div>
+      <div class="card"><div class="card-head"><div class="ic"><svg class="i"><use href="#i-qr"/></svg></div><span class="badge ok">Available</span></div>
+        <h3>GST and payments</h3>
+        <ul><li>GST engine with CGST/SGST split on the bill</li><li>Cash, UPI QR, card and split payments</li><li>Line and bill discounts</li><li>Invoice series per device (e.g. A1-000123)</li></ul></div>
+      <div class="card"><div class="card-head"><div class="ic"><svg class="i"><use href="#i-receipt"/></svg></div><span class="badge ok">Available</span></div>
+        <h3>Receipts</h3>
+        <ul><li>Thermal printing in the background</li><li>Shop name, GSTIN and tax summary on every bill</li><li>Reprint any old bill</li></ul></div>
+      <div class="card"><div class="card-head"><div class="ic"><svg class="i"><use href="#i-return"/></svg></div><span class="badge ok">Available</span></div>
+        <h3>Orders, returns and voids</h3>
+        <ul><li>Find any bill fast</li><li>Full or part returns, and voids, each linked to the original bill</li><li>Nothing is ever erased; full audit trail</li></ul></div>
+      <div class="card"><div class="card-head"><div class="ic"><svg class="i"><use href="#i-clock"/></svg></div><span class="badge ok">Available</span></div>
+        <h3>Shifts and cash</h3>
+        <ul><li>Open and close shifts with cash count</li><li>X report mid-shift, Z report at close</li><li>Cash drawer opens on sale</li></ul></div>
+      <div class="card"><div class="card-head"><div class="ic"><svg class="i"><use href="#i-tag"/></svg></div><span class="badge ok">Available</span></div>
+        <h3>Products and catalog</h3>
+        <ul><li>Categories, tax rates, barcodes, SKUs and photos</li><li>CSV import of products (100,000+ rows), categories and stock</li><li>Archive and restore, or delete for good (admin)</li><li>Handles millions of items</li></ul></div>
+      <div class="card"><div class="card-head"><div class="ic"><svg class="i"><use href="#i-key"/></svg></div><span class="badge ok">Available</span></div>
+        <h3>Staff and access</h3>
+        <ul><li>Fast PIN sign-in</li><li>Admin, manager and cashier roles</li><li>Idle auto-lock</li><li>Every bill records who made it</li></ul></div>
+      <div class="card"><div class="card-head"><div class="ic"><svg class="i"><use href="#i-users"/></svg></div><span class="badge ok">Available</span></div>
+        <h3>Customers and credit</h3>
+        <ul><li>Customer lookup by phone</li><li>Loyalty points</li><li>Credit (udhaar) ledger and payments received</li><li>Purchase history</li></ul></div>
+      <div class="card"><div class="card-head"><div class="ic"><svg class="i"><use href="#i-box"/></svg></div><span class="badge ok">Available</span></div>
+        <h3>Stock and purchasing</h3>
+        <ul><li>Stock kept as movements (in, sold, adjusted)</li><li>Low and out-of-stock alerts</li><li>Suppliers and purchase orders</li><li>Receive goods against a PO</li></ul></div>
+      <div class="card"><div class="card-head"><div class="ic"><svg class="i"><use href="#i-chart"/></svg></div><span class="badge ok">Available</span></div>
+        <h3>Reports</h3>
+        <ul><li>Daily sales, tax and payment method totals</li><li>Reports open instantly, even with years of data</li></ul></div>
+      <div class="card"><div class="card-head"><div class="ic"><svg class="i"><use href="#i-cloud"/></svg></div><span class="badge ok">Available</span></div>
+        <h3>Cloud sync and web panel</h3>
+        <ul><li>All tills and shops sync to our cloud server</li><li>Admin web panel in the browser</li><li>Edits on different tills are merged field by field, so no edit is lost</li></ul></div>
+      <div class="card"><div class="card-head"><div class="ic"><svg class="i"><use href="#i-wifi"/></svg></div><span class="badge ok">Available</span></div>
+        <h3>Shop hub (LAN and USB)</h3>
+        <ul><li>One PC or phone links every till over shop Wi-Fi</li><li>Tills find the hub automatically</li><li>Works with no internet at all</li><li>Hub forwards to the cloud when online</li></ul></div>
+      <div class="card"><div class="card-head"><div class="ic"><svg class="i"><use href="#i-printer"/></svg></div><span class="badge ok">Available</span></div>
+        <h3>Hardware</h3>
+        <ul><li>ESC/POS thermal printers and cash drawer</li><li>USB, Bluetooth, serial and camera barcode scanners</li><li>Weighing scales</li><li>Card terminals (semi-integrated; the POS never sees card data)</li></ul></div>
+      <div class="card"><div class="card-head"><div class="ic"><svg class="i"><use href="#i-key"/></svg></div><span class="badge ok">Available</span></div>
+        <h3>Offline licence</h3>
+        <ul><li>Signed licence file, no activation server</li><li>Works on fully offline shops</li><li>Device limit per plan: tills, waiter phones, kitchen screens and self-checkouts</li><li>Renew in one tap: send the licence request from the app on WhatsApp</li></ul></div>
+      <div class="card"><div class="card-head"><div class="ic"><svg class="i"><use href="#i-lang"/></svg></div><span class="badge ok">Available</span></div>
+        <h3>Your language</h3>
+        <ul><li>English and हिन्दी, switch any time</li><li>Rupee formatting and Indian tax presets built in</li><li>Light and dark themes</li></ul></div>
+      <div class="card"><div class="card-head"><div class="ic"><svg class="i"><use href="#i-cup"/></svg></div><span class="badge ok">Available · 0.1.3</span></div>
+        <h3>Tables and orders</h3>
+        <ul><li>Table map by floor with live status</li><li>Modifiers, seats and courses (hold and fire)</li><li>Waiter app on phones, move and merge tables</li><li>Split by seat, by item or equally; service charge</li></ul></div>
+      <div class="card"><div class="card-head"><div class="ic"><svg class="i"><use href="#i-printer"/></svg></div><span class="badge ok">Available · 0.1.3</span></div>
+        <h3>Kitchen</h3>
+        <ul><li>Kitchen tickets (KOT) printed per station</li><li>Kitchen screen: cooking, ready, bump, recall</li><li>Orders reach the kitchen in about a second over shop Wi-Fi</li></ul></div>
+      <div class="card"><div class="card-head"><div class="ic"><svg class="i"><use href="#i-qr"/></svg></div><span class="badge ok">Available · 0.1.3</span></div>
+        <h3>QR ordering by guests</h3>
+        <ul><li>Guests scan the table card and order from their phone</li><li>Auto-send or waiter confirms</li><li>Works on shop Wi-Fi without internet, or on mobile data via the cloud</li><li>Printable QR table cards</li></ul></div>
+      <div class="card"><div class="card-head"><div class="ic"><svg class="i"><use href="#i-devices"/></svg></div><span class="badge ok">Available · 0.1.3</span></div>
+        <h3>Customer display</h3>
+        <ul><li>Cart and total facing the customer</li><li>UPI QR while paying</li><li>Any second monitor, tablet or phone (browser)</li></ul></div>
+      <div class="card"><div class="card-head"><div class="ic"><svg class="i"><use href="#i-chat"/></svg></div><span class="badge ok">Available · 0.1.4</span></div>
+        <h3>Customer links</h3>
+        <ul><li>Share the bill by WhatsApp, SMS or QR</li><li>QR to the bill on receipts and the customer display</li><li>Private loyalty page: points, credit and bills</li><li>QR menu with photos; call waiter, ask for bill, pay by UPI</li></ul></div>
+      <div class="card"><div class="card-head"><div class="ic"><svg class="i"><use href="#i-devices"/></svg></div><span class="badge ok">Available · 0.1.5</span></div>
+        <h3>Self-checkout kiosk</h3>
+        <ul><li>Customers scan, weigh and pay by card or UPI</li><li>One attendant screen for every kiosk</li><li>Staff approve age checks, removals and UPI payments</li><li>Locked to the app on Android, Windows, Linux and iPad</li></ul></div>
+      <div class="card"><div class="card-head"><div class="ic"><svg class="i"><use href="#i-chat"/></svg></div><span class="badge ok">Available · 0.1.5</span></div>
+        <h3>Your shop's look</h3>
+        <ul><li>Six colour sets or your own colours</li><li>Your logo on screens, receipts and bill links</li><li>Delete for good (admin), shop reset with backup</li><li>CSV import of products, categories and stock</li></ul></div>
+    </div>
+  </div>
+</section>
+
+<!-- Comparison -->
+<section class="alt" id="compare">
+  <div class="wrap">
+    <div class="center">
+      <span class="eyebrow">Compare</span>
+      <h2>How it compares</h2>
+      <p class="lead">Compared with the two kinds of billing software most shops use today.</p>
+    </div>
+    <div class="table-wrap">
+      <table class="compare">
+        <thead><tr><th scope="col"></th><th scope="col" class="us">Universal POS</th><th scope="col">Typical cloud-only POS</th><th scope="col">Typical desktop billing software</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">Bills with no internet</th><td class="us"><span class="yes">✓</span> Always</td><td><span class="no">✗</span> Usually stops or is limited</td><td><span class="yes">✓</span></td></tr>
+          <tr><th scope="row">Phone, tablet, PC and browser</th><td class="us"><span class="yes">✓</span> One app on all</td><td><span class="yes">✓</span> Often tablet or browser</td><td><span class="no">✗</span> Usually PC only</td></tr>
+          <tr><th scope="row">Many tills with no internet</th><td class="us"><span class="yes">✓</span> Shop hub over Wi-Fi or USB</td><td><span class="no">✗</span> Needs the cloud</td><td>Sometimes, on a local network</td></tr>
+          <tr><th scope="row">Cloud sync and web admin</th><td class="us"><span class="yes">✓</span> Included</td><td><span class="yes">✓</span></td><td><span class="no">✗</span> Often an add-on or missing</td></tr>
+          <tr><th scope="row">After the plan ends</th><td class="us"><span class="yes">✓</span> Read-only, data kept</td><td><span class="no">✗</span> Access often stops</td><td><span class="yes">✓</span> Data on the PC</td></tr>
+          <tr><th scope="row">Pricing</th><td class="us">Per device, monthly to yearly or lifetime</td><td>Often per outlet or per user, monthly</td><td>One-time plus a yearly maintenance fee</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note center">These columns describe common products of each kind. Check the details of any product you're considering.</p>
+  </div>
+</section>
+
+<!-- Roadmap -->
+<section id="roadmap">
+  <div class="wrap">
+    <div class="center">
+      <span class="eyebrow">Coming soon</span>
+      <h2>Roadmap</h2>
+      <p class="lead">New features arrive as free updates on every active plan. Restaurant and kiosk features are switched on per shop.</p>
+    </div>
+    <ol class="timeline">
+      <li class="done"><span class="dot"><svg class="i"><use href="#i-check"/></svg></span>
+        <div class="card"><div class="card-head"><h3>Retail core, stock, cloud, hardware, shop hub</h3><span class="badge ok">Available · 0.1.2</span></div>
+          <ul><li>Offline selling, GST, UPI, receipts, shifts</li><li>Stock, customers, loyalty, credit</li><li>Cloud sync and admin web panel</li><li>Printer, scanner, scale, drawer, card terminal</li><li>LAN and USB shop hub</li></ul></div></li>
+      <li class="done"><span class="dot"><svg class="i"><use href="#i-check"/></svg></span>
+        <div class="card"><div class="card-head"><h3>Restaurant and table ordering</h3><span class="badge ok">Available · 0.1.3</span></div>
+          <ul><li>Table map with live status</li><li>Item modifiers (extra cheese, less sugar)</li><li>Waiter app on phones</li><li>QR table ordering by guests</li><li>Kitchen screen and KOT printing</li><li>Customer-facing display</li><li>Split bills by item or amount</li></ul></div></li>
+      <li class="done"><span class="dot"><svg class="i"><use href="#i-check"/></svg></span>
+        <div class="card"><div class="card-head"><h3>Customer web</h3><span class="badge ok">Available · 0.1.4</span></div>
+          <ul><li>QR menu in the browser</li><li>Share bills as links (WhatsApp, SMS)</li><li>Customer loyalty page</li></ul></div></li>
+      <li class="done"><span class="dot"><svg class="i"><use href="#i-check"/></svg></span>
+        <div class="card"><div class="card-head"><h3>Self-checkout kiosk</h3><span class="badge ok">Available · 0.1.5</span></div>
+          <ul><li>Kiosk lock on every OS</li><li>Guided customer scan and pay</li><li>Attendant screen</li><li>Staff approvals for age checks and overrides</li></ul></div></li>
+      <li class="done"><span class="dot"><svg class="i"><use href="#i-check"/></svg></span>
+        <div class="card"><div class="card-head"><h3>Easy licensing</h3><span class="badge ok">Available · 0.1.6</span></div>
+          <ul><li>Send your licence request from the app on WhatsApp in one tap</li><li>Device slots per plan: tills, waiter phones, kitchen screens, self-checkouts</li><li>Renewals reach synced tills by themselves</li><li>Clear plan-limit reminders, nothing is ever blocked or deleted</li></ul></div></li>
+      <li class="done"><span class="dot"><svg class="i"><use href="#i-check"/></svg></span>
+        <div class="card"><div class="card-head"><h3>Install, update and back up offline</h3><span class="badge ok">Available · 0.1.8</span></div>
+          <ul><li>Signed Android app and checked downloads</li><li>Updates from a pen drive, no internet needed</li><li>Encrypted one-tap backup, restore on a new device</li><li>Licence by QR code</li></ul></div></li>
+    </ol>
+  </div>
+</section>
+
+<!-- Screens -->
+<section class="alt" id="screens">
+  <div class="wrap">
+    <div class="center">
+      <span class="eyebrow">Screenshots</span>
+      <h2>See it in action</h2>
+      <p class="lead">Real screens from the app with a sample kirana store.</p>
+      <div class="tabs" role="tablist" aria-label="Device">
+        <button type="button" role="tab" aria-selected="true" aria-controls="galDesk" id="tabDesk">Desktop</button>
+        <button type="button" role="tab" aria-selected="false" aria-controls="galPhone" id="tabPhone">Phone</button>
+      </div>
+    </div>
+    <div class="gallery" id="galDesk" role="tabpanel" aria-labelledby="tabDesk">
+      <figure><img loading="lazy" src="assets/screens/dark/11-cart.webp" width="1440" height="900" alt="Sell screen with cart"><figcaption>Sell screen and cart</figcaption></figure>
+      <figure><img loading="lazy" src="assets/screens/dark/15-checkout.webp" width="1440" height="900" alt="Checkout"><figcaption>Checkout: cash, UPI, card</figcaption></figure>
+      <figure><img loading="lazy" src="assets/screens/dark/16-checkout-split.webp" width="1440" height="900" alt="Split payment"><figcaption>Split payment</figcaption></figure>
+      <figure><img loading="lazy" src="assets/screens/dark/17-receipt.webp" width="1440" height="900" alt="Receipt"><figcaption>GST receipt</figcaption></figure>
+      <figure><img loading="lazy" src="assets/screens/dark/30-products.webp" width="1440" height="900" alt="Products list"><figcaption>Products</figcaption></figure>
+      <figure><img loading="lazy" src="assets/screens/dark/44-stock.webp" width="1440" height="900" alt="Stock"><figcaption>Stock levels</figcaption></figure>
+      <figure><img loading="lazy" src="assets/screens/dark/40-customers.webp" width="1440" height="900" alt="Customers"><figcaption>Customers and credit</figcaption></figure>
+      <figure><img loading="lazy" src="assets/screens/dark/24-shift.webp" width="1440" height="900" alt="Shift"><figcaption>Shifts and cash</figcaption></figure>
+      <figure><img loading="lazy" src="assets/screens/dark/50-reports.webp" width="1440" height="900" alt="Reports"><figcaption>Reports</figcaption></figure>
+      <figure><img loading="lazy" src="assets/screens/dark/65-settings-printer.webp" width="1440" height="900" alt="Printer settings"><figcaption>Printer setup</figcaption></figure>
+      <figure><img loading="lazy" src="assets/screens/dark/80-tables.webp" width="1440" height="900" alt="Table map"><figcaption>Table map</figcaption></figure>
+      <figure><img loading="lazy" src="assets/screens/dark/81-order.webp" width="1440" height="900" alt="Table order"><figcaption>Table order with seats and courses</figcaption></figure>
+      <figure><img loading="lazy" src="assets/screens/dark/83-kitchen.webp" width="1440" height="900" alt="Kitchen screen"><figcaption>Kitchen screen</figcaption></figure>
+      <figure><img loading="lazy" src="assets/screens/dark/82-pay-split.webp" width="1440" height="900" alt="Split the bill"><figcaption>Split the bill</figcaption></figure>
+    </div>
+    <div class="gallery phones" id="galPhone" role="tabpanel" aria-labelledby="tabPhone" hidden>
+      <figure><img loading="lazy" src="assets/screens/dark/phone-10-sell.webp" width="780" height="1688" alt="Sell screen on phone"><figcaption>Sell</figcaption></figure>
+      <figure><img loading="lazy" src="assets/screens/dark/phone-15-checkout.webp" width="780" height="1688" alt="Checkout on phone"><figcaption>Checkout</figcaption></figure>
+      <figure><img loading="lazy" src="assets/screens/dark/phone-17-receipt.webp" width="780" height="1688" alt="Receipt on phone"><figcaption>Receipt</figcaption></figure>
+      <figure><img loading="lazy" src="assets/screens/dark/phone-80-tables.webp" width="780" height="1688" alt="Table map on phone"><figcaption>Waiter: tables</figcaption></figure>
+      <figure><img loading="lazy" src="assets/screens/dark/phone-81-order.webp" width="780" height="1688" alt="Order on phone"><figcaption>Waiter: order</figcaption></figure>
+    </div>
+  </div>
+  <dialog class="lightbox" id="lightbox" aria-label="Screenshot">
+    <form method="dialog"><button style="all:unset;display:block;cursor:zoom-out" aria-label="Close"><img id="lbImg" src="data:," alt=""></button></form>
+    <p id="lbCap"></p>
+  </dialog>
+</section>
+
+<!-- Testimonials (shown when TESTIMONIALS in assets/site.js has entries) -->
+<section id="stories" hidden>
+  <div class="wrap">
+    <div class="center"><span class="eyebrow">Shops using it</span><h2>What shop owners say</h2></div>
+    <div class="grid three" id="quotes" style="margin-top:32px"></div>
+  </div>
+</section>
+
+<!-- Pricing -->
+<section id="pricing">
+  <div class="wrap">
+    <div class="center">
+      <span class="eyebrow">Pricing</span>
+      <h2>Simple plans. All features included.</h2>
+      <p class="lead">Start with a <span data-trial-days>30</span>-day free trial. Then pay per device (till, phone or PC): monthly, quarterly, half-yearly or yearly. The longer the plan, the more you save.</p>
+    </div>
+    <div class="price-grid" id="plans"></div>
+    <p class="note center" id="priceNote"></p>
+
+    <h3 class="sub">More than one counter? Save more.</h3>
+    <div class="card calc">
+      <div>
+        <div class="row">
+          <div><label for="calcPlan">Plan</label><select id="calcPlan"></select></div>
+          <div><label for="calcN">Devices (tills, phones, PCs)</label><input id="calcN" type="number" min="1" max="999" value="3" inputmode="numeric"></div>
+        </div>
+        <div class="volume" id="volume"></div>
+      </div>
+      <div id="calcOut" aria-live="polite"></div>
+    </div>
+
+    <h3 class="sub">Other ways to buy</h3>
+    <div class="other-grid" id="otherPlans"></div>
+  </div>
+</section>
+
+<!-- Download -->
+<section class="alt" id="download">
+  <div class="wrap">
+    <div class="center">
+      <span class="eyebrow">Get the app</span>
+      <h2>Download the free trial</h2>
+      <p class="lead">Install it, add your products and start billing. The trial has every feature for <span data-trial-days>30</span> days. After that, pick a plan, send us the licence request from <b>Settings → License</b>, and we send your licence file.</p>
+    </div>
+    <div class="store-grid" id="downloads"></div>
+    <h3 class="sub">App stores</h3>
+    <div class="store-grid" id="stores"></div>
+    <p class="note center">Store names are trademarks of their owners. Listings marked "Coming soon" are not live yet.</p>
+  </div>
+</section>
+
+<!-- Guide -->
+<section id="guide">
+  <div class="wrap">
+    <div class="center">
+      <span class="eyebrow">Guide</span>
+      <h2>Read the full shop guide</h2>
+      <p class="lead">The guide covers every screen and setting, with pictures, from installing the app to adding more tills. It's available in English and Hindi.</p>
+    </div>
+    <div class="grid two" style="margin-top:32px;max-width:860px;margin-left:auto;margin-right:auto">
+      <div class="card dl"><div class="ic"><svg class="i"><use href="#i-pdf"/></svg></div><div><h3>Shop guide (English)</h3><small>PDF · version 0.1.8 · 7 MB</small></div>
+        <a class="btn btn-primary" href="assets/pdf/universal-pos-guide-0.1.8-en.pdf" target="_blank" rel="noopener">Open PDF</a></div>
+      <div class="card dl"><div class="ic"><svg class="i"><use href="#i-pdf"/></svg></div><div><h3 lang="hi">दुकान गाइड (हिन्दी)</h3><small>PDF · version 0.1.8 · 7 MB</small></div>
+        <a class="btn btn-primary" href="assets/pdf/universal-pos-guide-0.1.8-hi.pdf" target="_blank" rel="noopener" lang="hi">PDF खोलें</a></div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="alt" id="faq">
+  <div class="wrap">
+    <div class="center"><span class="eyebrow">FAQ</span><h2>Questions shop owners ask</h2></div>
+    <div class="faq">
+      <details><summary>Is there a free trial?</summary><p>Yes. Download the app and use every feature free for 30 days, with no card and no sign-up. Pick a plan when you're ready, and your products and bills stay as they are.</p></details>
+      <details><summary>Do I need internet to bill?</summary><p>No. Every sale is saved on the device first. Internet only matters for cloud sync, which catches up by itself once you're back online. Backups and updates work from a pen drive.</p></details>
+      <details><summary>What if my phone or PC breaks?</summary><p>Back up from <b>Settings → Backup</b> to a pen drive (a PC can do it every day by itself). On the new device choose <b>Restore from backup</b>, pick the file and your shop's licence: products, customers, bills and staff come back. The file is encrypted and opens only with your licence.</p></details>
+      <details><summary>What happens when my plan ends?</summary><p>You get 30 days of grace with a reminder banner. After that the app goes read-only: you can still see every bill, report and customer, but new sales stop until you renew. Your data is never locked away or deleted.</p></details>
+      <details><summary>How is the price counted?</summary><p>Per device that sells or manages the shop: a phone, tablet or PC. Two counters means two devices. With 3 or more devices you get a multi-device discount.</p></details>
+      <details><summary>Can I pay once instead of every month?</summary><p>Yes. The lifetime licence is a one-time payment per device with one year of updates. After that you can keep using your version forever or add an update plan.</p></details>
+      <details><summary>Does it work for restaurants and cafes?</summary><p>Yes. Turn on the restaurant features for table maps, modifiers, a waiter app on phones, kitchen tickets and a kitchen screen, QR ordering by guests, split bills and a customer display. It all works on shop Wi-Fi without internet through the shop hub.</p></details>
+      <details><summary>Which devices does it run on?</summary><p>Android phones and tablets, Windows and Linux PCs, iPhone and iPad, and the admin panel in any modern browser.</p></details>
+      <details><summary>Which printers, scanners and scales work?</summary><p>ESC/POS thermal receipt printers (USB, network, Bluetooth), cash drawers on the printer, USB/Bluetooth/serial barcode scanners and the phone camera, common weighing scales and scale barcodes. The shop guide has the full setup.</p></details>
+      <details><summary>Can several tills share one catalog without internet?</summary><p>Yes. Turn one PC or phone into the shop hub. The other tills find it over shop Wi-Fi or a USB link and stay in sync with no internet at all.</p></details>
+      <details><summary>Do upcoming features cost extra?</summary><p>No. Restaurant, kiosk and every other roadmap feature come as updates on an active plan.</p></details>
+      <details><summary>Is card data safe?</summary><p>The POS never reads or stores card numbers. Card terminals handle the payment and only send back "approved" or "declined".</p></details>
+      <details><summary>Is GST included in the price?</summary><p>Prices shown are before GST. GST is added on the invoice.</p></details>
+    </div>
+  </div>
+</section>
+
+<!-- Policies -->
+<section id="policies">
+  <div class="wrap">
+    <div class="center"><span class="eyebrow">Policies</span><h2>Privacy, terms and refunds</h2></div>
+    <div class="legal">
+      <details id="privacy"><summary>Privacy policy</summary><div class="body"><ul>
+        <li><b>Your shop data stays yours.</b> Sales, products, customers and stock are stored on your devices. If you turn on sync, they are also kept on our cloud server. We don't sell, share or mine your data.</li>
+        <li><b>No ads, no tracking.</b> The app has no analytics, advertising or third-party tracking SDKs, and doesn't need Google Play Services or Firebase. This website sets no cookies; it only remembers your light or dark choice in your browser.</li>
+        <li><b>Permissions are used only for selling.</b> Camera: barcode scanning. Bluetooth, USB and serial: printers, scanners, scales and card terminals. Local network: finding the shop hub and other tills.</li>
+        <li><b>Card payments.</b> The app never reads or stores card numbers. Card terminals only return approved or declined.</li>
+        <li><b>What we keep when you buy.</b> Your name, shop name, phone or e-mail and GSTIN, to issue invoices and licences. We keep these as long as the law requires for invoices.</li>
+        <li><b>Deleting data.</b> Uninstalling removes the data on that device. To have data on our cloud server or your contact details deleted, contact us.</li>
+      </ul></div></details>
+      <details id="terms"><summary>Terms of service</summary><div class="body"><ul>
+        <li><b>Licence.</b> Each plan gives you the right to use Universal POS on the number of devices in your licence, for the period you paid for. The software stays ours; you may not resell, copy or reverse-engineer it.</li>
+        <li><b>Trial.</b> The free trial has every feature for 30 days. After it ends, buy a plan to keep making sales. Your data stays readable.</li>
+        <li><b>Plan end.</b> When a plan ends, the app gives 30 days of grace, then becomes read-only until you renew. We never delete your data because a plan ended.</li>
+        <li><b>Your data and backups.</b> You own your data. Keep regular backups, especially for devices that don't sync.</li>
+        <li><b>Taxes and invoices.</b> You are responsible for the tax rates, prices and GST details you set up in the app and for the invoices you issue with it.</li>
+        <li><b>Lifetime licence.</b> A lifetime licence includes updates for one year; later versions need an update plan.</li>
+        <li><b>Warranty and liability.</b> The software is provided as is. Our total liability is limited to the amount you paid in the last 12 months.</li>
+        <li><b>Changes.</b> We may update these terms. The version on this page applies. Indian law governs these terms.</li>
+      </ul></div></details>
+      <details id="refund"><summary>Refund and cancellation policy</summary><div class="body"><ul>
+        <li><b>Try before you pay.</b> Use the 30-day free trial to make sure the app fits your shop.</li>
+        <li><b>7-day refund on first purchase.</b> If you're not happy, ask within 7 days of your first payment for a full refund.</li>
+        <li><b>Cancel any time.</b> Plans don't renew without your payment. If you cancel, your plan runs until the end of the period you paid for. Unused months are not refunded after the first 7 days.</li>
+        <li><b>Lifetime.</b> Refundable within 7 days of payment, before the licence is used for sales.</li>
+        <li><b>How refunds are paid.</b> To the original payment method, within 5 to 7 working days of approval. To ask for a refund, contact us below with your invoice number.</li>
+      </ul></div></details>
+      <p class="center"><small>Last updated: October 2026</small></p>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section id="contact">
+  <div class="wrap">
+    <div class="cta-band">
+      <h2>Ready to bill faster?</h2>
+      <p>Download the free trial, or tell us your shop type and number of counters and we'll show you a demo.</p>
+      <div class="hero-actions">
+        <a class="btn btn-ghost" href="#download"><svg class="i"><use href="#i-download"/></svg>Free trial</a>
+        <a class="btn btn-wa" data-wa="demo" href="#contact"><svg class="i"><use href="#i-calendar"/></svg>Book a demo</a>
+        <a class="btn btn-ghost" data-mail href="#contact"></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© <span id="year">2026</span> Universal POS</span>
+    <nav aria-label="Footer">
+      <a href="#features">Features</a><a href="#pricing">Pricing</a><a href="#download">Download</a><a href="#guide">Guide</a><a href="#faq">FAQ</a><a href="#privacy">Privacy</a><a href="#terms">Terms</a><a href="#refund">Refunds</a><a href="hi.html" hreflang="hi" lang="hi">हिन्दी</a>
+    </nav>
+  </div>
+</footer>
+
+<script src="assets/site.js?v=4"></script>
+</body>
+</html>

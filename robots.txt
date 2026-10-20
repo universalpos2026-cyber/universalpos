@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+# Replace with the site's real address (see README.md).
+Sitemap: https://universalpos.in/sitemap.xml
