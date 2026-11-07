@@ -115,9 +115,9 @@ const VOLUME_PILLS = [
   { min: 9, off: 40 },
 ];
 
-// Other ways to buy: Free Forever Solo (freemium), Lifetime, Self-host
+// Other ways to buy: Free Trial (1 month), Lifetime, Self-host
 const OTHER_PLANS = [
-  { id: "free",     price: 0,     show: true },
+  { id: "trial",    price: 0,     show: true },
   { id: "lifetime", price: 14999, show: true, payUrl: "" },
   { id: "selfhost", price: null,  show: false }, // not offered (owner, 2026-10-20)
 ];
@@ -162,8 +162,7 @@ const T = {
       annual:    ["Annual", "Billed every year"],
     },
     other: {
-      free:     ["Free Forever Solo", "Free forever for 1 counter", ["100% offline billing & GST receipts", "Thermal printing & phone barcode scanner", "Customer ledger (Khata) & cash drawer", "Encrypted offline USB backup", "No credit card, no sign-up, never expires", "Upgrade anytime as your store grows"]],
-      trial:    ["Free trial", "Free for 1 month", ["Every feature included", "No card, no sign-up", "Then pick any plan", "Products and bills stay as they are"]],
+      trial:    ["30-Day Free Trial", "Free for 1 month trial period", ["100% offline billing & GST receipts", "Thermal printing & phone barcode scanner", "Customer ledger (Khata) & cash drawer", "Encrypted offline USB backup", "No credit card, no sign-up required", "Upgrade anytime as your store grows"]],
       multiyear: ["Multi-year", "Pay once per device for 2, 3 or 5 years", ["All features and updates for the whole term", "The longer you take, the more you save"]],
       lifetime: ["Lifetime", "Pay once per device", ["100% offline standalone POS", "1 year of updates included", "Optional update plan after that", "Offline licence, never expires"]],
       selfhost: ["Self-host", "Run on your own server", ["Server on your PC or cloud", "Unlimited devices on request", "Priority support and setup", "Custom connectors"]],
@@ -171,10 +170,9 @@ const T = {
     perDevice: "per device",
     perMonth: m => `= ${m} per month · per device`,
     once: "one-time · per device",
-    freePer: "free forever · 1 device",
-    freeCta: "Download Free Solo",
     trialPer: "for 1 month · then pick a plan",
-    trialCta: "Download free trial",
+    trialCta: "Download Free Trial",
+    trialTag: "Free Trial",
     contact: "Contact us",
     save: n => `Save ${n}%`,
     years: y => `${y} years`,
@@ -233,8 +231,7 @@ const T = {
       annual:    ["सालाना", "हर साल बिल"],
     },
     other: {
-      free:     ["लाइफ़टाइम फ्री सोलो", "1 काउंटर के लिए हमेशा फ्री", ["100% ऑफ़लाइन बिलिंग और GST रसीदें", "थर्मल प्रिंटिंग और फ़ोन बारकोड स्कैनर", "ग्राहक खाता (उधार बहीखाता) और कैश ड्रॉअर", "एन्क्रिप्टेड ऑफ़लाइन USB बैकअप", "न कार्ड, न साइन-अप, कभी एक्सपायर नहीं", "दुकान बढ़ने पर कभी भी अपग्रेड करें"]],
-      trial:    ["फ्री ट्रायल", "1 महीना फ्री", ["सभी फ़ीचर शामिल", "न कार्ड, न साइन-अप", "फिर कोई भी प्लान चुनें", "प्रोडक्ट और बिल वैसे ही रहते हैं"]],
+      trial:    ["30-दिन फ्री ट्रायल", "1 महीने की ट्रायल अवधि के लिए फ्री", ["100% ऑफ़लाइन बिलिंग और GST रसीदें", "थर्मल प्रिंटिंग और फ़ोन बारकोड स्कैनर", "ग्राहक खाता (उधार बहीखाता) और कैश ड्रॉअर", "एन्क्रिप्टेड ऑफ़लाइन USB बैकअप", "न क्रेडिट कार्ड, न साइन-अप आवश्यक", "दुकान बढ़ने पर कभी भी अपग्रेड करें"]],
       multiyear: ["कई साल", "हर डिवाइस पर 2, 3 या 5 साल के लिए एक बार भुगतान", ["पूरी अवधि के लिए सभी फ़ीचर और अपडेट", "जितनी लंबी अवधि, उतनी ज़्यादा बचत"]],
       lifetime: ["लाइफ़टाइम", "हर डिवाइस पर एक बार भुगतान", ["100% ऑफ़लाइन स्टैंडअलोन POS", "1 साल के अपडेट शामिल", "उसके बाद अपडेट प्लान अपनी मर्ज़ी से", "ऑफ़लाइन लाइसेंस, कभी ख़त्म नहीं"]],
       selfhost: ["सेल्फ़-होस्ट", "अपने सर्वर पर चलाएँ", ["सर्वर आपके PC या क्लाउड पर", "माँगने पर अनगिनत डिवाइस", "प्राथमिकता सहायता और सेटअप", "कस्टम कनेक्टर"]],
@@ -242,10 +239,9 @@ const T = {
     perDevice: "प्रति डिवाइस",
     perMonth: m => `= ${m} प्रति माह · प्रति डिवाइस`,
     once: "एक बार · प्रति डिवाइस",
-    freePer: "हमेशा के लिए फ्री · 1 डिवाइस",
-    freeCta: "फ्री सोलो डाउनलोड करें",
     trialPer: "1 महीने के लिए · फिर प्लान चुनें",
     trialCta: "फ्री ट्रायल डाउनलोड करें",
+    trialTag: "फ्री ट्रायल",
     contact: "संपर्क करें",
     save: n => `${n}% बचत`,
     years: y => `${y} साल`,
@@ -349,17 +345,18 @@ function renderPlans(tierKey) {
   fill("tierDesc", tier.tagline[LANG]);
 }
 
-// Free trial / Free forever, multi-year, lifetime
+// Free trial, multi-year, lifetime
 function otherCard(o) {
-  const [name, term, items] = L.other[o.id];
-  const isFree = o.id === "free" || o.price === 0;
+  const [name, term, items] = L.other[o.id] || L.other.trial;
+  const isTrial = o.id === "trial" || o.id === "free" || o.price === 0;
   const amount = o.price === null ? L.contact : fmt(o.price);
-  const per = o.price === null ? "" : isFree ? L.freePer : L.once;
-  const cta = isFree ? `<a class="btn btn-primary" href="#download">${icon("i-download")}${L.freeCta}</a>`
+  const per = o.price === null ? "" : (isTrial ? L.trialPer : L.once);
+  const tag = isTrial ? (L.trialTag || "Free Trial") : "";
+  const cta = isTrial ? `<a class="btn btn-primary" href="#download">${icon("i-download")}${L.trialCta}</a>`
     : o.payUrl ? `<a class="btn btn-primary" href="${esc(o.payUrl)}" ${ext}>${L.pay}</a>`
     : `<a class="btn btn-wa" href="${wa(L.otherMsg(name))}" ${ext}>${icon("i-chat")}${L.talk}</a>`;
-  return `<div class="plan${isFree ? " free-card" : ""}">
-    ${isFree ? `<span class="tag" style="background:var(--ok)">Freemium</span>` : ""}
+  return `<div class="plan${isTrial ? " free-card" : ""}">
+    ${tag ? `<span class="tag" style="background:var(--ok)">${tag}</span>` : ""}
     <h3>${name}</h3>
     <div class="term">${term}</div>
     <div class="amount">${amount}</div>
