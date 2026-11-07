@@ -78,7 +78,7 @@ const TIERS = {
       en: [
         "Everything in Standalone plan",
         "Real-time Cloud Sync across all counters",
-        "Web Admin Panel (panel.quantlogiq.in)",
+        "Web Admin Panel",
         "Live sales & profit reports on owner's phone",
         "Multi-counter P2P Hub without internet",
         "Remote catalog, pricing & stock management",
@@ -87,7 +87,7 @@ const TIERS = {
       hi: [
         "स्टैंडअलोन प्लान के सभी फ़ीचर",
         "सभी काउंटरों पर रीयल-टाइम क्लाउड सिंक",
-        "वेब एडमिन पैनल (panel.quantlogiq.in)",
+        "वेब एडमिन पैनल",
         "मालिक के फ़ोन पर लाइव बिक्री और मुनाफ़ा रिपोर्ट",
         "बिना इंटरनेट मल्टी-काउंटर P2P हब",
         "रिमोट प्रोडक्ट, कीमत और स्टॉक प्रबंधन",
