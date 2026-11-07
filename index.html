@@ -573,19 +573,73 @@
       <h2>Simple plans. All features included.</h2>
       <p class="lead">Start with a <span data-trial-days>30</span>-day free trial. Then pay per device (till, phone or PC): monthly, quarterly, half-yearly or yearly. The longer the plan, the more you save.</p>
     </div>
-    <div class="price-grid" id="plans"></div>
+    <div class="price-grid" id="plans"><div class="plan">
+    <h3>Monthly</h3>
+    <div class="term">Billed every month</div>
+    <div class="amount">₹499</div>
+    <div class="per">per device</div>
+    <span class="save none">Save 0%</span>
+    <ul><li><svg class="i"><use href="#i-check"></use></svg>All features, no add-ons</li><li><svg class="i"><use href="#i-check"></use></svg>Free updates incl. roadmap</li><li><svg class="i"><use href="#i-check"></use></svg>Cloud sync + web admin panel</li><li><svg class="i"><use href="#i-check"></use></svg>30-day free trial first</li></ul>
+    <div class="actions">
+      <a class="btn btn-wa" href="https://wa.me/918922962849?text=Hi%2C%20I'd%20like%20the%20Universal%20POS%20Monthly%20plan%20(%E2%82%B9499%20per%20device)." target="_blank" rel="noopener"><svg class="i"><use href="#i-chat"></use></svg>Buy on WhatsApp</a>
+      <a class="btn btn-ghost" href="mailto:universalpos2026@gmail.com?subject=Universal%20POS%20Monthly"><svg class="i"><use href="#i-mail"></use></svg>Email us</a>
+    </div>
+  </div><div class="plan">
+    <h3>Quarterly</h3>
+    <div class="term">Billed every 3 months</div>
+    <div class="amount">₹1,399</div>
+    <div class="per">= ₹466 per month · per device</div>
+    <span class="save">Save 7%</span>
+    <ul><li><svg class="i"><use href="#i-check"></use></svg>All features, no add-ons</li><li><svg class="i"><use href="#i-check"></use></svg>Free updates incl. roadmap</li><li><svg class="i"><use href="#i-check"></use></svg>Cloud sync + web admin panel</li><li><svg class="i"><use href="#i-check"></use></svg>30-day free trial first</li></ul>
+    <div class="actions">
+      <a class="btn btn-wa" href="https://wa.me/918922962849?text=Hi%2C%20I'd%20like%20the%20Universal%20POS%20Quarterly%20plan%20(%E2%82%B91%2C399%20per%20device)." target="_blank" rel="noopener"><svg class="i"><use href="#i-chat"></use></svg>Buy on WhatsApp</a>
+      <a class="btn btn-ghost" href="mailto:universalpos2026@gmail.com?subject=Universal%20POS%20Quarterly"><svg class="i"><use href="#i-mail"></use></svg>Email us</a>
+    </div>
+  </div><div class="plan">
+    <h3>Half-yearly</h3>
+    <div class="term">Billed every 6 months</div>
+    <div class="amount">₹2,699</div>
+    <div class="per">= ₹450 per month · per device</div>
+    <span class="save">Save 10%</span>
+    <ul><li><svg class="i"><use href="#i-check"></use></svg>All features, no add-ons</li><li><svg class="i"><use href="#i-check"></use></svg>Free updates incl. roadmap</li><li><svg class="i"><use href="#i-check"></use></svg>Cloud sync + web admin panel</li><li><svg class="i"><use href="#i-check"></use></svg>30-day free trial first</li></ul>
+    <div class="actions">
+      <a class="btn btn-wa" href="https://wa.me/918922962849?text=Hi%2C%20I'd%20like%20the%20Universal%20POS%20Half-yearly%20plan%20(%E2%82%B92%2C699%20per%20device)." target="_blank" rel="noopener"><svg class="i"><use href="#i-chat"></use></svg>Buy on WhatsApp</a>
+      <a class="btn btn-ghost" href="mailto:universalpos2026@gmail.com?subject=Universal%20POS%20Half-yearly"><svg class="i"><use href="#i-mail"></use></svg>Email us</a>
+    </div>
+  </div><div class="plan best">
+    <span class="tag">Best value</span>
+    <h3>Annual</h3>
+    <div class="term">Billed every year</div>
+    <div class="amount">₹4,999</div>
+    <div class="per">= ₹417 per month · per device</div>
+    <span class="save">Save 17%</span>
+    <ul><li><svg class="i"><use href="#i-check"></use></svg>All features, no add-ons</li><li><svg class="i"><use href="#i-check"></use></svg>Free updates incl. roadmap</li><li><svg class="i"><use href="#i-check"></use></svg>Cloud sync + web admin panel</li><li><svg class="i"><use href="#i-check"></use></svg>30-day free trial first</li></ul>
+    <div class="actions">
+      <a class="btn btn-primary" href="https://wa.me/918922962849?text=Hi%2C%20I'd%20like%20the%20Universal%20POS%20Annual%20plan%20(%E2%82%B94%2C999%20per%20device)." target="_blank" rel="noopener"><svg class="i"><use href="#i-chat"></use></svg>Buy on WhatsApp</a>
+      <a class="btn btn-ghost" href="mailto:universalpos2026@gmail.com?subject=Universal%20POS%20Annual"><svg class="i"><use href="#i-mail"></use></svg>Email us</a>
+    </div>
+  </div></div>
     <p class="note center" id="priceNote">Prices per device, before GST. Every plan includes all features and free updates.</p>
 
     <h3 class="sub">More than one counter? Save more.</h3>
     <div class="card calc">
       <div>
         <div class="row">
-          <div><label for="calcPlan">Plan</label><select id="calcPlan"></select></div>
+          <div><label for="calcPlan">Plan</label><select id="calcPlan"><option value="monthly">Monthly · ₹499</option><option value="quarterly">Quarterly · ₹1,399</option><option value="half">Half-yearly · ₹2,699</option><option value="annual" selected="">Annual · ₹4,999</option></select></div>
           <div><label for="calcN">Devices (tills, phones, PCs)</label><input id="calcN" type="number" min="1" max="999" value="3" inputmode="numeric"></div>
         </div>
-        <div class="volume" id="volume"></div>
+        <div class="volume" id="volume"><span>3+ devices: 10% off</span><span>5+ devices: 15% off</span></div>
       </div>
-      <div id="calcOut" aria-live="polite"></div>
+      <div id="calcOut" aria-live="polite">
+        <div class="lines">
+          <div><span>List price (3 × ₹4,999)</span><span>₹14,997</span></div>
+          <div><span>Multi-device discount (10%)</span><span>−₹1,500</span></div>
+        </div>
+        <div class="term">Total before GST</div>
+        <div class="total">₹13,497</div>
+        <div class="lines">₹4,499 per device for 12 months</div>
+        <a class="btn btn-wa" href="https://wa.me/918922962849?text=Hi%2C%20I'd%20like%20Universal%20POS%20Annual%20for%203%20devices%20(quote%20%E2%82%B913%2C497%20before%20GST)." target="_blank" rel="noopener"><svg class="i"><use href="#i-chat"></use></svg>Get this quote on WhatsApp</a>
+      </div>
     </div>
 
     <h3 class="sub">How Universal POS compares in India</h3>
@@ -688,7 +742,31 @@
     </div>
 
     <h3 class="sub">Other ways to buy</h3>
-    <div class="other-grid" id="otherPlans"></div>
+    <div class="other-grid" id="otherPlans"><div class="plan">
+    <h3>Free trial</h3>
+    <div class="term">Free for 1 month</div>
+    <div class="amount">₹0</div>
+    <div class="per">for 1 month · then pick a plan</div>
+    <ul><li><svg class="i"><use href="#i-check"></use></svg>Every feature included</li><li><svg class="i"><use href="#i-check"></use></svg>No card, no sign-up</li><li><svg class="i"><use href="#i-check"></use></svg>Then pick any plan</li><li><svg class="i"><use href="#i-check"></use></svg>Products and bills stay as they are</li></ul>
+    <div class="actions"><a class="btn btn-primary" href="#download"><svg class="i"><use href="#i-download"></use></svg>Download free trial</a></div>
+  </div><div class="plan plan-multiyear">
+    <h3>Multi-year</h3>
+    <div class="term">Pay once per device for 2, 3 or 5 years</div>
+    <ul class="my-list"><li class="my-row"><span><b>2 years</b> · Save 10%</span>
+      <span class="my-price">₹8,998<small> = ₹4,499 per year</small></span></li><li class="my-row"><span><b>3 years</b> · Save 15%</span>
+      <span class="my-price">₹12,747<small> = ₹4,249 per year</small></span></li><li class="my-row"><span><b>5 years</b> · Save 20%</span>
+      <span class="my-price">₹19,996<small> = ₹3,999 per year</small></span></li></ul>
+    <div class="per">one-time · per device</div>
+    <ul><li><svg class="i"><use href="#i-check"></use></svg>All features and updates for the whole term</li><li><svg class="i"><use href="#i-check"></use></svg>The longer you take, the more you save</li></ul>
+    <div class="actions"><a class="btn btn-wa" href="https://wa.me/918922962849?text=Hi%2C%20I'm%20interested%20in%20Universal%20POS%20Multi-year." target="_blank" rel="noopener"><svg class="i"><use href="#i-chat"></use></svg>Talk to us</a></div>
+  </div><div class="plan">
+    <h3>Lifetime</h3>
+    <div class="term">Pay once per device</div>
+    <div class="amount">₹14,999</div>
+    <div class="per">one-time · per device</div>
+    <ul><li><svg class="i"><use href="#i-check"></use></svg>Pay once, keep using forever</li><li><svg class="i"><use href="#i-check"></use></svg>Free updates for 1 year</li><li><svg class="i"><use href="#i-check"></use></svg>Keep your version forever, or renew updates</li><li><svg class="i"><use href="#i-check"></use></svg>All features included</li></ul>
+    <div class="actions"><a class="btn btn-wa" href="https://wa.me/918922962849?text=Hi%2C%20I'm%20interested%20in%20Universal%20POS%20Lifetime." target="_blank" rel="noopener"><svg class="i"><use href="#i-chat"></use></svg>Talk to us</a></div>
+  </div></div>
   </div>
 </section>
 
@@ -809,6 +887,6 @@
   </div>
 </footer>
 
-<script src="assets/site.js?v=6"></script>
+<script src="assets/site.js?v=0.1.9"></script>
 </body>
 </html>
