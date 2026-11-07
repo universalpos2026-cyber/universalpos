@@ -12,7 +12,7 @@ assets/og.jpg              preview picture when the link is shared
 assets/screens/dark/       dark-theme screenshots (WebP)
 assets/screens/light/      light-theme screenshots (WebP, same names)
 assets/pdf/                shop guide PDFs (English, Hindi); no seller/vendor docs
-downloads/                 local copy of the release files (not in git); the buttons use Google Drive, see DOWNLOADS
+downloads/                 signed release files for the download buttons (not in git; see downloads/README.md)
 robots.txt, sitemap.xml    for search engines; site address https://universalpos2026-cyber.github.io/universalpos/
 .nojekyll                  tells GitHub Pages to serve files as they are
 deploy-pages.example.yml   optional GitHub Action that publishes this folder on every release tag
@@ -28,8 +28,8 @@ deploy-pages.example.yml   optional GitHub Action that publishes this folder on 
 | `VOLUME` | Multi-device discount (used by the calculator) | 3+ = 10%, 5+ = 15% |
 | `OTHER_PLANS` | Free trial (₹0 for 1 month) and lifetime cards; self-host is not offered (`show: false`) | ₹0 / ₹14,999 / hidden |
 | `MULTI_YEAR` | Multi-year card priced from the annual plan: `terms` = `[years, % off]` | 2 yr 10% / 3 yr 15% / 5 yr 20% |
-| `RELEASE` | App version of the release files; must equal `apps/pos/pubspec.yaml` | 0.1.8 |
-| `DOWNLOADS` | Trial download buttons → public Google Drive folder, `DL("<file id>")` (APK, Windows, .deb, .tar.gz, SHA256SUMS); empty `url` = ask on WhatsApp | All set except web panel |
+| `RELEASE` | App version of the files in `downloads/`; must equal `apps/pos/pubspec.yaml` | 0.1.9 |
+| `DOWNLOADS` | Trial download buttons → `downloads/<file>` (APK, Windows, .deb, .tar.gz, SHA256SUMS); empty `url` = ask on WhatsApp | All set except web panel |
 | `STORES` | App store listings; `status: "live"` + `url` when live | All "soon" |
 | `VIDEO_ID` | YouTube id of the demo video; empty hides the section | Empty |
 | `TESTIMONIALS` | Real quotes only, with the shop's permission; empty hides the section | Empty |
@@ -51,10 +51,10 @@ Before going live, also check:
   `badge soon` to `badge ok` and give its `<li>` the class `done`.
 - New guide PDFs: run `python3 tools/guide/build.py`, copy them into `assets/pdf/`, and update the links in `#guide`.
 - Screenshots follow the page theme (`dark/` ↔ `light/`, same names, `phone-` prefix for phone shots).
-  - Dark ones come from `docs/guide/images/en/`.
-  - Light ones: `cd apps/pos && flutter test --update-goldens tool/guide_screenshots_test.dart --dart-define=GUIDE_THEME=light --dart-define=GUIDE_LANGS=en --dart-define=GUIDE_OUT=../../../.claude/tmp/shots-light`
-    (about 4 min), then copy the files you need from `.claude/tmp/shots-light/en/{desktop,phone}/`.
-  - Convert to WebP: `python3 -c "from PIL import Image; import sys; [Image.open(f).convert('RGB').save(f[:-4]+'.webp', quality=82, method=6) for f in sys.argv[1:]]" *.png`
+  - Light ones come from `docs/guide/images/en/`.
+  - Dark ones: `cd apps/pos && flutter test --update-goldens tool/guide_screenshots_test.dart --dart-define=GUIDE_THEME=dark --dart-define=GUIDE_LANGS=en --dart-define=GUIDE_OUT=../../../.claude/tmp/shots-dark`
+    (about 4 min), then copy the files you need from `.claude/tmp/shots-dark/en/{desktop,phone}/`.
+  - Convert to WebP: `server/.venv/bin/python -c "from PIL import Image; import sys; [Image.open(f).convert('RGB').save(f[:-4]+'.webp', quality=82, method=6) for f in sys.argv[1:]]" *.png`
 - Store plan: `docs/superpowers/plans/2026-10-18-store-listings.md`. The stores ask for the privacy URL
   (`…/#privacy`, which opens that section).
 
@@ -76,7 +76,6 @@ The main repo is private, and Pages on a private repo needs a paid GitHub plan. 
    secret; it then publishes on every release tag.
 3. In the site repo, open Settings → Pages → *Deploy from a branch*, choose `main`, folder `/ (root)`.
 4. For a custom domain (e.g. `universalpos.in`), add it under Settings → Pages (or set `cname:` in the workflow). Then
-   replace `https://universalpos2026-cyber.github.io/universalpos/` with it in both pages' `<head>`, `robots.txt`
-   and `sitemap.xml`.
+   replace `https://example.com/` in `robots.txt` and `sitemap.xml`.
 
 All links are relative, so the site also works under `https://<user>.github.io/universal-pos-site/`.

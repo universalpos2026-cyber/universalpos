@@ -1,0 +1,10 @@
+# Release binaries (large files served from release/drive)
+downloads/*.apk
+downloads/*.deb
+downloads/*.tar.gz
+downloads/*.zip
+downloads/*.exe
+downloads/*.posupdate
+
+.DS_Store
+*.swp

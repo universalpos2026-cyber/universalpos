@@ -1,14 +1,21 @@
 // Universal POS website: settings, then rendering. Used by index.html (English) and hi.html (Hindi).
 
-// ===================== EDIT THESE =====================
-const CONTACT = {
+// ===================== GLOBAL CONFIG =====================
+const CONFIG = {
+  websiteUrl: "https://universalpos2026-cyber.github.io/universalpos",
+  adminPanelUrl: "https://panel.quantlogiq.in/#/admin/connect",
+  vendorPanelUrl: "https://vinex.tail5adeef.ts.net/vendor/plans",
   whatsapp: "918922962849",            // country code + number, digits only (owner, 2026-10-20)
   email: "universalpos2026@gmail.com",
+};
+const CONTACT = {
+  whatsapp: CONFIG.whatsapp,
+  email: CONFIG.email,
 };
 const CURRENCY = "₹";
 const TRIAL_DAYS = 30;
 
-// Subscription plans, price per device. payUrl: a Razorpay/Cashfree payment link; when set, a "Pay now" button shows.
+// Universal Plans: All features, free updates, cloud sync, web admin panel included in every plan.
 const PLANS = [
   { id: "monthly",   months: 1,  price: 499,  payUrl: "" },
   { id: "quarterly", months: 3,  price: 1399, payUrl: "" },
@@ -16,39 +23,62 @@ const PLANS = [
   { id: "annual",    months: 12, price: 4999, payUrl: "", best: true },
 ];
 
-// Multi-device discount: from `min` devices, `off` percent off the whole order.
-const VOLUME = [
+const PLAN_FEATURES = {
+  en: [
+    "All features, no add-ons",
+    "Free updates incl. roadmap",
+    "Cloud sync + web admin panel",
+    "30-day free trial first",
+  ],
+  hi: [
+    "सभी फ़ीचर, कोई अलग शुल्क नहीं",
+    "रोडमैप सहित सभी नए अपडेट",
+    "क्लाउड सिंक + वेब एडमिन पैनल",
+    "पहले 30 दिन का फ़्री ट्रायल",
+  ],
+};
+
+// Volume discount formula: 3+ devices: 10% off; 5+ devices: 15% off
+const getVolumeDiscount = n => {
+  if (n >= 5) return 15;
+  if (n >= 3) return 10;
+  return 0;
+};
+
+const VOLUME_PILLS = [
   { min: 3, off: 10 },
   { min: 5, off: 15 },
 ];
 
-// Other ways to buy. price: number (0 = free trial), or null for "contact us". show: false hides a card.
-// The only free offer is the TRIAL_DAYS free trial.
+// Other ways to buy: Free Trial, Lifetime, Self-host
 const OTHER_PLANS = [
   { id: "trial",    price: 0,     show: true },
   { id: "lifetime", price: 14999, show: true, payUrl: "" },
   { id: "selfhost", price: null,  show: false }, // not offered (owner, 2026-10-20)
 ];
 
-// Multi-year card (owner, 2026-10-20): paid once per device for N years, priced from the annual plan;
-// `terms` = years and percent off the annual price for that many years (owner: 2 yr 10%, 3 yr 15%, 5 yr 20%).
-const MULTI_YEAR = { show: true, terms: [[2, 10], [3, 15], [5, 20]], payUrl: "" };
+// Multi-year terms: [years, discount%, fixedPrice, perYearPrice]
+const MULTI_YEAR = {
+  show: true,
+  terms: [
+    [2, 10, 8998, 4499],
+    [3, 15, 12747, 4249],
+    [5, 20, 19996, 3999],
+  ],
+  payUrl: "",
+};
 
-// Direct trial downloads: the signed release files in the public Google Drive folder
-// https://drive.google.com/drive/folders/1dYrT1z130PTQhZxCjpWgZplp2VIS2gf3 (same version as the app).
-// DL takes the Drive file id; after uploading a new release, replace each id. url "" = button asks for the file on WhatsApp.
-const RELEASE = "0.1.8";
-const DL = id => `https://drive.google.com/uc?export=download&id=${id}`;
+// Direct trial downloads: the signed release files in downloads/
+const RELEASE = "0.1.9";
+const DL = f => `downloads/${f}`;
 const DOWNLOADS = [
-  { id: "apk",   icon: "i-phone",  url: DL("1x1r4jAmYYt6bwzW773JU_GH5mLCXW1uW") }, // universal-pos-0.1.8.apk
-  { id: "win",   icon: "i-laptop", url: DL("18Q1xM0rqUOAMSiWzb2seb1zMtwD04kdG") }, // UniversalPOS-Setup-0.1.8.exe
-  { id: "linux", icon: "i-laptop", url: DL("1hfQ62K9XeBYX7K3LYihugHNbyTjwNOT-") }, // universal-pos_0.1.8_amd64.deb
-  { id: "tar",   icon: "i-laptop", url: DL("1I_Z-Jw5ZczXi3fmbNxWZ4Qn061M8bdRn") }, // universal-pos-0.1.8-linux-x64.tar.gz
-  { id: "sums",  icon: "i-shield", url: DL("1X2xwkF3ECtsNmKwCf7PI-C6ts08gk-ZG") }, // SHA256SUMS
-  { id: "web",   icon: "i-globe",  url: "" },
+  { id: "apk",   icon: "i-phone",  url: DL(`universal-pos-${RELEASE}.apk`) },
+  { id: "win",   icon: "i-laptop", url: DL(`UniversalPOS-Setup-${RELEASE}.exe`) },
+  { id: "linux", icon: "i-laptop", url: DL(`universal-pos_${RELEASE}_amd64.deb`) },
+  { id: "tar",   icon: "i-laptop", url: DL(`universal-pos-${RELEASE}-linux-x64.tar.gz`) },
+  { id: "sums",  icon: "i-shield", url: DL("SHA256SUMS") },
+  { id: "web",   icon: "i-globe",  url: CONFIG.adminPanelUrl },
 ];
-// Also in the folder, not shown as buttons: SHA256SUMS.sig 1hxCpN-EyX7qVqH1ocLJEA5Xo5JcqAg6A,
-// release-pubkey.pem 1pkF4JcBQA-d0zq5DmhJLJNFsT9Nx5o3p. The .posupdate file is not public; it is sent to customers.
 
 // App stores. status: "soon" or "live" (then set url).
 const STORES = [
@@ -59,11 +89,10 @@ const STORES = [
   { id: "flathub", icon: "i-laptop", status: "soon", url: "" },
 ];
 
-// Demo video: YouTube video id (the part after "v=" in the link). "" hides the video section.
+// Demo video: YouTube video id ("" hides the video section)
 const VIDEO_ID = "";
 
-// Real customer quotes only, with the shop's permission. Empty list hides the section.
-// { quote: { en: "...", hi: "..." }, name: "Owner name", shop: { en: "Shop, City", hi: "दुकान, शहर" } }
+// Real customer quotes only
 const TESTIMONIALS = [];
 // =======================================================
 
@@ -78,7 +107,7 @@ const T = {
     other: {
       trial:    ["Free trial", "Free for 1 month", ["Every feature included", "No card, no sign-up", "Then pick any plan", "Products and bills stay as they are"]],
       multiyear: ["Multi-year", "Pay once per device for 2, 3 or 5 years", ["All features and updates for the whole term", "The longer you take, the more you save"]],
-      lifetime: ["Lifetime", "Pay once per device", ["All features", "1 year of updates included", "Optional update plan after that", "Offline licence, never expires"]],
+      lifetime: ["Lifetime", "Pay once per device", ["100% offline standalone POS", "1 year of updates included", "Optional update plan after that", "Offline licence, never expires"]],
       selfhost: ["Self-host", "Run on your own server", ["Server on your PC or cloud", "Unlimited devices on request", "Priority support and setup", "Custom connectors"]],
     },
     perDevice: "per device",
@@ -91,7 +120,6 @@ const T = {
     years: y => `${y} years`,
     perYear: v => ` = ${v} per year`,
     best: "Best value",
-    included: ["All features, no add-ons", "Free updates incl. roadmap", "Cloud sync + web admin panel", `${TRIAL_DAYS}-day free trial first`],
     buyWa: "Buy on WhatsApp",
     pay: "Pay now",
     email: "Email us",
@@ -106,8 +134,10 @@ const T = {
     months: n => n === 1 ? "1 month" : `${n} months`,
     volume: (min, off) => `${min}+ devices: ${off}% off`,
     calcBuy: "Get this quote on WhatsApp",
-    quoteMsg: (plan, n, total) => `Hi, I'd like Universal POS ${plan} for ${n} devices (quote ${total} before GST).`,
-    planMsg: (plan, price) => `Hi, I'd like the Universal POS ${plan} plan (${price} per device).`,
+    quoteMsg: (planName, n, total, off) => off > 0
+      ? `Hi, I'd like Universal POS ${planName} for ${n} devices (quote ${total} before GST, with ${off}% multi-device discount).`
+      : `Hi, I'd like Universal POS ${planName} for ${n} devices (quote ${total} before GST).`,
+    planMsg: (planName, price) => `Hi, I'd like the Universal POS ${planName} plan (${price} per device).`,
     otherMsg: plan => `Hi, I'm interested in Universal POS ${plan}.`,
     dl: {
       apk:   ["Android app (APK)", "Phones and tablets · free trial"],
@@ -144,7 +174,7 @@ const T = {
     other: {
       trial:    ["फ्री ट्रायल", "1 महीना फ्री", ["सभी फ़ीचर शामिल", "न कार्ड, न साइन-अप", "फिर कोई भी प्लान चुनें", "प्रोडक्ट और बिल वैसे ही रहते हैं"]],
       multiyear: ["कई साल", "हर डिवाइस पर 2, 3 या 5 साल के लिए एक बार भुगतान", ["पूरी अवधि के लिए सभी फ़ीचर और अपडेट", "जितनी लंबी अवधि, उतनी ज़्यादा बचत"]],
-      lifetime: ["लाइफ़टाइम", "हर डिवाइस पर एक बार भुगतान", ["सभी फ़ीचर", "1 साल के अपडेट शामिल", "उसके बाद अपडेट प्लान अपनी मर्ज़ी से", "ऑफ़लाइन लाइसेंस, कभी ख़त्म नहीं"]],
+      lifetime: ["लाइफ़टाइम", "हर डिवाइस पर एक बार भुगतान", ["100% ऑफ़लाइन स्टैंडअलोन POS", "1 साल के अपडेट शामिल", "उसके बाद अपडेट प्लान अपनी मर्ज़ी से", "ऑफ़लाइन लाइसेंस, कभी ख़त्म नहीं"]],
       selfhost: ["सेल्फ़-होस्ट", "अपने सर्वर पर चलाएँ", ["सर्वर आपके PC या क्लाउड पर", "माँगने पर अनगिनत डिवाइस", "प्राथमिकता सहायता और सेटअप", "कस्टम कनेक्टर"]],
     },
     perDevice: "प्रति डिवाइस",
@@ -157,12 +187,11 @@ const T = {
     years: y => `${y} साल`,
     perYear: v => ` = ${v} प्रति साल`,
     best: "सबसे फ़ायदेमंद",
-    included: ["सभी फ़ीचर, कोई ऐड-ऑन नहीं", "आने वाले फ़ीचर समेत फ्री अपडेट", "क्लाउड सिंक + वेब एडमिन पैनल", `पहले ${TRIAL_DAYS} दिन फ्री ट्रायल`],
     buyWa: "WhatsApp पर ख़रीदें",
     pay: "अभी भुगतान करें",
     email: "ईमेल करें",
     talk: "हमसे बात करें",
-    priceNote: "कीमतें प्रति डिवाइस, GST अलग। हर प्लान में सभी फ़ीचर और फ्री अपडेट।",
+    priceNote: "कीमतें प्रति डिवाइस, GST अलग। हर प्लान में सभी फ़ीचर और मुफ़्त अपडेट शामिल हैं।",
     calcPlan: "प्लान",
     calcDevices: "डिवाइस (काउंटर, फ़ोन, PC)",
     calcList: "सूची कीमत",
@@ -172,8 +201,10 @@ const T = {
     months: n => n === 1 ? "1 महीने" : `${n} महीने`,
     volume: (min, off) => `${min}+ डिवाइस: ${off}% छूट`,
     calcBuy: "यह कोटेशन WhatsApp पर पाएँ",
-    quoteMsg: (plan, n, total) => `नमस्ते, मुझे Universal POS ${plan} प्लान ${n} डिवाइस के लिए चाहिए (कोटेशन ${total}, GST से पहले)।`,
-    planMsg: (plan, price) => `नमस्ते, मुझे Universal POS ${plan} प्लान चाहिए (${price} प्रति डिवाइस)।`,
+    quoteMsg: (planName, n, total, off) => off > 0
+      ? `नमस्ते, मुझे Universal POS ${planName} प्लान ${n} डिवाइस के लिए चाहिए (कोटेशन ${total}, GST से पहले, ${off}% छूट के साथ)।`
+      : `नमस्ते, मुझे Universal POS ${planName} प्लान ${n} डिवाइस के लिए चाहिए (कोटेशन ${total}, GST से पहले)।`,
+    planMsg: (planName, price) => `नमस्ते, मुझे Universal POS ${planName} प्लान चाहिए (${price} प्रति डिवाइस)।`,
     otherMsg: plan => `नमस्ते, मुझे Universal POS ${plan} के बारे में जानना है।`,
     dl: {
       apk:   ["Android ऐप (APK)", "फ़ोन और टैबलेट · फ्री ट्रायल"],
@@ -211,7 +242,6 @@ const wa = text => `https://wa.me/${CONTACT.whatsapp}?text=${encodeURIComponent(
 const mail = subject => `mailto:${CONTACT.email}?subject=${encodeURIComponent(subject)}`;
 const icon = id => `<svg class="i"><use href="#${id}"/></svg>`;
 const ext = 'target="_blank" rel="noopener"';
-const base = PLANS.find(p => p.months === 1)?.price ?? PLANS[0].price;
 const fill = (id, html) => { const el = $(id); if (el) el.innerHTML = html; };
 
 // WhatsApp / e-mail / demo links anywhere on the page
@@ -219,62 +249,46 @@ document.querySelectorAll("[data-wa]").forEach(a => {
   a.href = wa(L[a.dataset.wa] || L.enquiry);
   a.target = "_blank"; a.rel = "noopener";
 });
-document.querySelectorAll("[data-mail]").forEach(a => { a.href = mail(L.mailSubject); if (!a.children.length && !a.textContent.trim()) a.textContent = CONTACT.email; });
+document.querySelectorAll("[data-mail]").forEach(a => {
+  a.href = mail(L.mailSubject);
+  if (!a.children.length && !a.textContent.trim()) a.textContent = CONTACT.email;
+});
 document.querySelectorAll("[data-trial-days]").forEach(el => el.textContent = TRIAL_DAYS);
 
-// Subscription plans
-fill("plans", PLANS.map(p => {
-  const [name, term] = L.plan[p.id];
-  const save = Math.round((1 - p.price / (base * p.months)) * 100);
-  return `<div class="plan${p.best ? " best" : ""}">
-    ${p.best ? `<span class="tag">${L.best}</span>` : ""}
-    <h3>${name}</h3>
-    <div class="term">${term}</div>
-    <div class="amount">${fmt(p.price)}</div>
-    <div class="per">${p.months > 1 ? L.perMonth(fmt(p.price / p.months)) : L.perDevice}</div>
-    <span class="save${save > 0 ? "" : " none"}">${L.save(save)}</span>
-    <ul>${L.included.map(t => `<li>${icon("i-check")}${t}</li>`).join("")}</ul>
-    <div class="actions">
-      ${p.payUrl ? `<a class="btn btn-primary" href="${esc(p.payUrl)}" ${ext}>${L.pay}</a>` : ""}
-      <a class="btn ${p.best && !p.payUrl ? "btn-primary" : "btn-wa"}" href="${wa(L.planMsg(name, fmt(p.price)))}" ${ext}>${icon("i-chat")}${L.buyWa}</a>
-      <a class="btn btn-ghost" href="${mail("Universal POS " + name)}">${icon("i-mail")}${L.email}</a>
-    </div>
-  </div>`;
-}).join(""));
-fill("priceNote", L.priceNote);
+// Render Pricing Grid
+function renderPlans() {
+  const base = PLANS.find(p => p.months === 1)?.price ?? 499;
+  const items = PLAN_FEATURES[LANG];
 
-// Multi-device calculator
-const calcPlan = $("calcPlan"), calcN = $("calcN");
-if (calcPlan && calcN) {
-  calcPlan.innerHTML = PLANS.map(p => `<option value="${p.id}"${p.best ? " selected" : ""}>${L.plan[p.id][0]} · ${fmt(p.price)}</option>`).join("");
-  fill("volume", VOLUME.map(v => `<span>${L.volume(v.min, v.off)}</span>`).join(""));
-  const calc = () => {
-    const p = PLANS.find(x => x.id === calcPlan.value);
-    const n = Math.max(1, Math.min(999, parseInt(calcN.value, 10) || 1));
-    const off = VOLUME.filter(v => n >= v.min).reduce((m, v) => Math.max(m, v.off), 0);
-    const list = p.price * n, total = list * (1 - off / 100);
-    const name = L.plan[p.id][0];
-    fill("calcOut", `
-      <div class="lines">
-        <div><span>${L.calcList} (${n} × ${fmt(p.price)})</span><span>${fmt(list)}</span></div>
-        ${off ? `<div><span>${L.calcDiscount(off)}</span><span>−${fmt(list - total)}</span></div>` : ""}
+  fill("plans", PLANS.map(p => {
+    const [name, term] = L.plan[p.id];
+    const save = Math.round((1 - p.price / (base * p.months)) * 100);
+    return `<div class="plan${p.best ? " best" : ""}">
+      ${p.best ? `<span class="tag">${L.best}</span>` : ""}
+      <h3>${name}</h3>
+      <div class="term">${term}</div>
+      <div class="amount">${fmt(p.price)}</div>
+      <div class="per">${p.months > 1 ? L.perMonth(fmt(p.price / p.months)) : L.perDevice}</div>
+      <span class="save${save > 0 ? "" : " none"}">${L.save(save)}</span>
+      <ul>${items.map(t => `<li>${icon("i-check")}${t}</li>`).join("")}</ul>
+      <div class="actions">
+        ${p.payUrl ? `<a class="btn btn-primary" href="${esc(p.payUrl)}" ${ext}>${L.pay}</a>` : ""}
+        <a class="btn ${p.best && !p.payUrl ? "btn-primary" : "btn-wa"}" href="${wa(L.planMsg(name, fmt(p.price)))}" ${ext}>${icon("i-chat")}${L.buyWa}</a>
+        <a class="btn btn-ghost" href="${mail("Universal POS " + name)}">${icon("i-mail")}${L.email}</a>
       </div>
-      <div class="term">${L.calcTotal}</div>
-      <div class="total">${fmt(total)}</div>
-      <div class="lines">${L.calcEach(fmt(total / n), L.months(p.months))}</div>
-      <a class="btn btn-wa" href="${wa(L.quoteMsg(name, n, fmt(total)))}" ${ext}>${icon("i-chat")}${L.calcBuy}</a>`);
-  };
-  calcPlan.addEventListener("change", calc);
-  calcN.addEventListener("input", calc);
-  calc();
+    </div>`;
+  }).join(""));
+
+  fill("priceNote", L.priceNote);
 }
 
-// Free trial, multi-year, lifetime
+// Free trial, multi-year, lifetime cards
 function otherCard(o) {
   const [name, term, items] = L.other[o.id];
+  const isTrial = o.price === 0;
   const amount = o.price === null ? L.contact : fmt(o.price);
-  const per = o.price === null ? "" : o.price === 0 ? L.trialPer : L.once;
-  const cta = o.price === 0 ? `<a class="btn btn-primary" href="#download">${icon("i-download")}${L.trialCta}</a>`
+  const per = o.price === null ? "" : isTrial ? L.trialPer : L.once;
+  const cta = isTrial ? `<a class="btn btn-primary" href="#download">${icon("i-download")}${L.trialCta}</a>`
     : o.payUrl ? `<a class="btn btn-primary" href="${esc(o.payUrl)}" ${ext}>${L.pay}</a>`
     : `<a class="btn btn-wa" href="${wa(L.otherMsg(name))}" ${ext}>${icon("i-chat")}${L.talk}</a>`;
   return `<div class="plan">
@@ -287,15 +301,12 @@ function otherCard(o) {
   </div>`;
 }
 
-// Multi-year: N years at the annual price minus that term's percent (rounded to whole rupees).
 function multiYearCard() {
-  const annual = PLANS.find(p => p.months === 12);
-  if (!MULTI_YEAR.show || !annual) return "";
+  if (!MULTI_YEAR.show) return "";
   const [name, term, items] = L.other.multiyear;
-  const rows = MULTI_YEAR.terms.map(([y, off]) => {
-    const total = Math.round(annual.price * y * (100 - off) / 100);
+  const rows = MULTI_YEAR.terms.map(([y, off, total, perY]) => {
     return `<li class="my-row"><span><b>${L.years(y)}</b> · ${L.save(off)}</span>
-      <span class="my-price">${fmt(total)}<small>${L.perYear(fmt(Math.round(total / y)))}</small></span></li>`;
+      <span class="my-price">${fmt(total)}<small>${L.perYear(fmt(perY))}</small></span></li>`;
   }).join("");
   const cta = MULTI_YEAR.payUrl ? `<a class="btn btn-primary" href="${esc(MULTI_YEAR.payUrl)}" ${ext}>${L.pay}</a>`
     : `<a class="btn btn-wa" href="${wa(L.otherMsg(name))}" ${ext}>${icon("i-chat")}${L.talk}</a>`;
@@ -309,12 +320,59 @@ function multiYearCard() {
   </div>`;
 }
 
-const shownOther = OTHER_PLANS.filter(o => o.show);
-fill("otherPlans", [
-  ...shownOther.filter(o => o.price === 0).map(otherCard),
-  multiYearCard(),
-  ...shownOther.filter(o => o.price !== 0).map(otherCard),
-].join(""));
+function renderOtherPlans() {
+  const shownOther = OTHER_PLANS.filter(o => o.show);
+  fill("otherPlans", [
+    ...shownOther.filter(o => o.price === 0).map(otherCard),
+    multiYearCard(),
+    ...shownOther.filter(o => o.price !== 0).map(otherCard),
+  ].join(""));
+}
+
+// Multi-device calculator
+const calcPlan = $("calcPlan"), calcN = $("calcN");
+let calc = () => {};
+
+if (calcPlan && calcN) {
+  calcPlan.innerHTML = PLANS.map(p => {
+    const selected = p.best ? " selected" : "";
+    return `<option value="${p.id}"${selected}>${L.plan[p.id][0]} · ${fmt(p.price)}</option>`;
+  }).join("");
+
+  fill("volume", VOLUME_PILLS.map(v => `<span>${L.volume(v.min, v.off)}</span>`).join(""));
+
+  calc = () => {
+    const planId = calcPlan.value || "annual";
+    const p = PLANS.find(x => x.id === planId) || PLANS[3];
+    const n = Math.max(1, Math.min(999, parseInt(calcN.value, 10) || 1));
+    const off = getVolumeDiscount(n);
+    const list = p.price * n;
+    const discountAmount = Math.round(list * (off / 100));
+    const total = list - discountAmount;
+    const planName = L.plan[p.id][0];
+
+    fill("calcOut", `
+      <div class="lines">
+        <div><span>${L.calcList} (${n} × ${fmt(p.price)})</span><span>${fmt(list)}</span></div>
+        ${off > 0 ? `<div><span>${L.calcDiscount(off)}</span><span>−${fmt(discountAmount)}</span></div>` : ""}
+      </div>
+      <div class="term">${L.calcTotal}</div>
+      <div class="total">${fmt(total)}</div>
+      <div class="lines">${L.calcEach(fmt(total / n), L.months(p.months))}</div>
+      <a class="btn btn-wa" href="${wa(L.quoteMsg(planName, n, fmt(total), off))}" ${ext}>${icon("i-chat")}${L.calcBuy}</a>`);
+  };
+
+  calcPlan.addEventListener("change", calc);
+  calcN.addEventListener("input", calc);
+}
+
+// Initialise plans and calculator
+renderPlans();
+renderOtherPlans();
+if (calcPlan) {
+  calcPlan.value = "annual";
+  calc();
+}
 
 // Downloads and stores
 const card = (href, ic, title, sub, badge) => {
@@ -348,30 +406,19 @@ if (TESTIMONIALS.length && $("stories")) {
   </figure>`).join(""));
 }
 
-// Structured data for search engines (prices come from PLANS)
-const ld = document.createElement("script");
-ld.type = "application/ld+json";
-ld.textContent = JSON.stringify({
-  "@context": "https://schema.org",
-  "@type": "SoftwareApplication",
-  name: "Universal POS",
-  applicationCategory: "BusinessApplication",
-  operatingSystem: "Android, Windows, Linux, iOS, Web",
-  offers: PLANS.map(p => ({ "@type": "Offer", name: T.en.plan[p.id][0], price: p.price, priceCurrency: "INR" })),
-});
-document.head.appendChild(ld);
-
 $("year") && ($("year").textContent = new Date().getFullYear());
 
 // Mobile menu
 const menuBtn = $("menuBtn"), navLinks = $("navLinks");
-menuBtn.addEventListener("click", () => {
-  const open = navLinks.classList.toggle("open");
-  menuBtn.setAttribute("aria-expanded", open);
-});
-navLinks.addEventListener("click", e => {
-  if (e.target.tagName === "A") { navLinks.classList.remove("open"); menuBtn.setAttribute("aria-expanded", false); }
-});
+if (menuBtn && navLinks) {
+  menuBtn.addEventListener("click", () => {
+    const open = navLinks.classList.toggle("open");
+    menuBtn.setAttribute("aria-expanded", open);
+  });
+  navLinks.addEventListener("click", e => {
+    if (e.target.tagName === "A") { navLinks.classList.remove("open"); menuBtn.setAttribute("aria-expanded", false); }
+  });
+}
 
 // Theme (remembered per browser); screenshots follow it: assets/screens/dark/ or assets/screens/light/
 const root = document.documentElement;
@@ -386,7 +433,7 @@ function syncShots() {
 try { const t = localStorage.getItem("theme"); if (t) root.dataset.theme = t; } catch (e) {}
 syncShots();
 matchMedia("(prefers-color-scheme: dark)").addEventListener("change", syncShots);
-$("themeBtn").addEventListener("click", () => {
+$("themeBtn")?.addEventListener("click", () => {
   root.dataset.theme = isDark() ? "light" : "dark";
   try { localStorage.setItem("theme", root.dataset.theme); } catch (e) {}
   syncShots();
@@ -394,23 +441,25 @@ $("themeBtn").addEventListener("click", () => {
 
 // Screenshot tabs
 const tabs = [["tabDesk", "galDesk"], ["tabPhone", "galPhone"]];
-tabs.forEach(([t]) => $(t).addEventListener("click", () => {
+tabs.forEach(([t]) => $(t)?.addEventListener("click", () => {
   tabs.forEach(([t2, g2]) => {
     const on = t2 === t;
-    $(t2).setAttribute("aria-selected", on);
-    $(g2).hidden = !on;
+    $(t2)?.setAttribute("aria-selected", on);
+    if ($(g2)) $(g2).hidden = !on;
   });
 }));
 
 // Lightbox
 const lb = $("lightbox"), lbImg = $("lbImg"), lbCap = $("lbCap");
-document.querySelectorAll(".gallery figure").forEach(f => f.addEventListener("click", () => {
-  const img = f.querySelector("img");
-  lbImg.src = img.src; lbImg.alt = img.alt;
-  lbCap.textContent = f.querySelector("figcaption")?.textContent ?? "";
-  lb.showModal();
-}));
-lb.addEventListener("click", e => { if (e.target === lb) lb.close(); });
+if (lb && lbImg && lbCap) {
+  document.querySelectorAll(".gallery figure").forEach(f => f.addEventListener("click", () => {
+    const img = f.querySelector("img");
+    lbImg.src = img.src; lbImg.alt = img.alt;
+    lbCap.textContent = f.querySelector("figcaption")?.textContent ?? "";
+    lb.showModal();
+  }));
+  lb.addEventListener("click", e => { if (e.target === lb) lb.close(); });
+}
 
 // Links to #privacy, #terms, #refund open that policy
 function openTarget() {
