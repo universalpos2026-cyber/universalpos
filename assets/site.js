@@ -125,16 +125,26 @@ const OTHER_PLANS = [
 // Multi-year card: paid once per device for N years from the tier's annual price
 const MULTI_YEAR = { show: true, terms: [[2, 10], [3, 15], [5, 20]], payUrl: "" };
 
-// Direct trial downloads: the signed release files in downloads/
+// Direct trial downloads: v0.1.9 release files hosted on Google Drive
 const RELEASE = "0.1.9";
-const DL = f => `downloads/${f}`;
+const DRIVE_BASE = "https://drive.google.com/uc?export=download&id=";
+const DRIVE_FILES = {
+  apk: "1lk_DBkDeKRrGX4EF-Hm_bBxBV3Pk7IMw",     // universal-pos-0.1.9.apk
+  win: "1aJXpCZyZlyTJWptlgFCkIumg43RHlLBu",     // UniversalPOS-Setup-0.1.9.exe
+  linux: "1yHWMk7Sn8peUxyfFa5FZIaAScRTvl3UK",   // universal-pos_0.1.9_amd64.deb
+  tar: "1m-5LDP6QvxZu8fArGsbnOGxI82_nS2Z7",     // universal-pos-0.1.9-linux-x64.tar.gz
+  server: "1wZ0XnpY4GT3WYHjtyo9hOnQncEmXIxiW",  // universal-pos-server_0.1.9_amd64.deb
+  sums: "1X2xwkF3ECtsNmKwCf7PI-C6ts08gk-ZG",    // SHA256SUMS
+};
+const DL = id => DRIVE_FILES[id] ? `${DRIVE_BASE}${DRIVE_FILES[id]}` : "";
 const DOWNLOADS = [
-  { id: "apk",   icon: "i-phone",  url: DL(`universal-pos-${RELEASE}.apk`) },
-  { id: "win",   icon: "i-laptop", url: DL(`UniversalPOS-Setup-${RELEASE}.exe`) },
-  { id: "linux", icon: "i-laptop", url: DL(`universal-pos_${RELEASE}_amd64.deb`) },
-  { id: "tar",   icon: "i-laptop", url: DL(`universal-pos-${RELEASE}-linux-x64.tar.gz`) },
-  { id: "sums",  icon: "i-shield", url: DL("SHA256SUMS") },
-  { id: "web",   icon: "i-globe",  url: CONFIG.adminPanelUrl },
+  { id: "apk",    icon: "i-phone",  url: DL("apk") },
+  { id: "win",    icon: "i-laptop", url: DL("win") },
+  { id: "linux",  icon: "i-laptop", url: DL("linux") },
+  { id: "tar",    icon: "i-laptop", url: DL("tar") },
+  { id: "server", icon: "i-db",     url: DL("server") },
+  { id: "sums",   icon: "i-shield", url: DL("sums") },
+  { id: "web",    icon: "i-globe",  url: CONFIG.adminPanelUrl },
 ];
 
 // App stores. status: "soon" or "live" (then set url).
@@ -199,12 +209,13 @@ const T = {
     planMsg: (tierName, planName, price) => `Hi, I'd like the Universal POS ${tierName} ${planName} plan (${price} per device).`,
     otherMsg: plan => `Hi, I'm interested in Universal POS ${plan}.`,
     dl: {
-      apk:   ["Android app (APK)", "Phones and tablets · free trial"],
-      win:   ["Windows installer", "Windows 10 and 11 · free trial"],
-      linux: ["Linux (.deb)", "Ubuntu and Debian · free trial"],
-      tar:   ["Linux (.tar.gz)", "Any other Linux, no root · free trial"],
-      sums:  ["Check the files", "Signed SHA256SUMS (guide chapter 20)"],
-      web:   ["Web admin panel", "Any modern browser"],
+      apk:    ["Android app (APK)", "Phones and tablets · v0.1.9 free trial"],
+      win:    ["Windows installer", "Windows 10 and 11 · v0.1.9 free trial"],
+      linux:  ["Linux (.deb)", "Ubuntu and Debian · v0.1.9 free trial"],
+      tar:    ["Linux (.tar.gz)", "Any other Linux, no root · v0.1.9 free trial"],
+      // server: ["Linux server (.deb)", "Dedicated server · Ubuntu & Debian"],
+      sums:   ["Check the files", "Signed SHA256SUMS (v0.1.9)"],
+      web:    ["Web admin panel", "Any modern browser"],
     },
     st: {
       play:    ["Google Play", "Android phones and tablets"],
@@ -268,12 +279,13 @@ const T = {
     planMsg: (tierName, planName, price) => `नमस्ते, मुझे Universal POS ${tierName} ${planName} प्लान चाहिए (${price} प्रति डिवाइस)।`,
     otherMsg: plan => `नमस्ते, मुझे Universal POS ${plan} के बारे में जानना है।`,
     dl: {
-      apk:   ["Android ऐप (APK)", "फ़ोन और टैबलेट · फ्री ट्रायल"],
-      win:   ["Windows इंस्टॉलर", "Windows 10 और 11 · फ्री ट्रायल"],
-      linux: ["Linux (.deb)", "Ubuntu और Debian · फ्री ट्रायल"],
-      tar:   ["Linux (.tar.gz)", "कोई भी दूसरा Linux, root नहीं चाहिए · फ्री ट्रायल"],
-      sums:  ["फ़ाइलें जाँचें", "साइन किया हुआ SHA256SUMS (गाइड अध्याय 20)"],
-      web:   ["वेब एडमिन पैनल", "कोई भी नया ब्राउज़र"],
+      apk:    ["Android ऐप (APK)", "फ़ोन और टैबलेट · v0.1.9 फ्री ट्रायल"],
+      win:    ["Windows इंस्टॉलर", "Windows 10 और 11 · v0.1.9 फ्री ट्रायल"],
+      linux:  ["Linux (.deb)", "Ubuntu और Debian · v0.1.9 फ्री ट्रायल"],
+      tar:    ["Linux (.tar.gz)", "कोई भी दूसरा Linux, root नहीं चाहिए · v0.1.9"],
+      // server: ["Linux सर्वर (.deb)", "समर्पित सर्वर · Ubuntu और Debian"],
+      sums:   ["फ़ाइलें जाँचें", "साइन किया हुआ SHA256SUMS (v0.1.9)"],
+      web:    ["वेब एडमिन पैनल", "कोई भी नया ब्राउज़र"],
     },
     st: {
       play:    ["Google Play", "Android फ़ोन और टैबलेट"],
