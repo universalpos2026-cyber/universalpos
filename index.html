@@ -571,7 +571,21 @@
     <div class="center">
       <span class="eyebrow">Pricing</span>
       <h2>Simple plans. All features included.</h2>
-      <p class="lead">Start with a <span data-trial-days>30</span>-day free trial. Then pay per device (till, phone or PC): monthly, quarterly, half-yearly or yearly. The longer the plan, the more you save.</p>
+      <p class="lead">Start with a <span data-trial-days>30</span>-day free trial. Choose between Standalone (100% offline) or Connected (Cloud &amp; Web Admin). Pay per device with up to 40% volume discounts.</p>
+      
+      <div class="tier-nav">
+        <div class="tier-switch" role="tablist" aria-label="Pricing tiers">
+          <button type="button" class="tier-btn active" id="tierStandalone" role="tab" aria-selected="true" data-tier="standalone">
+            <svg class="i"><use href="#i-laptop"/></svg>
+            <span>⚡ Standalone POS <small>From ₹499/mo · 100% Offline</small></span>
+          </button>
+          <button type="button" class="tier-btn" id="tierConnected" role="tab" aria-selected="false" data-tier="connected">
+            <svg class="i"><use href="#i-globe"/></svg>
+            <span>☁️ Connected POS <small>From ₹799/mo · Cloud &amp; Web Admin</small></span>
+          </button>
+        </div>
+      </div>
+      <p class="tier-desc" id="tierDesc">Single Till · 100% Offline · Zero Internet Required</p>
     </div>
     <div class="price-grid" id="plans"><div class="plan">
     <h3>Monthly</h3>

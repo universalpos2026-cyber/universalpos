@@ -15,58 +15,115 @@ const CONTACT = {
 const CURRENCY = "₹";
 const TRIAL_DAYS = 30;
 
-// Universal Plans: All features, free updates, cloud sync, web admin panel included in every plan.
-const PLANS = [
-  { id: "monthly",   months: 1,  price: 499,  payUrl: "" },
-  { id: "quarterly", months: 3,  price: 1399, payUrl: "" },
-  { id: "half",      months: 6,  price: 2699, payUrl: "" },
-  { id: "annual",    months: 12, price: 4999, payUrl: "", best: true },
-];
-
-const PLAN_FEATURES = {
-  en: [
-    "All features, no add-ons",
-    "Free updates incl. roadmap",
-    "Cloud sync + web admin panel",
-    "30-day free trial first",
-  ],
-  hi: [
-    "सभी फ़ीचर, कोई अलग शुल्क नहीं",
-    "रोडमैप सहित सभी नए अपडेट",
-    "क्लाउड सिंक + वेब एडमिन पैनल",
-    "पहले 30 दिन का फ़्री ट्रायल",
-  ],
+// Structured Product Tiers
+const TIERS = {
+  standalone: {
+    id: "standalone",
+    icon: "i-laptop",
+    badge: { en: "100% Offline", hi: "100% ऑफ़लाइन" },
+    name: { en: "Standalone POS", hi: "स्टैंडअलोन POS" },
+    tagline: {
+      en: "Single Till · 100% Offline · Zero Internet Required",
+      hi: "सिंगल काउंटर · 100% ऑफ़लाइन · इंटरनेट की कोई ज़रूरत नहीं",
+    },
+    base: 499,
+    plans: [
+      { id: "monthly",   months: 1,  price: 499,  payUrl: "" },
+      { id: "quarterly", months: 3,  price: 1399, payUrl: "" },
+      { id: "half",      months: 6,  price: 2699, payUrl: "" },
+      { id: "annual",    months: 12, price: 4999, payUrl: "", best: true },
+    ],
+    features: {
+      en: [
+        "100% Offline SQLite WAL database",
+        "Full Retail & Restaurant billing engine",
+        "Fast GST invoicing & thermal receipts",
+        "Barcode scanner & weighing scale support",
+        "Inventory movements & low-stock alerts",
+        "Customer ledger (Khata) & credit",
+        "Encrypted USB backup & restore",
+      ],
+      hi: [
+        "100% ऑफ़लाइन SQLite WAL डेटाबेस",
+        "पूरा रिटेल और रेस्टोरेंट बिलिंग इंजन",
+        "तेज़ GST इनवॉइसिंग और थर्मल रसीदें",
+        "बारकोड स्कैनर और वेइंग स्केल सपोर्ट",
+        "स्टॉक मूवमेंट और लो-स्टॉक अलर्ट",
+        "ग्राहक खाता (उधार बहीखाता)",
+        "एन्क्रिप्टेड USB बैकअप और रिस्टोर",
+      ],
+    },
+    note: {
+      en: "No cloud sync or web admin panel. Perfect for standalone counters and zero-internet shops.",
+      hi: "क्लाउड सिंक या वेब एडमिन पैनल शामिल नहीं। बिना इंटरनेट वाले एकल काउंटरों के लिए सर्वोत्तम।",
+    },
+  },
+  connected: {
+    id: "connected",
+    icon: "i-globe",
+    badge: { en: "Cloud & Multi-Counter", hi: "क्लाउड और मल्टी-काउंटर" },
+    name: { en: "Connected POS", hi: "कनेक्टेड POS" },
+    tagline: {
+      en: "Real-time Cloud Sync + Web Admin Panel + Multi-Till Hub",
+      hi: "रीयल-टाइम क्लाउड सिंक + वेब एडमिन पैनल + मल्टी-काउंटर हब",
+    },
+    base: 799,
+    plans: [
+      { id: "monthly",   months: 1,  price: 799,  payUrl: "" },
+      { id: "quarterly", months: 3,  price: 2199, payUrl: "" },
+      { id: "half",      months: 6,  price: 4199, payUrl: "" },
+      { id: "annual",    months: 12, price: 7999, payUrl: "", best: true },
+    ],
+    features: {
+      en: [
+        "Everything in Standalone plan",
+        "Real-time Cloud Sync across all counters",
+        "Web Admin Panel (panel.quantlogiq.in)",
+        "Live sales & profit reports on owner's phone",
+        "Multi-counter P2P Hub without internet",
+        "Remote catalog, pricing & stock management",
+        "Automated cloud backup & instant restore",
+      ],
+      hi: [
+        "स्टैंडअलोन प्लान के सभी फ़ीचर",
+        "सभी काउंटरों पर रीयल-टाइम क्लाउड सिंक",
+        "वेब एडमिन पैनल (panel.quantlogiq.in)",
+        "मालिक के फ़ोन पर लाइव बिक्री और मुनाफ़ा रिपोर्ट",
+        "बिना इंटरनेट मल्टी-काउंटर P2P हब",
+        "रिमोट प्रोडक्ट, कीमत और स्टॉक प्रबंधन",
+        "ऑटोमैटिक क्लाउड बैकअप और तुरंत रिस्टोर",
+      ],
+    },
+    note: {
+      en: "Full cloud connectivity + web browser management. Includes offline resilience if internet drops.",
+      hi: "पूर्ण क्लाउड कनेक्टिविटी + वेब ब्राउज़र प्रबंधन। इंटरनेट बंद होने पर भी बिलिंग कभी नहीं रुकती।",
+    },
+  },
 };
 
-// Volume discount formula: 3+ devices: 10% off; 5+ devices: 15% off
+// Volume discount formula: +5% off per extra device (starting from 2 devices), up to 40% max.
 const getVolumeDiscount = n => {
-  if (n >= 5) return 15;
-  if (n >= 3) return 10;
-  return 0;
+  if (n <= 1) return 0;
+  return Math.min(40, (n - 1) * 5);
 };
 
 const VOLUME_PILLS = [
+  { min: 2, off: 5 },
   { min: 3, off: 10 },
-  { min: 5, off: 15 },
+  { min: 5, off: 20 },
+  { min: 7, off: 30 },
+  { min: 9, off: 40 },
 ];
 
-// Other ways to buy: Free Trial, Lifetime, Self-host
+// Other ways to buy: Free Forever Solo (freemium), Lifetime, Self-host
 const OTHER_PLANS = [
-  { id: "trial",    price: 0,     show: true },
+  { id: "free",     price: 0,     show: true },
   { id: "lifetime", price: 14999, show: true, payUrl: "" },
   { id: "selfhost", price: null,  show: false }, // not offered (owner, 2026-10-20)
 ];
 
-// Multi-year terms: [years, discount%, fixedPrice, perYearPrice]
-const MULTI_YEAR = {
-  show: true,
-  terms: [
-    [2, 10, 8998, 4499],
-    [3, 15, 12747, 4249],
-    [5, 20, 19996, 3999],
-  ],
-  payUrl: "",
-};
+// Multi-year card: paid once per device for N years from the tier's annual price
+const MULTI_YEAR = { show: true, terms: [[2, 10], [3, 15], [5, 20]], payUrl: "" };
 
 // Direct trial downloads: the signed release files in downloads/
 const RELEASE = "0.1.9";
@@ -105,6 +162,7 @@ const T = {
       annual:    ["Annual", "Billed every year"],
     },
     other: {
+      free:     ["Free Forever Solo", "Free forever for 1 counter", ["100% offline billing & GST receipts", "Thermal printing & phone barcode scanner", "Customer ledger (Khata) & cash drawer", "Encrypted offline USB backup", "No credit card, no sign-up, never expires", "Upgrade anytime as your store grows"]],
       trial:    ["Free trial", "Free for 1 month", ["Every feature included", "No card, no sign-up", "Then pick any plan", "Products and bills stay as they are"]],
       multiyear: ["Multi-year", "Pay once per device for 2, 3 or 5 years", ["All features and updates for the whole term", "The longer you take, the more you save"]],
       lifetime: ["Lifetime", "Pay once per device", ["100% offline standalone POS", "1 year of updates included", "Optional update plan after that", "Offline licence, never expires"]],
@@ -113,6 +171,8 @@ const T = {
     perDevice: "per device",
     perMonth: m => `= ${m} per month · per device`,
     once: "one-time · per device",
+    freePer: "free forever · 1 device",
+    freeCta: "Download Free Solo",
     trialPer: "for 1 month · then pick a plan",
     trialCta: "Download free trial",
     contact: "Contact us",
@@ -124,7 +184,8 @@ const T = {
     pay: "Pay now",
     email: "Email us",
     talk: "Talk to us",
-    priceNote: "Prices per device, before GST. Every plan includes all features and free updates.",
+    priceNote: tierName => `Prices per device, before GST. Every plan includes free updates and full features of ${tierName}.`,
+    volumeRule: "+5% off per extra device (up to 40% discount)",
     calcPlan: "Plan",
     calcDevices: "Devices (tills, phones, PCs)",
     calcList: "List price",
@@ -134,10 +195,10 @@ const T = {
     months: n => n === 1 ? "1 month" : `${n} months`,
     volume: (min, off) => `${min}+ devices: ${off}% off`,
     calcBuy: "Get this quote on WhatsApp",
-    quoteMsg: (planName, n, total, off) => off > 0
-      ? `Hi, I'd like Universal POS ${planName} for ${n} devices (quote ${total} before GST, with ${off}% multi-device discount).`
-      : `Hi, I'd like Universal POS ${planName} for ${n} devices (quote ${total} before GST).`,
-    planMsg: (planName, price) => `Hi, I'd like the Universal POS ${planName} plan (${price} per device).`,
+    quoteMsg: (tierName, planName, n, total, off) => off > 0
+      ? `Hi, I'd like Universal POS ${tierName} (${planName}) for ${n} devices (quote ${total} before GST, with ${off}% multi-device discount).`
+      : `Hi, I'd like Universal POS ${tierName} (${planName}) for ${n} device (quote ${total} before GST).`,
+    planMsg: (tierName, planName, price) => `Hi, I'd like the Universal POS ${tierName} ${planName} plan (${price} per device).`,
     otherMsg: plan => `Hi, I'm interested in Universal POS ${plan}.`,
     dl: {
       apk:   ["Android app (APK)", "Phones and tablets · free trial"],
@@ -172,6 +233,7 @@ const T = {
       annual:    ["सालाना", "हर साल बिल"],
     },
     other: {
+      free:     ["लाइफ़टाइम फ्री सोलो", "1 काउंटर के लिए हमेशा फ्री", ["100% ऑफ़लाइन बिलिंग और GST रसीदें", "थर्मल प्रिंटिंग और फ़ोन बारकोड स्कैनर", "ग्राहक खाता (उधार बहीखाता) और कैश ड्रॉअर", "एन्क्रिप्टेड ऑफ़लाइन USB बैकअप", "न कार्ड, न साइन-अप, कभी एक्सपायर नहीं", "दुकान बढ़ने पर कभी भी अपग्रेड करें"]],
       trial:    ["फ्री ट्रायल", "1 महीना फ्री", ["सभी फ़ीचर शामिल", "न कार्ड, न साइन-अप", "फिर कोई भी प्लान चुनें", "प्रोडक्ट और बिल वैसे ही रहते हैं"]],
       multiyear: ["कई साल", "हर डिवाइस पर 2, 3 या 5 साल के लिए एक बार भुगतान", ["पूरी अवधि के लिए सभी फ़ीचर और अपडेट", "जितनी लंबी अवधि, उतनी ज़्यादा बचत"]],
       lifetime: ["लाइफ़टाइम", "हर डिवाइस पर एक बार भुगतान", ["100% ऑफ़लाइन स्टैंडअलोन POS", "1 साल के अपडेट शामिल", "उसके बाद अपडेट प्लान अपनी मर्ज़ी से", "ऑफ़लाइन लाइसेंस, कभी ख़त्म नहीं"]],
@@ -180,6 +242,8 @@ const T = {
     perDevice: "प्रति डिवाइस",
     perMonth: m => `= ${m} प्रति माह · प्रति डिवाइस`,
     once: "एक बार · प्रति डिवाइस",
+    freePer: "हमेशा के लिए फ्री · 1 डिवाइस",
+    freeCta: "फ्री सोलो डाउनलोड करें",
     trialPer: "1 महीने के लिए · फिर प्लान चुनें",
     trialCta: "फ्री ट्रायल डाउनलोड करें",
     contact: "संपर्क करें",
@@ -191,7 +255,8 @@ const T = {
     pay: "अभी भुगतान करें",
     email: "ईमेल करें",
     talk: "हमसे बात करें",
-    priceNote: "कीमतें प्रति डिवाइस, GST अलग। हर प्लान में सभी फ़ीचर और मुफ़्त अपडेट शामिल हैं।",
+    priceNote: tierName => `कीमतें प्रति डिवाइस, GST अलग। हर प्लान में फ्री अपडेट और ${tierName} के सभी फ़ीचर शामिल।`,
+    volumeRule: "+5% अतिरिक्त छूट प्रति डिवाइस (अधिकतम 40% तक)",
     calcPlan: "प्लान",
     calcDevices: "डिवाइस (काउंटर, फ़ोन, PC)",
     calcList: "सूची कीमत",
@@ -201,10 +266,10 @@ const T = {
     months: n => n === 1 ? "1 महीने" : `${n} महीने`,
     volume: (min, off) => `${min}+ डिवाइस: ${off}% छूट`,
     calcBuy: "यह कोटेशन WhatsApp पर पाएँ",
-    quoteMsg: (planName, n, total, off) => off > 0
-      ? `नमस्ते, मुझे Universal POS ${planName} प्लान ${n} डिवाइस के लिए चाहिए (कोटेशन ${total}, GST से पहले, ${off}% छूट के साथ)।`
-      : `नमस्ते, मुझे Universal POS ${planName} प्लान ${n} डिवाइस के लिए चाहिए (कोटेशन ${total}, GST से पहले)।`,
-    planMsg: (planName, price) => `नमस्ते, मुझे Universal POS ${planName} प्लान चाहिए (${price} प्रति डिवाइस)।`,
+    quoteMsg: (tierName, planName, n, total, off) => off > 0
+      ? `नमस्ते, मुझे Universal POS ${tierName} (${planName}) प्लान ${n} डिवाइस के लिए चाहिए (कोटेशन ${total}, GST से पहले, ${off}% छूट के साथ)।`
+      : `नमस्ते, मुझे Universal POS ${tierName} (${planName}) प्लान ${n} डिवाइस के लिए चाहिए (कोटेशन ${total}, GST से पहले)।`,
+    planMsg: (tierName, planName, price) => `नमस्ते, मुझे Universal POS ${tierName} ${planName} प्लान चाहिए (${price} प्रति डिवाइस)।`,
     otherMsg: plan => `नमस्ते, मुझे Universal POS ${plan} के बारे में जानना है।`,
     dl: {
       apk:   ["Android ऐप (APK)", "फ़ोन और टैबलेट · फ्री ट्रायल"],
@@ -249,18 +314,19 @@ document.querySelectorAll("[data-wa]").forEach(a => {
   a.href = wa(L[a.dataset.wa] || L.enquiry);
   a.target = "_blank"; a.rel = "noopener";
 });
-document.querySelectorAll("[data-mail]").forEach(a => {
-  a.href = mail(L.mailSubject);
-  if (!a.children.length && !a.textContent.trim()) a.textContent = CONTACT.email;
-});
+document.querySelectorAll("[data-mail]").forEach(a => { a.href = mail(L.mailSubject); if (!a.children.length && !a.textContent.trim()) a.textContent = CONTACT.email; });
 document.querySelectorAll("[data-trial-days]").forEach(el => el.textContent = TRIAL_DAYS);
 
-// Render Pricing Grid
-function renderPlans() {
-  const base = PLANS.find(p => p.months === 1)?.price ?? 499;
-  const items = PLAN_FEATURES[LANG];
+// Active Tier State (standalone vs connected)
+let currentTierKey = "standalone";
 
-  fill("plans", PLANS.map(p => {
+function renderPlans(tierKey) {
+  const tier = TIERS[tierKey] || TIERS.standalone;
+  const base = tier.plans.find(p => p.months === 1)?.price ?? tier.plans[0].price;
+  const tierName = tier.name[LANG];
+  const items = tier.features[LANG];
+
+  fill("plans", tier.plans.map(p => {
     const [name, term] = L.plan[p.id];
     const save = Math.round((1 - p.price / (base * p.months)) * 100);
     return `<div class="plan${p.best ? " best" : ""}">
@@ -273,25 +339,27 @@ function renderPlans() {
       <ul>${items.map(t => `<li>${icon("i-check")}${t}</li>`).join("")}</ul>
       <div class="actions">
         ${p.payUrl ? `<a class="btn btn-primary" href="${esc(p.payUrl)}" ${ext}>${L.pay}</a>` : ""}
-        <a class="btn ${p.best && !p.payUrl ? "btn-primary" : "btn-wa"}" href="${wa(L.planMsg(name, fmt(p.price)))}" ${ext}>${icon("i-chat")}${L.buyWa}</a>
-        <a class="btn btn-ghost" href="${mail("Universal POS " + name)}">${icon("i-mail")}${L.email}</a>
+        <a class="btn ${p.best && !p.payUrl ? "btn-primary" : "btn-wa"}" href="${wa(L.planMsg(tierName, name, fmt(p.price)))}" ${ext}>${icon("i-chat")}${L.buyWa}</a>
+        <a class="btn btn-ghost" href="${mail("Universal POS " + tierName + " " + name)}">${icon("i-mail")}${L.email}</a>
       </div>
     </div>`;
   }).join(""));
 
-  fill("priceNote", L.priceNote);
+  fill("priceNote", `${L.priceNote(tierName)} ${tier.note[LANG]}`);
+  fill("tierDesc", tier.tagline[LANG]);
 }
 
-// Free trial, multi-year, lifetime cards
+// Free trial / Free forever, multi-year, lifetime
 function otherCard(o) {
   const [name, term, items] = L.other[o.id];
-  const isTrial = o.price === 0;
+  const isFree = o.id === "free" || o.price === 0;
   const amount = o.price === null ? L.contact : fmt(o.price);
-  const per = o.price === null ? "" : isTrial ? L.trialPer : L.once;
-  const cta = isTrial ? `<a class="btn btn-primary" href="#download">${icon("i-download")}${L.trialCta}</a>`
+  const per = o.price === null ? "" : isFree ? L.freePer : L.once;
+  const cta = isFree ? `<a class="btn btn-primary" href="#download">${icon("i-download")}${L.freeCta}</a>`
     : o.payUrl ? `<a class="btn btn-primary" href="${esc(o.payUrl)}" ${ext}>${L.pay}</a>`
     : `<a class="btn btn-wa" href="${wa(L.otherMsg(name))}" ${ext}>${icon("i-chat")}${L.talk}</a>`;
-  return `<div class="plan">
+  return `<div class="plan${isFree ? " free-card" : ""}">
+    ${isFree ? `<span class="tag" style="background:var(--ok)">Freemium</span>` : ""}
     <h3>${name}</h3>
     <div class="term">${term}</div>
     <div class="amount">${amount}</div>
@@ -301,17 +369,21 @@ function otherCard(o) {
   </div>`;
 }
 
-function multiYearCard() {
-  if (!MULTI_YEAR.show) return "";
+// Multi-year: N years at the annual price minus that term's percent
+function multiYearCard(tier) {
+  const annual = tier.plans.find(p => p.months === 12);
+  if (!MULTI_YEAR.show || !annual) return "";
   const [name, term, items] = L.other.multiyear;
-  const rows = MULTI_YEAR.terms.map(([y, off, total, perY]) => {
+  const tierName = tier.name[LANG];
+  const rows = MULTI_YEAR.terms.map(([y, off]) => {
+    const total = Math.round(annual.price * y * (100 - off) / 100);
     return `<li class="my-row"><span><b>${L.years(y)}</b> · ${L.save(off)}</span>
-      <span class="my-price">${fmt(total)}<small>${L.perYear(fmt(perY))}</small></span></li>`;
+      <span class="my-price">${fmt(total)}<small>${L.perYear(fmt(Math.round(total / y)))}</small></span></li>`;
   }).join("");
   const cta = MULTI_YEAR.payUrl ? `<a class="btn btn-primary" href="${esc(MULTI_YEAR.payUrl)}" ${ext}>${L.pay}</a>`
-    : `<a class="btn btn-wa" href="${wa(L.otherMsg(name))}" ${ext}>${icon("i-chat")}${L.talk}</a>`;
+    : `<a class="btn btn-wa" href="${wa(L.otherMsg(tierName + " " + name))}" ${ext}>${icon("i-chat")}${L.talk}</a>`;
   return `<div class="plan plan-multiyear">
-    <h3>${name}</h3>
+    <h3>${tierName} · ${name}</h3>
     <div class="term">${term}</div>
     <ul class="my-list">${rows}</ul>
     <div class="per">${L.once}</div>
@@ -320,11 +392,12 @@ function multiYearCard() {
   </div>`;
 }
 
-function renderOtherPlans() {
+function renderOtherPlans(tierKey) {
+  const tier = TIERS[tierKey] || TIERS.standalone;
   const shownOther = OTHER_PLANS.filter(o => o.show);
   fill("otherPlans", [
     ...shownOther.filter(o => o.price === 0).map(otherCard),
-    multiYearCard(),
+    multiYearCard(tier),
     ...shownOther.filter(o => o.price !== 0).map(otherCard),
   ].join(""));
 }
@@ -334,21 +407,32 @@ const calcPlan = $("calcPlan"), calcN = $("calcN");
 let calc = () => {};
 
 if (calcPlan && calcN) {
-  calcPlan.innerHTML = PLANS.map(p => {
-    const selected = p.best ? " selected" : "";
-    return `<option value="${p.id}"${selected}>${L.plan[p.id][0]} · ${fmt(p.price)}</option>`;
+  const optionsHtml = Object.keys(TIERS).map(k => {
+    const t = TIERS[k];
+    const groupLabel = `${t.name[LANG]} (${t.badge[LANG]})`;
+    const opts = t.plans.map(p => {
+      const selected = (k === "standalone" && p.best) ? " selected" : "";
+      return `<option value="${k}:${p.id}"${selected}>${t.name[LANG]} ${L.plan[p.id][0]} · ${fmt(p.price)}</option>`;
+    }).join("");
+    return `<optgroup label="${groupLabel}">${opts}</optgroup>`;
   }).join("");
+  calcPlan.innerHTML = optionsHtml;
 
-  fill("volume", VOLUME_PILLS.map(v => `<span>${L.volume(v.min, v.off)}</span>`).join(""));
+  fill("volume", `
+    <span class="volume-rule">${icon("i-check")}${L.volumeRule}</span>
+    ${VOLUME_PILLS.map(v => `<span>${L.volume(v.min, v.off)}</span>`).join("")}
+  `);
 
   calc = () => {
-    const planId = calcPlan.value || "annual";
-    const p = PLANS.find(x => x.id === planId) || PLANS[3];
+    const [tierKey, planId] = (calcPlan.value || "standalone:annual").split(":");
+    const tier = TIERS[tierKey] || TIERS.standalone;
+    const p = tier.plans.find(x => x.id === planId) || tier.plans[3];
     const n = Math.max(1, Math.min(999, parseInt(calcN.value, 10) || 1));
     const off = getVolumeDiscount(n);
     const list = p.price * n;
     const discountAmount = Math.round(list * (off / 100));
     const total = list - discountAmount;
+    const tierName = tier.name[LANG];
     const planName = L.plan[p.id][0];
 
     fill("calcOut", `
@@ -359,20 +443,44 @@ if (calcPlan && calcN) {
       <div class="term">${L.calcTotal}</div>
       <div class="total">${fmt(total)}</div>
       <div class="lines">${L.calcEach(fmt(total / n), L.months(p.months))}</div>
-      <a class="btn btn-wa" href="${wa(L.quoteMsg(planName, n, fmt(total), off))}" ${ext}>${icon("i-chat")}${L.calcBuy}</a>`);
+      <a class="btn btn-wa" href="${wa(L.quoteMsg(tierName, planName, n, fmt(total), off))}" ${ext}>${icon("i-chat")}${L.calcBuy}</a>`);
   };
 
-  calcPlan.addEventListener("change", calc);
+  calcPlan.addEventListener("change", () => {
+    const [tKey] = (calcPlan.value || "").split(":");
+    if (tKey && tKey !== currentTierKey) {
+      setTier(tKey, false);
+    }
+    calc();
+  });
   calcN.addEventListener("input", calc);
 }
 
-// Initialise plans and calculator
-renderPlans();
-renderOtherPlans();
-if (calcPlan) {
-  calcPlan.value = "annual";
-  calc();
+// Tier Switcher Buttons
+const btnStandalone = $("tierStandalone"), btnConnected = $("tierConnected");
+
+function setTier(key, updateCalc = true) {
+  currentTierKey = key;
+  if (btnStandalone && btnConnected) {
+    const isStandalone = key === "standalone";
+    btnStandalone.classList.toggle("active", isStandalone);
+    btnStandalone.setAttribute("aria-selected", String(isStandalone));
+    btnConnected.classList.toggle("active", !isStandalone);
+    btnConnected.setAttribute("aria-selected", String(!isStandalone));
+  }
+  renderPlans(key);
+  renderOtherPlans(key);
+  if (updateCalc && calcPlan) {
+    calcPlan.value = `${key}:annual`;
+    calc();
+  }
 }
+
+if (btnStandalone) btnStandalone.addEventListener("click", () => setTier("standalone"));
+if (btnConnected) btnConnected.addEventListener("click", () => setTier("connected"));
+
+// Initialize pricing
+setTier("standalone", true);
 
 // Downloads and stores
 const card = (href, ic, title, sub, badge) => {
@@ -405,6 +513,34 @@ if (TESTIMONIALS.length && $("stories")) {
     <figcaption><b>${esc(t.name)}</b> · ${esc((t.shop && (t.shop[LANG] || t.shop.en)) || "")}</figcaption>
   </figure>`).join(""));
 }
+
+// Structured data for search engines (prices come from both TIERS)
+const ld = document.createElement("script");
+ld.type = "application/ld+json";
+ld.textContent = JSON.stringify({
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  name: "Universal POS",
+  applicationCategory: "BusinessApplication",
+  operatingSystem: "Android, Windows, Linux, iOS, Web",
+  offers: [
+    ...TIERS.standalone.plans.map(p => ({
+      "@type": "Offer",
+      name: `Universal POS Standalone ${T.en.plan[p.id][0]}`,
+      price: p.price,
+      priceCurrency: "INR",
+      description: "100% offline standalone POS for retail and restaurant",
+    })),
+    ...TIERS.connected.plans.map(p => ({
+      "@type": "Offer",
+      name: `Universal POS Connected ${T.en.plan[p.id][0]}`,
+      price: p.price,
+      priceCurrency: "INR",
+      description: "Cloud sync and web admin panel POS for retail and restaurant",
+    })),
+  ],
+});
+document.head.appendChild(ld);
 
 $("year") && ($("year").textContent = new Date().getFullYear());
 

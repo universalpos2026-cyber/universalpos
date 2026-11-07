@@ -571,7 +571,21 @@
     <div class="center">
       <span class="eyebrow">कीमत</span>
       <h2>आसान प्लान। सभी फ़ीचर शामिल।</h2>
-      <p class="lead"><span data-trial-days>30</span> दिन के फ्री ट्रायल से शुरू करें। फिर प्रति डिवाइस (काउंटर, फ़ोन या PC) भुगतान करें: मासिक, तिमाही, छमाही या सालाना। जितना लंबा प्लान, उतनी ज़्यादा बचत।</p>
+      <p class="lead"><span data-trial-days>30</span> दिन के फ्री ट्रायल से शुरू करें। स्टैंडअलोन (100% ऑफ़लाइन) या कनेक्टेड (क्लाउड और वेब एडमिन) में से चुनें। अधिकतम 40% तक वॉल्यूम छूट के साथ।</p>
+      
+      <div class="tier-nav">
+        <div class="tier-switch" role="tablist" aria-label="कीमत के प्रकार">
+          <button type="button" class="tier-btn active" id="tierStandalone" role="tab" aria-selected="true" data-tier="standalone">
+            <svg class="i"><use href="#i-laptop"/></svg>
+            <span>⚡ स्टैंडअलोन POS <small>₹499/माह से · 100% ऑफ़लाइन</small></span>
+          </button>
+          <button type="button" class="tier-btn" id="tierConnected" role="tab" aria-selected="false" data-tier="connected">
+            <svg class="i"><use href="#i-globe"/></svg>
+            <span>☁️ कनेक्टेड POS <small>₹799/माह से · क्लाउड और वेब एडमिन</small></span>
+          </button>
+        </div>
+      </div>
+      <p class="tier-desc" id="tierDesc">सिंगल काउंटर · 100% ऑफ़लाइन · इंटरनेट की कोई ज़रूरत नहीं</p>
     </div>
     <div class="price-grid" id="plans"><div class="plan">
     <h3>मासिक</h3>
